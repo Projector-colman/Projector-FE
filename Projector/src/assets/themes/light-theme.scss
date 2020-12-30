@@ -1,0 +1,75 @@
+$my-light-primary: (
+    50: #203546,
+    100: #203546,
+    200: #203546,
+    300: #203546,
+    400: #203546,
+    500: #203546,
+    600: #203546,
+    700: #203546,
+    800: #203546,
+    900: #203546,
+    A100: #203546,
+    A200: #203546,
+    A400: #203546,
+    A700: #203546,
+    contrast: (
+        50: white,
+        100: white,
+        200: white,
+        300: white,
+        400: white,
+        500: white,
+        600: white,
+        700: white,
+        800: white,
+        900: white,
+        A100: white,
+        A200: white,
+        A400: white,
+        A700: white
+    )
+);
+
+$my-light-accent: (
+    50: #5c809c,
+    100: #5c809c,
+    200: #5c809c,
+    300: #5c809c,
+    400: #5c809c,
+    500: #5c809c,
+    600: #5c809c,
+    700: #5c809c,
+    800: #5c809c,
+    900: #5c809c,
+    A100: #5c809c,
+    A200: #5c809c,
+    A400: #5c809c,
+    A700: #5c809c,
+    contrast: (
+        50: white,
+        100: white,
+        200: white,
+        300: white,
+        400: white,
+        500: white,
+        600: white,
+        700: white,
+        800: white,
+        900: white,
+        A100: white,
+        A200: white,
+        A400: white,
+        A700: white
+    )
+);
+
+$light-primary: mat-palette($my-light-primary);
+$light-accent: mat-palette($my-light-accent);
+$light-warn: mat-palette($mat-red);
+
+$my-light-theme: mat-light-theme(
+    $light-primary,
+    $light-accent,
+    $light-warn
+);
