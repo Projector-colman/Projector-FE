@@ -11,5 +11,7 @@ export class NavigationComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  stuff() {
+    console.log('clicked')
+  }
 }

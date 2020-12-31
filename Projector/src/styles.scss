@@ -2,7 +2,6 @@
 
 * {
     font-family: 'Roboto', Arial, sans-serif;
-    color: #616161;
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -69,18 +68,6 @@
     text-transform: uppercase;
   }
   
-  /* Button */
-  .button, button {
-    align-items: center;
-    padding: 8px 16px;
-    border-radius: 2px;
-    font-size: 14px;
-    cursor: pointer;
-
-    color: white;
-    border: none;
-  }
-  
   .button:hover, button:hover {
     opacity: 0.8;
     font-weight: normal;
@@ -90,19 +77,6 @@
     opacity: 0.5;
     cursor: auto;
   }
-  
-  /* Top Bar */
-  
-  .topnav {
-    width: 100%;
-    height: 68px;
-    background: rgb(242,102,116);
-    padding-left: 16px;
-  }
-  
-.navbtn {
-    background-color: rgb(242,102,116);
-}
 
   projector-navigation h1 {
     color: white;
