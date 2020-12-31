@@ -14,10 +14,21 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 
+import { RouterModule, Routes } from '@angular/router';
+import { MainPageComponent } from './views/main-page/main-page.component';
+import { MyProjectsComponent } from './views/main-page/my-projects/my-projects.component';
+
+const appRoutes: Routes = [
+  { path: '', component: MainPageComponent },
+  { path: 'projects', component: MyProjectsComponent}
+];
+
 @NgModule({
   declarations: [
     AppComponent,
-    NavigationComponent
+    NavigationComponent,
+    MainPageComponent,
+    MyProjectsComponent
   ],
   imports: [
     BrowserModule,
@@ -30,6 +41,9 @@ import { MatButtonModule } from '@angular/material/button';
     FlexLayoutModule,
     MatToolbarModule,
     MatButtonModule,
+    RouterModule.forRoot(appRoutes,
+      {enableTracing: true} // for debugging
+      ),
   ],
   providers: [],
   bootstrap: [AppComponent]
