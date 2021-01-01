@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Projector": {
+    "Projector-FE": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/Projector",
+            "outputPath": "dist/Projector-FE",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -65,18 +65,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "Projector:build"
+            "browserTarget": "Projector-FE:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "Projector:build:production"
+              "browserTarget": "Projector-FE:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Projector:build"
+            "browserTarget": "Projector-FE:build"
           }
         },
         "test": {
@@ -113,16 +113,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "Projector:serve"
+            "devServerTarget": "Projector-FE:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "Projector:serve:production"
+              "devServerTarget": "Projector-FE:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "Projector"
+  "defaultProject": "Projector-FE"
 }
