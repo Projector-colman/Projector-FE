@@ -51,7 +51,7 @@ steps:
   - |
     set -x && \
     # Configure Git to create commits with Cloud Build's service account
-    git config user.email $(gcloud auth list --filter=status:ACTIVE --format='value(account)') && \
+    git config user.email marom.itamar@gmail.com && \
     git clone --recurse-submodules git@github.com:Projector-colman/environment.git && \
     cd environment && \
     git checkout candidate && \
