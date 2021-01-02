@@ -57,7 +57,7 @@ steps:
   # Author: $(git log --format='%an <%ae>' -n 1 HEAD)" && \
   # git push origin candidate
 
-- name: gcr.io/cloud-builders/git'
+- name: 'gcr.io/cloud-builders/git'
   id: Push manifest
   entrypoint: /bin/sh
   args: ['push', 'origin', 'candidate']
