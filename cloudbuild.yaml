@@ -18,29 +18,29 @@ steps:
   - 'push'
   - 'gcr.io/$PROJECT_ID/projector-fe:$SHORT_SHA'
 
-# Access the id_github file from Secret Manager
-- name: gcr.io/cloud-builders/gcloud
-  entrypoint: 'bash'
-  args: [ '-c', 'gcloud secrets versions access latest --secret=github > /root/.ssh/id_github' ]
-  volumes:
-  - name: 'ssh'
-    path: /root/.ssh
+# # Access the id_github file from Secret Manager
+# - name: gcr.io/cloud-builders/gcloud
+#   entrypoint: 'bash'
+#   args: [ '-c', 'gcloud secrets versions access latest --secret=github > /root/.ssh/id_github' ]
+#   volumes:
+#   - name: 'ssh'
+#     path: /root/.ssh
 
-# Set up git with key and domain
-- name: 'gcr.io/cloud-builders/git'
-  entrypoint: 'bash'
-  args:
-  - '-c'
-  - |
-    chmod 600 /root/.ssh/id_github
-    cat <<EOF >/root/.ssh/config
-    Hostname github.com
-    IdentityFile /root/.ssh/id_github
-    EOF
-    ssh-keyscan -t rsa github.com > /root/.ssh/known_hosts
-  volumes:
-  - name: 'ssh'
-    path: /root/.ssh
+# # Set up git with key and domain
+# - name: 'gcr.io/cloud-builders/git'
+#   entrypoint: 'bash'
+#   args:
+#   - '-c'
+#   - |
+#     chmod 600 /root/.ssh/id_github
+#     cat <<EOF >/root/.ssh/config
+#     Hostname github.com
+#     IdentityFile /root/.ssh/id_github
+#     EOF
+#     ssh-keyscan -t rsa github.com > /root/.ssh/known_hosts
+#   volumes:
+#   - name: 'ssh'
+#     path: /root/.ssh
 
 # This step clones the environment repository
 - name: 'gcr.io/cloud-builders/gcloud'
@@ -51,8 +51,8 @@ steps:
   - |
     set -x && \
     # Configure Git to create commits with Cloud Build's service account
-    git config user.email marom.itamar@gmail.com && \
-    git clone --recurse-submodules git@github.com:Projector-colman/environment.git && \
+    git config user.email $(gcloud auth list --filter=status:ACTIVE --format='value(account)') && \
+    git clone https://github.com/Projector-colman/environment.git && \
     cd environment && \
     git checkout candidate && \
     git config user.email $(gcloud auth list --filter=status:ACTIVE --format='value(account)')
