@@ -50,6 +50,7 @@ steps:
   - |
     set -x && \
     cd environment && \
+    git config user.email $(gcloud auth list --filter=status:ACTIVE --format='value(account)') && \
     git add frontend/front-deploy.yaml && \
     git commit -m "Deploying image gcr.io/${PROJECT_ID}/projector-fe:${SHORT_SHA}
     Built from commit ${COMMIT_SHA} of repository Projector-FE
