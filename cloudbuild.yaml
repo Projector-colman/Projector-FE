@@ -1,0 +1,58 @@
+steps:
+
+# This step builds the container image.
+- name: 'gcr.io/cloud-builders/docker'
+  id: Build
+  args:
+  - 'build'
+  - '-t'
+  - 'gcr.io/$PROJECT_ID/projector-fe:$SHORT_SHA'
+  - '.'
+
+# This step pushes the image to Container Registry
+# The PROJECT_ID and SHORT_SHA variables are automatically
+# replaced by Cloud Build.
+- name: 'gcr.io/cloud-builders/docker'
+  id: Push
+  args:
+  - 'push'
+  - 'gcr.io/$PROJECT_ID/projector-fe:$SHORT_SHA'
+
+# [START cloudbuild-trigger-cd]
+# This step clones the environment repository
+- name: 'gcr.io/cloud-builders/git'
+  id: Clone environment repository
+  entrypoint: /bin/sh
+  args:
+  - '-c'
+  - |
+    set -x && \
+    # Configure Git to create commits with Cloud Build's service account
+    git config user.email $(gcloud auth list --filter=status:ACTIVE --format='value(account)') && \
+    git clone https://github.com/Projector-colman/environment.git && \
+    cd environment && \
+    git checkout candidate && \
+    git config user.email $(gcloud auth list --filter=status:ACTIVE --format='value(account)')
+# This step generates the new manifest
+- name: 'gcr.io/cloud-builders/gcloud'
+  id: Generate manifest
+  entrypoint: /bin/sh
+  args:
+  - '-c'
+  - |
+     sed "s/GOOGLE_CLOUD_PROJECT/${PROJECT_ID}/g" kubernetes.yaml.tpl | \
+     sed "s/COMMIT_SHA/${SHORT_SHA}/g" > environment/frontend/front-deploy.yaml
+# This step pushes the manifest back to hello-cloudbuild-env
+- name: 'gcr.io/cloud-builders/gcloud'
+  id: Push manifest
+  entrypoint: /bin/sh
+  args:
+  - '-c'
+  - |
+    set -x && \
+    cd environment && \
+    git add front-deploy && \
+    git commit -m "Deploying image gcr.io/${PROJECT_ID}/projector-fe:${SHORT_SHA}
+    Built from commit ${COMMIT_SHA} of repository Projector-FE
+    Author: $(git log --format='%an <%ae>' -n 1 HEAD)" && \
+    git push origin candidate
