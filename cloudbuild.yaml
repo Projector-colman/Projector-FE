@@ -41,7 +41,32 @@ steps:
   - |
      sed "s/GOOGLE_CLOUD_PROJECT/${PROJECT_ID}/g" kubernetes.yaml.tpl | \
      sed "s/COMMIT_SHA/${SHORT_SHA}/g" > environment/frontend/front-deploy.yaml
-# This step pushes the manifest back to hello-cloudbuild-env
+
+# Access the id_github file from Secret Manager
+- name: gcr.io/cloud-builders/gcloud
+  entrypoint: 'bash'
+  args: [ '-c', 'gcloud secrets versions access latest --secret=github > /root/.ssh/id_github' ]
+  volumes:
+  - name: 'ssh'
+    path: /root/.ssh
+
+# Set up git with key and domain
+- name: 'gcr.io/cloud-builders/gcloud'
+  entrypoint: /bin/sh
+  args:
+  - '-c'
+  - |
+    chmod 600 /root/.ssh/id_github
+    cat <<EOF >/root/.ssh/config
+    Hostname github.com
+    IdentityFile /root/.ssh/id_github
+    EOF
+    ssh-keyscan -t rsa github.com > /root/.ssh/known_hosts
+  volumes:
+  - name: 'ssh'
+    path: /root/.ssh
+
+# Connect to the repository
 - name: 'gcr.io/cloud-builders/gcloud'
   id: preper to Push manifest
   entrypoint: /bin/sh
@@ -53,10 +78,23 @@ steps:
     git add frontend/front-deploy.yaml && \
     git commit -m "Deploying image gcr.io/${PROJECT_ID}/projector-fe:${SHORT_SHA}
     Built from commit ${COMMIT_SHA} of repository Projector-FE
-    Author: $(git log --format='%an <%ae>' -n 1 HEAD)"
-  # Author: $(git log --format='%an <%ae>' -n 1 HEAD)" && \
-  # git push origin candidate
+    Author: $(git log --format='%an <%ae>' -n 1 HEAD)" && \
+    git push origin candidate
+  volumes:
+  - name: 'ssh'
+    path: /root/.ssh
 
-- name: 'gcr.io/cloud-builders/git'
-  id: Push manifest
-  args: ['push', 'origin', 'candidate']
+# # This step pushes the manifest back to hello-cloudbuild-env
+# - name: 'gcr.io/cloud-builders/gcloud'
+#   id: preper to Push manifest
+#   entrypoint: /bin/sh
+#   args:
+#   - '-c'
+#   - |
+#     set -x && \
+#     cd environment && \
+#     git add frontend/front-deploy.yaml && \
+#     git commit -m "Deploying image gcr.io/${PROJECT_ID}/projector-fe:${SHORT_SHA}
+#     Built from commit ${COMMIT_SHA} of repository Projector-FE
+#     Author: $(git log --format='%an <%ae>' -n 1 HEAD)" && \
+#     git push origin candidate
