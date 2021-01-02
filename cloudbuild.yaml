@@ -53,6 +53,11 @@ steps:
     git add frontend/front-deploy.yaml && \
     git commit -m "Deploying image gcr.io/${PROJECT_ID}/projector-fe:${SHORT_SHA}
     Built from commit ${COMMIT_SHA} of repository Projector-FE
-    Author: $(git log --format='%an <%ae>' -n 1 HEAD)" && \
-    git push candidate
+    Author: $(git log --format='%an <%ae>' -n 1 HEAD)"
+  # Author: $(git log --format='%an <%ae>' -n 1 HEAD)" && \
   # git push origin candidate
+
+- name: gcr.io/cloud-builders/git'
+  id: Push manifest
+  entrypoint: /bin/sh
+  args: ['push', 'origin', 'candidate']
