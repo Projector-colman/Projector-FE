@@ -20,7 +20,7 @@ steps:
 
 # [START cloudbuild-trigger-cd]
 # This step clones the environment repository
-- name: 'gcr.io/cloud-builders/git'
+- name: 'gcr.io/cloud-builders/gcloud'
   id: Clone environment repository
   entrypoint: /bin/sh
   args:
