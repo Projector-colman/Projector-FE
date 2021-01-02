@@ -43,7 +43,7 @@ steps:
      sed "s/COMMIT_SHA/${SHORT_SHA}/g" > environment/frontend/front-deploy.yaml
 # This step pushes the manifest back to hello-cloudbuild-env
 - name: 'gcr.io/cloud-builders/gcloud'
-  id: Push manifest
+  id: preper to Push manifest
   entrypoint: /bin/sh
   args:
   - '-c'
