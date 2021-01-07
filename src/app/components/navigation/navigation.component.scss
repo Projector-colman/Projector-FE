@@ -1,0 +1,26 @@
+.topnav {
+    background: rgb(242,102,116);
+}
+
+.navbtn {
+    font-size: 14px;
+    background-color: rgb(242,102,116);
+    border-radius: 2px;
+    cursor: pointer;
+    color: white;
+}
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+.mr {
+    margin-right: 5px;
+}
+.projectorTitle {
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.projectorTitle:focus, .projectorIcon:focus{
+    outline: 0;
+}

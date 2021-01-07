@@ -1,4 +1,4 @@
-# Stage 1: Build an Angular Docker Image
+# Stage 1: Build an Angular Docker Image 
 FROM node:14-alpine as build
 WORKDIR /app
 COPY package*.json /app/

@@ -1,0 +1,16 @@
+<mat-toolbar class="topnav" fxLayout="row" color="primary">
+  <div class="projectorTitle" routerLink='/'>Projector</div>
+  <button mat-button class="navbtn" routerLink='/projects'>projects</button>
+  <button mat-button class="navbtn" [matMenuTriggerFor]="dropMenu">create</button>
+    <mat-menu #dropMenu="matMenu">      
+      <button mat-menu-item>
+          <mat-icon class="mr">arrow</mat-icon>
+          Project
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item>
+        <mat-icon class="mr">arrow</mat-icon>
+        Issue
+    </button>
+    </mat-menu>
+</mat-toolbar>
