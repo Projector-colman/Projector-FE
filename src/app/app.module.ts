@@ -18,6 +18,8 @@ import { AppComponent } from './app.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { MainPageComponent } from './views/main-page/main-page.component';
 import { MyProjectsComponent } from './views/my-projects/my-projects.component';
+import { UserSettingsComponent } from './components/user-setting-component/user-settings/user-settings.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const appRoutes: Routes = [
   { path: '', component: MainPageComponent },
@@ -29,7 +31,8 @@ const appRoutes: Routes = [
     AppComponent,
     NavigationComponent,
     MainPageComponent,
-    MyProjectsComponent
+    MyProjectsComponent,
+    UserSettingsComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -44,6 +47,7 @@ const appRoutes: Routes = [
     FlexLayoutModule,
     MatToolbarModule,
     MatButtonModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(appRoutes,
       {enableTracing: true} // for debugging
       ),

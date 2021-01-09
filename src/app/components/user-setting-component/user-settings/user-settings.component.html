@@ -1,0 +1,16 @@
+<div class="settings-page">
+  <div class="top-settings">
+    <div>{{userDetails.fullName}}</div>
+    <img class="user-image" src='{{userDetails.imageSrc}}'>
+    <i class="fas fa-pencil-alt edit-icon"></i>
+  </div>
+  <div class="bottom-settings">
+    <div class="edit-form" [formGroup]="userEditForm">
+      <div class="username">
+        <span>Username</span>
+        <i class="fas fa-pencil-alt fa-x"></i>
+        <input id="userName" formControlName="userName" class="field" required/>
+      </div>
+    </div>
+  </div>
+</div>
