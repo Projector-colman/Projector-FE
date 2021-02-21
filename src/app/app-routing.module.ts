@@ -1,15 +1,19 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { UserSettingsComponent } from './components/user-setting-component/user-settings/user-settings.component';
+import { ProjectsWrapperComponent } from './components/projects-wrapper/projects-wrapper.component';
+import { UserSettingsComponent } from './components/user-settings/user-settings.component';
+import { MainPageComponent } from './views/main-page/main-page.component';
+import { MyProjectsComponent } from './views/my-projects/my-projects.component';
 
-const routes: Routes = [
+export const routes: Routes = [
+  { path: '', component: MainPageComponent },
   { path: 'user-settings/:id', component: UserSettingsComponent },
-  { path: '', redirectTo: 'user-settings/1', pathMatch: 'full' },
-  { path: '**', component: UserSettingsComponent },
+  { path: 'projects', component : ProjectsWrapperComponent, children: [
+    { path: '', component: MyProjectsComponent }]}
 ];
-
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
+
 export class AppRoutingModule {}

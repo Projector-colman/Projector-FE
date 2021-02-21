@@ -15,10 +15,6 @@
     flex-direction: row;
   }
   
-  router-outlet + *  {
-    padding: 0 16px;
-  }
-  
   /* Text */
   
   h1 {
