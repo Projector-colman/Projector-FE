@@ -1,0 +1,38 @@
+
+<mat-sidenav-container class="sidenav-container" autosize>
+    <mat-sidenav #sidenav class="sidenav" mode="side" opened="true">
+        <mat-nav-list class="dashboard">
+            <a mat-list-item (click)="toggleActive($event)">
+                <mat-icon mat-list-icon >account_circle</mat-icon>
+                <p matLine *ngIf="isExpanded">Name</p></a>
+
+            <a mat-list-item (click)="toggleActive($event)">
+                <mat-icon mat-list-icon>inbox</mat-icon>
+                <p matLine *ngIf="isExpanded">Inbox</p></a>
+
+            <a mat-list-item (click)="toggleActive($event)">
+                <mat-icon mat-list-icon>star</mat-icon>
+                <p matLine *ngIf="isExpanded">Starred</p></a>
+
+            <a mat-list-item (click)="toggleActive($event)">
+                <mat-icon mat-list-icon>drafts</mat-icon>
+                <p matLine *ngIf="isExpanded">Drafts</p></a>
+    
+            <a mat-list-item (click)="toggleActive($event)">
+                <mat-icon mat-list-icon>mail</mat-icon>
+                <p matLine *ngIf="isExpanded">All Mail</p></a>
+
+            <a mat-list-item (click)="toggleActive($event)">
+                <mat-icon mat-list-icon>delete</mat-icon>
+                <p matLine *ngIf="isExpanded">Trash</p></a>
+
+            <a mat-list-item (click)="toggleActive($event)">
+                <mat-icon mat-list-icon>warning</mat-icon>
+                <p matLine *ngIf="isExpanded">Spam</p></a>
+
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
