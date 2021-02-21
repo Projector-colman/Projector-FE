@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,17 +12,16 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule, Routes } from '@angular/router';
 import { MatDividerModule } from '@angular/material/divider';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { MainPageComponent } from './views/main-page/main-page.component';
 import { MyProjectsComponent } from './views/my-projects/my-projects.component';
 import { UserSettingsComponent } from './components/user-setting-component/user-settings/user-settings.component';
-import { ReactiveFormsModule } from '@angular/forms';
 
 const appRoutes: Routes = [
   { path: '', component: MainPageComponent },
-  { path: 'projects', component: MyProjectsComponent}
+  { path: 'projects', component: MyProjectsComponent },
 ];
 
 @NgModule({
@@ -32,7 +30,7 @@ const appRoutes: Routes = [
     NavigationComponent,
     MainPageComponent,
     MyProjectsComponent,
-    UserSettingsComponent
+    UserSettingsComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -48,11 +46,13 @@ const appRoutes: Routes = [
     MatToolbarModule,
     MatButtonModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(appRoutes,
-      {enableTracing: true} // for debugging
-      ),
+    FormsModule,
+    RouterModule.forRoot(
+      appRoutes,
+      { enableTracing: true } // for debugging
+    ),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

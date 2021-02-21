@@ -1,15 +1,37 @@
 <div class="settings-page">
   <div class="top-settings">
-    <div>{{userDetails.fullName}}</div>
-    <img class="user-image" src='{{userDetails.imageSrc}}'>
-    <i class="fas fa-pencil-alt edit-icon"></i>
+    <div>{{user.fullName}}</div>
+    <img class="user-image" src='{{newImage ? newImage : user.imageSrc}}'>
+    <label class="imageUploader">
+      <i class="fas fa-pencil-alt edit-icon"></i>
+      <input type="file" accept="image/*" (change)="loadFile($event)">
+    </label>
   </div>
   <div class="bottom-settings">
-    <div class="edit-form" [formGroup]="userEditForm">
+    <form class="edit-form" [formGroup]="userEditForm">
       <div class="username">
-        <span>Username</span>
-        <i class="fas fa-pencil-alt fa-x"></i>
-        <input id="userName" formControlName="userName" class="field" required/>
+        <div>Username</div>
+        <input id="userName" formControlName="userName" class="field" required />
+      </div>
+      <div class="email">
+        <div>Email</div>
+        <input id="email" formControlName="email" class="field" required />
+      </div>
+      <div class="password">
+        <div>Password</div>
+        <input id="password" formControlName="password" class="field" type="password" required />
+      </div>
+      <div class="formsBtns">
+        <button *ngIf="userChanged || newImage" type="submit" class="submitBtn">Save</button>
+        <button *ngIf="userChanged || newImage" type="button" class="cancleBtn" (click)="cancleEdit()">Cancle</button>
+      </div>
+    </form>
+    <div class="projects">
+      <div>My Projects:</div>
+      <div class="projectBtns">
+        <button class="projectBtn" *ngFor="let project of user.userProjects">
+          <i class="fas fa-camera-retro" [ngStyle]="{'color': project.color}"></i><span
+            class="btnText">{{project.projectName}}</span></button>
       </div>
     </div>
   </div>

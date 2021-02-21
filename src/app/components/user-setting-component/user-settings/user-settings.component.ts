@@ -1,38 +1,75 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import {User} from '../../../interfaces/user';
+import { UsersService } from 'src/app/services/users.service';
+import { User } from '../../../interfaces/user';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user-settings',
   templateUrl: './user-settings.component.html',
-  styleUrls: ['./user-settings.component.scss']
+  styleUrls: ['./user-settings.component.scss'],
 })
 export class UserSettingsComponent implements OnInit {
-  @Input() userDetails: User;
   userEditForm: FormGroup;
-  constructor() { }
+  userChanged: boolean;
+  user: User;
+  imageChanged: boolean;
+  newImage: string;
+  constructor(
+    private usersService: UsersService,
+    private route: ActivatedRoute
+  ) {
+    this.userChanged = false;
+    this.imageChanged = false;
+  }
 
   ngOnInit(): void {
-    this.userDetails = {
-      fullName: 'ITAMAR MAROM',
-      imageSrc: 'https://www.theglobeandmail.com/resizer/a1tsouRgbsPGVK8OvdFYJqxNhEo=/4415x0/filters:quality(80)/arc-anglerfish-tgam-prod-tgam.s3.amazonaws.com/public/5HSZVXDII5BRRHH4S6KE4WZ7RE.jpg',
-      userName: 'Best-user',
-      email: 'itsamail@gmail.com',
-      password: 'Aa123456',
-      userProjects: [{
-        projectName: 'PROJECTOR(PRJ)',
-        projectIcon: 'fas fa-projector',
-        color: '#eb4034'
-      }, {
-        projectName: 'PROJECTOR-A',
-        projectIcon: 'fas fa-projector',
-        color: '#a2d1f2'
-      }]
-    };
+    this.route.params.subscribe((params) => {
+      this.user = this.usersService.getUser(params.id);
+    });
     this.userEditForm = new FormGroup({
-      userName: new FormControl(this.userDetails.userName, Validators.required),
-
+      userName: new FormControl(this.user.userName, Validators.required),
+      email: new FormControl(this.user.email, Validators.required),
+      password: new FormControl(this.user.password, Validators.required),
+    });
+    this.userEditForm.valueChanges.subscribe((newUser: User) => {
+      this.userChanged = !(
+        newUser.userName == this.user.userName &&
+        newUser.email == this.user.email &&
+        newUser.password == this.user.password
+      );
     });
   }
 
+  loadFile(event: any): void {
+    const selectedImage = event.target.files[0];
+    if (selectedImage) {
+      const reader = new FileReader();
+      reader.readAsDataURL(selectedImage);
+      reader.onload = (e: any) => {
+        this.newImage = e.target.result;
+        this.imageChanged = true;
+      };
+    }
+  }
+
+  cancleEdit() {
+    this.newImage = undefined;
+    this.userEditForm.controls['userName'].setValue(this.user.userName);
+    this.userEditForm.controls['password'].setValue(this.user.password);
+    this.userEditForm.controls['email'].setValue(this.user.email);
+  }
+
+  submitForm(): void {
+    let userToUpdate: User = {
+      id: this.user.id,
+      fullName: this.user.fullName,
+      imageSrc: this.newImage ? this.newImage : this.user.imageSrc,
+      userName: this.userEditForm.controls['userName'].value,
+      email: this.userEditForm.controls['email'].value,
+      password: this.userEditForm.controls['password'].value,
+      userProjects: this.user.userProjects,
+    };
+    this.usersService.updateUser(userToUpdate);
+  }
 }
