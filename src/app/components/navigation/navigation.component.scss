@@ -1,14 +1,15 @@
 .topnav {
     background: rgb(242,102,116);
-    height: 13vh;
+    height: 11vh;
 }
 .navbtn {
-    font-size: 14px;
+    font-size: 2.5vh;
     background-color: rgb(242,102,116);
     border-radius: 2px;
     cursor: pointer;
     color: white;
 }
+
 .example-spacer {
     flex: 1 1 auto;
 }
@@ -17,7 +18,7 @@
     margin-right: 5px;
 }
 .projectorTitle {
-    font-size: 30px;
+    font-size: 5vh;
     cursor: pointer;
 }
 

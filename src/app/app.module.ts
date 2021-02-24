@@ -13,6 +13,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { MatDividerModule } from '@angular/material/divider';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { AppComponent } from './app.component';
 import { MainPageComponent } from './views/main-page/main-page.component';
 import { MyProjectsComponent } from './views/my-projects/my-projects.component';
@@ -46,6 +47,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
     MatButtonModule,
     ReactiveFormsModule,
     FormsModule,
+    DragDropModule,
     RouterModule.forRoot(
       routes,
       { enableTracing: true } // for debugging

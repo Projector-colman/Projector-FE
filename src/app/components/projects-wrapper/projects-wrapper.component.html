@@ -2,33 +2,25 @@
 <mat-sidenav-container class="sidenav-container" autosize>
     <mat-sidenav #sidenav class="sidenav" mode="side" opened="true">
         <mat-nav-list class="dashboard">
-            <a mat-list-item (click)="toggleActive($event)">
-                <mat-icon mat-list-icon >account_circle</mat-icon>
-                <p matLine *ngIf="isExpanded">Name</p></a>
+
+            <a id="projectsView" md-list mat-list-item (click)="toggleActive($event)">
+                <mat-icon mat-list-icon >calendar_view_week</mat-icon>
+                <p matLine *ngIf="isExpanded">sprint</p></a>
 
             <a mat-list-item (click)="toggleActive($event)">
-                <mat-icon mat-list-icon>inbox</mat-icon>
-                <p matLine *ngIf="isExpanded">Inbox</p></a>
+                <mat-icon mat-list-icon>line_weight</mat-icon>
+                <p matLine *ngIf="isExpanded">backlog</p></a>
 
             <a mat-list-item (click)="toggleActive($event)">
-                <mat-icon mat-list-icon>star</mat-icon>
-                <p matLine *ngIf="isExpanded">Starred</p></a>
+                <mat-icon mat-list-icon>trending_up</mat-icon>
+                <p matLine *ngIf="isExpanded">מה</p></a>
 
             <a mat-list-item (click)="toggleActive($event)">
                 <mat-icon mat-list-icon>drafts</mat-icon>
                 <p matLine *ngIf="isExpanded">Drafts</p></a>
-    
-            <a mat-list-item (click)="toggleActive($event)">
-                <mat-icon mat-list-icon>mail</mat-icon>
-                <p matLine *ngIf="isExpanded">All Mail</p></a>
 
-            <a mat-list-item (click)="toggleActive($event)">
-                <mat-icon mat-list-icon>delete</mat-icon>
-                <p matLine *ngIf="isExpanded">Trash</p></a>
-
-            <a mat-list-item (click)="toggleActive($event)">
-                <mat-icon mat-list-icon>warning</mat-icon>
-                <p matLine *ngIf="isExpanded">Spam</p></a>
+            <a md-list mat-list-item (click)="expand()">
+                <mat-icon mat-list-icon>compare_arrows</mat-icon></a>
 
         </mat-nav-list>
     </mat-sidenav>
