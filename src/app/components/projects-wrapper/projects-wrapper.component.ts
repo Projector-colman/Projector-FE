@@ -25,6 +25,11 @@ export class ProjectsWrapperComponent implements OnInit {
     this.element = target;
   }
   ngOnInit(): void {
+    this.element = document.getElementById("projectsView");
+    document.getElementById("projectsView").style.backgroundColor = "#e51282";
   }
 
+  expand() {
+    this.isExpanded = !this.isExpanded;
+  }
 }
