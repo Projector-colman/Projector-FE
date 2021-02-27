@@ -1,0 +1,30 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Create Issue</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <form>
+            Project:
+            <mat-form-field>
+                <mat-select [(ngModel)]="selectedProject" name="project">
+                  <mat-option *ngFor="let project of allProjects" [value]="project">
+                    {{ project }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            <br>
+            Issue Type:
+            <mat-form-field>
+                <mat-select [(ngModel)]="selectedIssueType" name="issue">
+                  <mat-option *ngFor="let issueType of issueTypes" [value]="issueType">
+                    {{ issueType }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            <br>
+        </form>
+    </mat-card-content>
+    <mat-card-actions>
+        <button  mat-raised-button (click)="true"  color="primary">Login</button>
+    </mat-card-actions>
+</mat-card>
