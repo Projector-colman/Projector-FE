@@ -22,6 +22,7 @@ import { ProjectsWrapperComponent } from './components/projects-wrapper/projects
 
 import { routes } from './app-routing.module';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { BacklogComponent } from './views/backlog/backlog.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
     UserSettingsComponent,
     ProjectsWrapperComponent,
     NavigationComponent,
+    BacklogComponent,
   ],
   imports: [
     BrowserAnimationsModule,
