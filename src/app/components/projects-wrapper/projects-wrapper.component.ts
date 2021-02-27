@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
+import { EventEmitter } from 'events';
+import { SidenavUpdateService } from 'src/app/services/sidenav-update.service';
 
 @Component({
   selector: 'app-projects-wrapper',
@@ -7,26 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProjectsWrapperComponent implements OnInit {
 
-  constructor() { }
+  constructor(private sidenavUpdateService: SidenavUpdateService) { }
+
   isExpanded = false;
   element: HTMLElement;
+  @Output() clickedIcon = new EventEmitter();
 
-  toggleActive(event:any){
-    event.preventDefault();
-    if(this.element !== undefined){
-      this.element.style.backgroundColor = "white";
-    } 
-    var target = event.currentTarget;
-    if(target.style.backgroundColor == "#e51282") {
-      target.style.backgroundColor = "white";
-    } else {
-      target.style.backgroundColor = "#e51282";
-    }
-    this.element = target;
-  }
   ngOnInit(): void {
-    this.element = document.getElementById("projectsView");
-    document.getElementById("projectsView").style.backgroundColor = "#e51282";
+    // Side nav icons changing function
+    this.sidenavUpdateService.currentMessage.subscribe(message => {
+      if(this.element) {
+        this.element.style.backgroundColor = "white"; // reset previous element
+      }
+
+      // Save current element and change background (message is the same as icon Id)
+      this.element = document.getElementById(message);
+      this.element.style.backgroundColor = "grey";
+    });
   }
 
   expand() {

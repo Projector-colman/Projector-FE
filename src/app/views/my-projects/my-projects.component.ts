@@ -1,5 +1,7 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
+import { EventEmitter } from 'events';
+import { SidenavUpdateService } from 'src/app/services/sidenav-update.service';
 
 @Component({
   selector: 'app-my-projects',
@@ -9,6 +11,7 @@ import { Component, OnInit } from '@angular/core';
 export class MyProjectsComponent implements OnInit {
   filters = ['My Issues', 'In Progress'];
   taskTitles;
+
   tasksHolder = {
     Todo: [
       'Get to work',
@@ -39,10 +42,11 @@ export class MyProjectsComponent implements OnInit {
     'Walk dog'
   ];
 
-  constructor() { }
+  constructor(private sidenavUpdateService: SidenavUpdateService) { }
 
   ngOnInit(): void {
     this.taskTitles = Object.keys(this.tasksHolder);
+    this.sidenavUpdateService.changeMessage('projects');
   }
 
   drop(event: CdkDragDrop<string[]>) {
