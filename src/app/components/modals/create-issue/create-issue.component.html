@@ -1,30 +1,20 @@
-<mat-card>
-    <mat-card-header>
-        <mat-card-title>Create Issue</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-        <form>
-            Project:
-            <mat-form-field>
-                <mat-select [(ngModel)]="selectedProject" name="project">
-                  <mat-option *ngFor="let project of allProjects" [value]="project">
-                    {{ project }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            <br>
-            Issue Type:
-            <mat-form-field>
-                <mat-select [(ngModel)]="selectedIssueType" name="issue">
-                  <mat-option *ngFor="let issueType of issueTypes" [value]="issueType">
-                    {{ issueType }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            <br>
-        </form>
-    </mat-card-content>
-    <mat-card-actions>
-        <button  mat-raised-button (click)="true"  color="primary">Login</button>
-    </mat-card-actions>
-</mat-card>
+<div class="form-style-2">
+  <div class="form-style-2-heading">Create Issue</div>
+  <form action="" method="post">
+  <label for="field1"><span>Project: <span class="required">*</span></span>
+    <select name="field4" class="select-field">
+      <option *ngFor="let proj of allProjects" value="{{proj}}">{{proj}}</option>
+    </select>
+  </label>
+
+  <label for="field4"><span>Issue Type: </span>
+    <select name="field4" class="select-field">
+      <option *ngFor="let issue of issueTypes" value="{{issue}}">{{issue}}</option>
+    </select>
+  </label>
+
+  <label for="field5"><span>Description: <span class="required">*</span></span><textarea name="field5" class="textarea-field"></textarea></label>
+  
+  <label><span> </span><input type="submit" value="Submit" /></label>
+  </form>
+  </div>
