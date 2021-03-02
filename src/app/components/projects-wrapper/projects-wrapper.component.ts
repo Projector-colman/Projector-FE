@@ -13,6 +13,7 @@ export class ProjectsWrapperComponent implements OnInit {
 
   isExpanded = false;
   element: HTMLElement;
+  currentProject = '';
   @Output() clickedIcon = new EventEmitter();
 
   ngOnInit(): void {
@@ -26,6 +27,10 @@ export class ProjectsWrapperComponent implements OnInit {
       this.element = document.getElementById(message);
       this.element.style.backgroundColor = "grey";
     });
+
+    this.sidenavUpdateService.currentProject.subscribe(proj => {
+      this.currentProject = proj;
+    })
   }
 
   expand() {
