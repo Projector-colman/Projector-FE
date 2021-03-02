@@ -5,6 +5,7 @@ import { User } from '../interfaces/user';
   providedIn: 'root',
 })
 export class UsersService {
+  currentConnectedUser: User;
   users = [
     {
       id: 1,
@@ -29,7 +30,9 @@ export class UsersService {
     },
   ];
 
-  constructor() {}
+  constructor() {
+    this.currentConnectedUser = this.users[0];
+  }
 
   getUsers() {
     return this.users;
@@ -41,5 +44,9 @@ export class UsersService {
 
   updateUser(user: User) {
     return undefined;
+  }
+
+  getCurrConnectedUser(user: User): User {
+    return this.currentConnectedUser;
   }
 }

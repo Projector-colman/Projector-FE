@@ -1,27 +1,46 @@
 .topnav {
-    background: rgb(242,102,116);
-    height: 11vh;
+  background: rgb(242, 102, 116);
+  height: 11vh;
 }
 .navbtn {
-    font-size: 2.5vh;
-    background-color: rgb(242,102,116);
-    border-radius: 2px;
-    cursor: pointer;
-    color: white;
+  font-size: 2.5vh;
+  background-color: rgb(242, 102, 116);
+  border-radius: 2px;
+  cursor: pointer;
+  color: white;
+}
+
+.user-image {
+  position: flex;
+  width: 37px;
+  height: 37px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: none;
+}
+
+.user-image:focus {
+  outline: none;
+}
+
+.user-image:hover {
+  cursor: pointer;
+  opacity: 0.8;
 }
 
 .example-spacer {
-    flex: 1 1 auto;
+  flex: 1 1 auto;
 }
 
 .mr {
-    margin-right: 5px;
+  margin-right: 5px;
 }
 .projectorTitle {
-    font-size: 5vh;
-    cursor: pointer;
+  font-size: 5vh;
+  cursor: pointer;
 }
 
-.projectorTitle:focus, .projectorIcon:focus{
-    outline: 0;
+.projectorTitle:focus,
+.projectorIcon:focus {
+  outline: 0;
 }

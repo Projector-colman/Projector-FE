@@ -1,23 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { UsersService } from 'src/app/services/users.service';
 import { CreateIssueComponent } from '../modals/create-issue/create-issue.component';
 
 @Component({
   selector: 'projector-navigation',
   templateUrl: './navigation.component.html',
-  styleUrls: ['./navigation.component.scss']
+  styleUrls: ['./navigation.component.scss'],
 })
 export class NavigationComponent implements OnInit {
+  constructor(private dialog: MatDialog, private userService: UsersService) {}
 
-  constructor(private dialog: MatDialog) { }
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   createIssue() {
     const issueDialogRef = this.dialog.open(CreateIssueComponent, {
       width: '65vh',
-      height: '75vh'
+      height: '75vh',
     });
   }
 }
