@@ -29,6 +29,7 @@ import { CreateIssueComponent } from './components/modals/create-issue/create-is
 
 import { RouterModule } from '@angular/router';
 import { routes } from './app-routing.module';
+import { ProjectBoardComponent } from './views/project-board/project-board.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { routes } from './app-routing.module';
     NavigationComponent,
     BacklogComponent,
     CreateIssueComponent,
+    ProjectBoardComponent,
   ],
   imports: [
     BrowserAnimationsModule,

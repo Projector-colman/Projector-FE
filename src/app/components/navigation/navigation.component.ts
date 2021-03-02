@@ -12,7 +12,6 @@ export class NavigationComponent implements OnInit {
   constructor(private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.createIssue();
   }
 
   createIssue() {
