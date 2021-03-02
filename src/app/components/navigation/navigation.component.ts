@@ -18,7 +18,7 @@ export class NavigationComponent implements OnInit {
   createIssue() {
     const issueDialogRef = this.dialog.open(CreateIssueComponent, {
       width: '65vh',
-      height: '65vh'
+      height: '75vh'
     });
   }
 }
