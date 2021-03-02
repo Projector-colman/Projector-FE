@@ -4,12 +4,12 @@
     <button mat-button class="navbtn" [matMenuTriggerFor]="dropMenu">create</button>
     <mat-menu #dropMenu="matMenu">      
     <button mat-menu-item>
-        <mat-icon class="mr">arrow</mat-icon>
+        <mat-icon class="mr">horizontal_split</mat-icon>
         Project
     </button>
     <mat-divider></mat-divider>
-    <button mat-menu-item>
-        <mat-icon class="mr">arrow</mat-icon>
+    <button mat-menu-item (click)="createIssue()">
+        <mat-icon class="mr">lightbulb</mat-icon>
         Issue
     </button>
     </mat-menu>

@@ -10,8 +10,12 @@ import { MatListModule } from '@angular/material/list';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { RouterModule } from '@angular/router';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { AppComponent } from './app.component';
@@ -19,10 +23,12 @@ import { MainPageComponent } from './views/main-page/main-page.component';
 import { MyProjectsComponent } from './views/my-projects/my-projects.component';
 import { UserSettingsComponent } from './components/user-settings/user-settings.component';
 import { ProjectsWrapperComponent } from './components/projects-wrapper/projects-wrapper.component';
-
-import { routes } from './app-routing.module';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { BacklogComponent } from './views/backlog/backlog.component';
+import { CreateIssueComponent } from './components/modals/create-issue/create-issue.component';
+
+import { RouterModule } from '@angular/router';
+import { routes } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -33,6 +39,7 @@ import { BacklogComponent } from './views/backlog/backlog.component';
     ProjectsWrapperComponent,
     NavigationComponent,
     BacklogComponent,
+    CreateIssueComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -44,9 +51,14 @@ import { BacklogComponent } from './views/backlog/backlog.component';
     MatListModule,
     MatSlideToggleModule,
     MatMenuModule,
+    MatSelectModule,
     FlexLayoutModule,
     MatToolbarModule,
     MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDialogModule,
     ReactiveFormsModule,
     FormsModule,
     DragDropModule,

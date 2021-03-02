@@ -1,0 +1,31 @@
+<div class="form-style-2">
+  <div class="form-style-2-heading">Create Issue</div>
+  <form action="" method="post">
+
+  <label for="field1"><span>Project: <span class="required">*</span></span>
+    <select name="field1" class="select-field">
+      <option *ngFor="let proj of allProjects" value="{{proj}}">{{proj}}</option>
+    </select>
+  </label>
+  <label for="field2"><span>Issue Type: </span>
+    <select name="field2" class="select-field">
+      <option *ngFor="let issue of issueTypes" value="{{issue}}">{{issue}}</option>
+    </select>
+  </label>
+
+  <label for="field3"><span>Name: <span class="required">*</span></span><input type="text" class="input-field" name="field3" value="" /></label>
+  <label for="field4"><span>Reporter: <span class="required">*</span></span><input type="text" class="input-field" name="field4" value="" /></label>
+  <label for="field5"><span>Description: <span class="required">*</span></span><textarea name="field5" class="textarea-field"></textarea></label>
+  
+  <label for="field6"><span>Priority: </span>
+    <select name="field6" class="select-field">
+      <option *ngFor="let priority of priorityTypes" value="{{priority}}">{{priority}}</option>
+    </select>
+  </label>
+
+  <label for="field7"><span>Assignee: <span class="required">*</span></span><input type="text" class="input-field" name="field7" value="" /></label>
+  <label for="field8"><span>Epic Link: <span class="required">*</span></span><input type="text" class="input-field" name="field8" value="" /></label>
+
+  <label><span> </span><input type="submit" value="Submit" /></label>
+  </form>
+  </div>
