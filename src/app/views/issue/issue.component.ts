@@ -10,10 +10,7 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class IssueComponent implements OnInit {
   @Input() issue: Issue;
-  currUser: User;
-  constructor(private userService: UsersService) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    this.currUser = this.userService.getCurrConnectedUser();
-  }
+  ngOnInit(): void {}
 }
