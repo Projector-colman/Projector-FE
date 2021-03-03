@@ -12,7 +12,7 @@ export class ProjectsService {
   constructor(private usersService: UsersService) {
     this.projects = [
       {
-        projectName: 'PROJECTOR',
+        projectName: 'cookbook',
         projectIcon: 'fas fa-projector',
         owner: this.usersService.getCurrConnectedUser(),
         color: '#eb4034',
