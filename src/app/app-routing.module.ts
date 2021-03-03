@@ -10,14 +10,18 @@ import { ProjectBoardComponent } from './views/project-board/project-board.compo
 export const routes: Routes = [
   { path: '', component: MainPageComponent },
   { path: 'user-settings/:id', component: UserSettingsComponent },
-  { path: 'projects', component: MyProjectsComponent},
-  { path: 'projects/:name', component : ProjectsWrapperComponent, children: [
-    { path: '', component: ProjectBoardComponent },
-    { path: 'backlog', component: BacklogComponent}]}
+  { path: 'projects', component: MyProjectsComponent },
+  {
+    path: 'projects/:name',
+    component: ProjectsWrapperComponent,
+    children: [
+      { path: '', component: ProjectBoardComponent },
+      { path: 'backlog', component: BacklogComponent },
+    ],
+  },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-
 export class AppRoutingModule {}

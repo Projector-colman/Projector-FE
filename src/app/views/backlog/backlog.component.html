@@ -1,1 +1,11 @@
-<p>backlog works!</p>
+<div class="backlog-board">
+  <div>Backlog</div>
+  <div class="missions">
+    <app-missions-backlog [header]="'Current sprint'" [missions]="getStatisMissions(missionsLocation.CurrentSprint)">
+    </app-missions-backlog>
+    <app-missions-backlog [header]="'Planned sprint'" [missions]="getStatisMissions(missionsLocation.PlannedSprint)">
+    </app-missions-backlog>
+    <app-missions-backlog [header]="'Backlog'" [missions]="getStatisMissions(missionsLocation.Backlog)">
+    </app-missions-backlog>
+  </div>
+</div>

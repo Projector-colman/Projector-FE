@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { TimeType } from '../enum/timeType.enum';
 import { User } from '../interfaces/user';
 
 @Injectable({
@@ -6,7 +7,7 @@ import { User } from '../interfaces/user';
 })
 export class UsersService {
   currentConnectedUser: User;
-  users = [
+  users: User[] = [
     {
       id: 1,
       fullName: 'ITAMAR MAROM',
@@ -17,14 +18,139 @@ export class UsersService {
       password: 'Aa123456',
       userProjects: [
         {
-          projectName: 'PROJECTOR(PRJ)',
+          projectName: 'PROJECTOR',
           projectIcon: 'fas fa-projector',
           color: '#eb4034',
+          missions: [
+            {
+              id: 1,
+              number: '1',
+              name: 'Create a mock',
+              status: 5,
+              location: 1,
+              time: {
+                number: 2,
+                type: TimeType.Hours,
+              },
+            },
+            {
+              id: 2,
+              number: '2',
+              name: 'Create backlog',
+              status: 5,
+              location: 2,
+              time: {
+                number: 2,
+                type: TimeType.Hours,
+              },
+            },
+            {
+              id: 3,
+              number: '3',
+              name: 'Create a mock',
+              status: 2,
+              location: 1,
+              time: {
+                number: 2,
+                type: TimeType.Hours,
+              },
+            },
+            {
+              id: 4,
+              number: '4',
+              name: 'Create backlog',
+              status: 5,
+              location: 2,
+              time: {
+                number: 2,
+                type: TimeType.Hours,
+              },
+            },
+            {
+              id: 5,
+              number: '5',
+              name: 'Create a mock',
+              status: 5,
+              location: 3,
+              time: {
+                number: 2,
+                type: TimeType.Hours,
+              },
+            },
+            {
+              id: 6,
+              number: '6',
+              name: 'Create backlog',
+              status: 2,
+              location: 1,
+              time: {
+                number: 2,
+                type: TimeType.Hours,
+              },
+            },
+            {
+              id: 7,
+              number: '7',
+              name: 'Create a mock',
+              status: 2,
+              location: 1,
+              time: {
+                number: 2,
+                type: TimeType.Hours,
+              },
+            },
+            {
+              id: 8,
+              number: '8',
+              name: 'Create backlog',
+              status: 5,
+              location: 3,
+              time: {
+                number: 2,
+                type: TimeType.Hours,
+              },
+            },
+            {
+              id: 9,
+              number: '9',
+              name: 'Create a mock',
+              status: 3,
+              location: 1,
+              time: {
+                number: 2,
+                type: TimeType.Hours,
+              },
+            },
+            {
+              id: 10,
+              number: '10',
+              name: 'Create backlog',
+              status: 5,
+              location: 2,
+              time: {
+                number: 2,
+                type: TimeType.Hours,
+              },
+            },
+          ],
         },
         {
           projectName: 'PROJECTOR-A',
           projectIcon: 'fas fa-projector',
           color: '#a2d1f2',
+          missions: [
+            {
+              id: 2,
+              number: '2',
+              name: 'Create backlog',
+              status: 2,
+              location: 2,
+              time: {
+                number: 2,
+                type: TimeType.Hours,
+              },
+            },
+          ],
         },
       ],
     },

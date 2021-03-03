@@ -1,0 +1,55 @@
+.mission {
+  background-color: white;
+  padding: 2px;
+  box-shadow: 3px 3px 4px 1px #818385;
+  margin-top: 4px;
+  border-radius: 2px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.mission:hover {
+  cursor: pointer;
+  opacity: 0.85;
+}
+
+.icon {
+  margin-left: 2px;
+  color: #7ac28d;
+}
+
+.name {
+  font-size: 12px;
+  margin-left: 6px;
+}
+
+.header {
+  color: #2e6194;
+  font-size: 12px;
+  margin-left: 6px;
+  font-weight: bold;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.time {
+  background-color: #e6e1e6;
+  font-size: 10px;
+  padding: 2px;
+  border-radius: 2px;
+  font-weight: bold;
+  color: #414142;
+}
+
+.user-image {
+  position: flex;
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: none;
+  margin-left: 4px;
+}
+
+.right-info {
+  display: flex;
+}
