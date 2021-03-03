@@ -46,7 +46,7 @@ export class UsersService {
     return undefined;
   }
 
-  getCurrConnectedUser(user: User): User {
+  getCurrConnectedUser(): User {
     return this.currentConnectedUser;
   }
 }

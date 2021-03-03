@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { User } from 'src/app/interfaces/user';
 import { UsersService } from 'src/app/services/users.service';
 import { CreateIssueComponent } from '../modals/create-issue/create-issue.component';
 
@@ -12,6 +13,10 @@ export class NavigationComponent implements OnInit {
   constructor(private dialog: MatDialog, private userService: UsersService) {}
 
   ngOnInit(): void {}
+
+  getCurrUser(): User {
+    return this.userService.getCurrConnectedUser();
+  }
 
   createIssue() {
     const issueDialogRef = this.dialog.open(CreateIssueComponent, {

@@ -14,6 +14,6 @@
     </button>
   </mat-menu>
   <span class="example-spacer"></span>
-  <img class="user-image" src='{{userService.getCurrConnectedUser().imageSrc}}'
-    routerLink='user-settings/{{userService.getCurrConnectedUser().id}}'>
+  <img class="user-image" src='{{getCurrUser() ? getCurrUser().imageSrc : "/assets/images/user.png"}}'
+    routerLink='user-settings/{{getCurrUser() ? getCurrUser().id : undefined}}'>
 </mat-toolbar>
