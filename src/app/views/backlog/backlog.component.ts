@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MissionLocation } from 'src/app/enum/missionLocation.enum';
-import { Mission } from 'src/app/interfaces/mission';
+import { IssueLocation } from 'src/app/enum/issueLocation.enum';
+import { Issue } from 'src/app/interfaces/issue';
 import { Project } from 'src/app/interfaces/project';
 import { ProjectsService } from 'src/app/services/projects.service';
 import { SidenavUpdateService } from 'src/app/services/sidenav-update.service';
@@ -28,13 +28,13 @@ export class BacklogComponent implements OnInit {
     this.currProject = this.projectsService.getProject(this.projectName);
   }
 
-  getStatisMissions(status: number): Mission[] {
-    return this.currProject.missions.filter(
-      (mission: Mission) => mission.location == status
+  getStatisIssues(status: number): Issue[] {
+    return this.currProject.issues.filter(
+      (mission: Issue) => mission.location == status
     );
   }
 
-  public get missionsLocation(): typeof MissionLocation {
-    return MissionLocation;
+  public get issuesLocation(): typeof IssueLocation {
+    return IssueLocation;
   }
 }

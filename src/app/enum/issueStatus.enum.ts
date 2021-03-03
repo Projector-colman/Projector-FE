@@ -1,4 +1,4 @@
-export enum MissionStatus {
+export enum IssueStatus {
   ToDo = 1,
   InProgress,
   Stuck,

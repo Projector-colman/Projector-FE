@@ -21,7 +21,7 @@ export class UsersService {
           projectName: 'PROJECTOR',
           projectIcon: 'fas fa-projector',
           color: '#eb4034',
-          missions: [
+          issues: [
             {
               id: 1,
               number: '1',
@@ -138,7 +138,7 @@ export class UsersService {
           projectName: 'PROJECTOR-A',
           projectIcon: 'fas fa-projector',
           color: '#a2d1f2',
-          missions: [
+          issues: [
             {
               id: 2,
               number: '2',

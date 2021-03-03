@@ -1,11 +1,11 @@
 <div class="backlog-board">
   <div>Backlog</div>
   <div class="missions">
-    <app-missions-backlog [header]="'Current sprint'" [missions]="getStatisMissions(missionsLocation.CurrentSprint)">
-    </app-missions-backlog>
-    <app-missions-backlog [header]="'Planned sprint'" [missions]="getStatisMissions(missionsLocation.PlannedSprint)">
-    </app-missions-backlog>
-    <app-missions-backlog [header]="'Backlog'" [missions]="getStatisMissions(missionsLocation.Backlog)">
-    </app-missions-backlog>
+    <app-issues-backlog [header]="'Current sprint'" [issues]="getStatisIssues(issuesLocation.CurrentSprint)">
+    </app-issues-backlog>
+    <app-issues-backlog [header]="'Planned sprint'" [issues]="getStatisIssues(issuesLocation.PlannedSprint)">
+    </app-issues-backlog>
+    <app-issues-backlog [header]="'Backlog'" [issues]="getStatisIssues(issuesLocation.Backlog)">
+    </app-issues-backlog>
   </div>
 </div>

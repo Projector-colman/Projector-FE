@@ -1,8 +1,8 @@
-import { Mission } from './mission';
+import { Issue } from './issue';
 
 export interface Project {
   projectName: string;
   projectIcon: string;
   color: string;
-  missions: Mission[];
+  issues: Issue[];
 }

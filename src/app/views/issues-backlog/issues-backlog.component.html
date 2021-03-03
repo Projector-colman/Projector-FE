@@ -1,0 +1,6 @@
+<div class="issues-board">
+  <div class="header">{{header}}</div>
+  <div *ngFor="let issue of issues">
+    <app-issue [issue]="issue"></app-issue>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 import { TimeType } from '../enum/timeType.enum';
 
-export interface MissionTimePlan {
+export interface IssueTimePlan {
   number: number;
   type: TimeType;
 }

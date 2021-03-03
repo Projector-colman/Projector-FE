@@ -1,15 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Mission } from 'src/app/interfaces/mission';
+import { Issue } from 'src/app/interfaces/issue';
 import { User } from 'src/app/interfaces/user';
 import { UsersService } from 'src/app/services/users.service';
 
 @Component({
-  selector: 'app-mission',
-  templateUrl: './mission.component.html',
-  styleUrls: ['./mission.component.scss'],
+  selector: 'app-issue',
+  templateUrl: './issue.component.html',
+  styleUrls: ['./issue.component.scss'],
 })
-export class MissionComponent implements OnInit {
-  @Input() mission: Mission;
+export class IssueComponent implements OnInit {
+  @Input() issue: Issue;
   currUser: User;
   constructor(private userService: UsersService) {}
 

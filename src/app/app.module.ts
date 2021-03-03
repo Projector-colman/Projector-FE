@@ -30,8 +30,8 @@ import { CreateIssueComponent } from './components/modals/create-issue/create-is
 import { RouterModule } from '@angular/router';
 import { routes } from './app-routing.module';
 import { ProjectBoardComponent } from './views/project-board/project-board.component';
-import { MissionsBacklogComponent } from './views/missions-backlog/missions-backlog.component';
-import { MissionComponent } from './views/mission/mission.component';
+import { IssuesBacklogComponent } from './views/issues-backlog/issues-backlog.component';
+import { IssueComponent } from './views/issue/issue.component';
 
 @NgModule({
   declarations: [
@@ -44,8 +44,8 @@ import { MissionComponent } from './views/mission/mission.component';
     BacklogComponent,
     CreateIssueComponent,
     ProjectBoardComponent,
-    MissionsBacklogComponent,
-    MissionComponent,
+    IssuesBacklogComponent,
+    IssueComponent,
   ],
   imports: [
     BrowserAnimationsModule,
