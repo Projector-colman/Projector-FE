@@ -9,7 +9,10 @@ import { Issue } from 'src/app/interfaces/issue';
 export class IssuesBacklogComponent implements OnInit {
   @Input() header: string;
   @Input() issues: Issue[];
-  constructor() {}
+  @Input() showPlanSprintBtn: boolean;
+  constructor() {
+    this.showPlanSprintBtn = false;
+  }
 
   ngOnInit(): void {}
 }

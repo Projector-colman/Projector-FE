@@ -32,6 +32,7 @@ import { routes } from './app-routing.module';
 import { ProjectBoardComponent } from './views/project-board/project-board.component';
 import { IssuesBacklogComponent } from './views/issues-backlog/issues-backlog.component';
 import { IssueComponent } from './views/issue/issue.component';
+import { ButtonComponent } from './components/button/button.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { IssueComponent } from './views/issue/issue.component';
     ProjectBoardComponent,
     IssuesBacklogComponent,
     IssueComponent,
+    ButtonComponent,
   ],
   imports: [
     BrowserAnimationsModule,

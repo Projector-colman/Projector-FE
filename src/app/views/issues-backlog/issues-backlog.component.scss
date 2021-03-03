@@ -7,5 +7,12 @@
 }
 
 .header {
+  display: flex;
   font-size: 13px;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+app-button {
+  justify-content: flex-end;
 }

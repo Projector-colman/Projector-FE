@@ -28,7 +28,7 @@ export class BacklogComponent implements OnInit {
     this.currProject = this.projectsService.getProject(this.projectName);
   }
 
-  getStatisIssues(status: number): Issue[] {
+  getStatusIssues(status: number): Issue[] {
     return this.currProject.issues.filter(
       (mission: Issue) => mission.location == status
     );
