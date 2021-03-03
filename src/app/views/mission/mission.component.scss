@@ -14,13 +14,13 @@
 }
 
 .icon {
-  margin-left: 2px;
+  margin-left: 10px;
   color: #7ac28d;
 }
 
 .name {
   font-size: 12px;
-  margin-left: 6px;
+  margin-left: 10px;
 }
 
 .header {
@@ -32,7 +32,11 @@
 }
 
 .time {
+  display: flex;
+  justify-content: center;
   background-color: #e6e1e6;
+  width: 20px;
+  height: 20px;
   font-size: 10px;
   padding: 2px;
   border-radius: 2px;
@@ -47,7 +51,8 @@
   border-radius: 50%;
   object-fit: cover;
   border: none;
-  margin-left: 4px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .right-info {
