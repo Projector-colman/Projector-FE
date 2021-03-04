@@ -33,6 +33,8 @@ import { ProjectBoardComponent } from './views/project-board/project-board.compo
 import { IssuesBacklogComponent } from './components/issues-backlog/issues-backlog.component';
 import { IssueComponent } from './components/issue/issue.component';
 import { ButtonComponent } from './components/button/button.component';
+import { SprintGraphComponent } from './components/sprint-graph/sprint-graph.component';
+import { NgApexchartsModule } from "ng-apexcharts";
 
 @NgModule({
   declarations: [
@@ -48,6 +50,7 @@ import { ButtonComponent } from './components/button/button.component';
     IssuesBacklogComponent,
     IssueComponent,
     ButtonComponent,
+    SprintGraphComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -70,6 +73,7 @@ import { ButtonComponent } from './components/button/button.component';
     ReactiveFormsModule,
     FormsModule,
     DragDropModule,
+    NgApexchartsModule,
     RouterModule.forRoot(
       routes,
       { enableTracing: true } // for debugging
