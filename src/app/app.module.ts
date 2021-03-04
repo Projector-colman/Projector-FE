@@ -26,7 +26,6 @@ import { ProjectsWrapperComponent } from './components/projects-wrapper/projects
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { BacklogComponent } from './views/backlog/backlog.component';
 import { CreateIssueComponent } from './components/modals/create-issue/create-issue.component';
-
 import { RouterModule } from '@angular/router';
 import { routes } from './app-routing.module';
 import { ProjectBoardComponent } from './views/project-board/project-board.component';
