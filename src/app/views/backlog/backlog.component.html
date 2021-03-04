@@ -5,7 +5,7 @@
       [header]="'Current sprint'" (cdkDropListDropped)="drop($event)" [showPlanSprintBtn]="true"
       [issues]="getStatusIssues(issuesLocation.CurrentSprint)">
     </app-issues-backlog>
-    <app-issues-backlog cdkDropList id="PlannedStrint" [cdkDropListConnectedTo]="['CurrSprint', 'PlannedStrint']"
+    <app-issues-backlog cdkDropList id="PlannedStrint" [cdkDropListConnectedTo]="['CurrSprint', 'Backlog']"
       [header]="'Planned sprint'" (cdkDropListDropped)="drop($event)"
       [issues]="getStatusIssues(issuesLocation.PlannedSprint)">
     </app-issues-backlog>
