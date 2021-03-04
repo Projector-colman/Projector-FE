@@ -35,6 +35,7 @@ import { IssueComponent } from './components/issue/issue.component';
 import { ButtonComponent } from './components/button/button.component';
 import { SprintGraphComponent } from './components/sprint-graph/sprint-graph.component';
 import { NgApexchartsModule } from "ng-apexcharts";
+import { AssignedToMeComponent } from './components/assigned-to-me/assigned-to-me.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { NgApexchartsModule } from "ng-apexcharts";
     IssueComponent,
     ButtonComponent,
     SprintGraphComponent,
+    AssignedToMeComponent,
   ],
   imports: [
     BrowserAnimationsModule,
