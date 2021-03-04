@@ -9,3 +9,15 @@
 .title {
     margin-right: 16px;
 }
+
+.content-container {
+    display: flex;
+}
+
+.graph {
+    flex-grow: 2;
+}
+
+.issues {
+    flex-grow: 1;
+}
