@@ -1,0 +1,35 @@
+<!-->{{id}}</p>
+<p>{{desc}}</p>
+<p>{{status}}</p>      
+<p>{{time}}</p>
+<p>{{assignee}}</p-->
+
+<mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>{{id}}</mat-card-title>
+      <mat-card-subtitle>{{assignee}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{desc}}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <span class="material-icons">web</span>
+      <span class="material-icons">low_priority</span>
+      <button mat-button class="time">{{time}}</button>
+    </mat-card-actions>
+  </mat-card>
+  <style>
+      
+    .time {
+        float: right;
+    }
+    .example-card {
+        width: 400px;
+      }
+      
+      .example-header-image {
+        background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+        background-size: cover;
+      }
+    </style>

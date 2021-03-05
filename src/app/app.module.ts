@@ -19,9 +19,11 @@ import { MainPageComponent } from './views/main-page/main-page.component';
 import { MyProjectsComponent } from './views/my-projects/my-projects.component';
 import { UserSettingsComponent } from './components/user-settings/user-settings.component';
 import { ProjectsWrapperComponent } from './components/projects-wrapper/projects-wrapper.component';
+import {MatCardModule} from '@angular/material/card';
 
 import { routes } from './app-routing.module';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { IssueComponent } from './issue/issue.component';
 
 @NgModule({
   declarations: [
@@ -31,8 +33,10 @@ import { NavigationComponent } from './components/navigation/navigation.componen
     UserSettingsComponent,
     ProjectsWrapperComponent,
     NavigationComponent,
+    IssueComponent,
   ],
   imports: [
+    MatCardModule,
     BrowserAnimationsModule,
     MatDividerModule,
     BrowserModule,
