@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
+import { TimeType } from '../enum/timeType.enum';
 import { User } from '../interfaces/user';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsersService {
-  users = [
+  currentConnectedUser: User;
+  users: User[] = [
     {
       id: 1,
       fullName: 'ITAMAR MAROM',
@@ -14,22 +16,12 @@ export class UsersService {
       userName: 'Best-user',
       email: 'itsamail@gmail.com',
       password: 'Aa123456',
-      userProjects: [
-        {
-          projectName: 'PROJECTOR(PRJ)',
-          projectIcon: 'fas fa-projector',
-          color: '#eb4034',
-        },
-        {
-          projectName: 'PROJECTOR-A',
-          projectIcon: 'fas fa-projector',
-          color: '#a2d1f2',
-        },
-      ],
     },
   ];
 
-  constructor() {}
+  constructor() {
+    this.currentConnectedUser = this.users[0];
+  }
 
   getUsers() {
     return this.users;
@@ -41,5 +33,9 @@ export class UsersService {
 
   updateUser(user: User) {
     return undefined;
+  }
+
+  getCurrConnectedUser(): User {
+    return this.currentConnectedUser;
   }
 }

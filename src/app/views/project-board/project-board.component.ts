@@ -1,14 +1,15 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit, Output } from '@angular/core';
-import { EventEmitter } from 'events';
+import { Router } from '@angular/router';
 import { SidenavUpdateService } from 'src/app/services/sidenav-update.service';
 
 @Component({
-  selector: 'app-my-projects',
-  templateUrl: './my-projects.component.html',
-  styleUrls: ['./my-projects.component.scss']
+  selector: 'app-project-board',
+  templateUrl: './project-board.component.html',
+  styleUrls: ['./project-board.component.scss']
 })
-export class MyProjectsComponent implements OnInit {
+export class ProjectBoardComponent implements OnInit {
+
   filters = ['My Issues', 'In Progress'];
   taskTitles;
 
@@ -42,11 +43,12 @@ export class MyProjectsComponent implements OnInit {
     'Walk dog'
   ];
 
-  constructor(private sidenavUpdateService: SidenavUpdateService) { }
+  constructor(public router: Router, private sidenavUpdateService: SidenavUpdateService) { }
 
   ngOnInit(): void {
     this.taskTitles = Object.keys(this.tasksHolder);
     this.sidenavUpdateService.changeMessage('projects');
+    this.sidenavUpdateService.changeProject(this.router.url.split('/')[2]);
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -59,4 +61,5 @@ export class MyProjectsComponent implements OnInit {
                         event.currentIndex);
     }
   }
+
 }

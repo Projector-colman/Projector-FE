@@ -1,0 +1,8 @@
+<div class="issues-board">
+  <div class="header">{{header}}
+    <app-button *ngIf="showPlanSprintBtn" [header]="'Plan Sprint'"></app-button>
+  </div>
+  <div *ngFor="let issue of issues" cdkDrag>
+    <app-issue [issue]="issue"></app-issue>
+  </div>
+</div>

@@ -10,8 +10,12 @@ import { MatListModule } from '@angular/material/list';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { RouterModule } from '@angular/router';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { AppComponent } from './app.component';
@@ -19,11 +23,18 @@ import { MainPageComponent } from './views/main-page/main-page.component';
 import { MyProjectsComponent } from './views/my-projects/my-projects.component';
 import { UserSettingsComponent } from './components/user-settings/user-settings.component';
 import { ProjectsWrapperComponent } from './components/projects-wrapper/projects-wrapper.component';
-import {MatCardModule} from '@angular/material/card';
-
 import { routes } from './app-routing.module';
 import { NavigationComponent } from './components/navigation/navigation.component';
-import { IssueComponent } from './issue/issue.component';
+import { BacklogComponent } from './views/backlog/backlog.component';
+import { CreateIssueComponent } from './components/modals/create-issue/create-issue.component';
+import { RouterModule } from '@angular/router';
+import { ProjectBoardComponent } from './views/project-board/project-board.component';
+import { IssuesBacklogComponent } from './components/issues-backlog/issues-backlog.component';
+import { IssueComponent } from './components/issue/issue.component';
+import { ButtonComponent } from './components/button/button.component';
+import { SprintGraphComponent } from './components/sprint-graph/sprint-graph.component';
+import { NgApexchartsModule } from "ng-apexcharts";
+import { AssignedToMeComponent } from './components/assigned-to-me/assigned-to-me.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +45,14 @@ import { IssueComponent } from './issue/issue.component';
     ProjectsWrapperComponent,
     NavigationComponent,
     IssueComponent,
+    BacklogComponent,
+    CreateIssueComponent,
+    ProjectBoardComponent,
+    IssuesBacklogComponent,
+    IssueComponent,
+    ButtonComponent,
+    SprintGraphComponent,
+    AssignedToMeComponent,
   ],
   imports: [
     MatCardModule,
@@ -46,12 +65,18 @@ import { IssueComponent } from './issue/issue.component';
     MatListModule,
     MatSlideToggleModule,
     MatMenuModule,
+    MatSelectModule,
     FlexLayoutModule,
     MatToolbarModule,
     MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDialogModule,
     ReactiveFormsModule,
     FormsModule,
     DragDropModule,
+    NgApexchartsModule,
     RouterModule.forRoot(
       routes,
       { enableTracing: true } // for debugging

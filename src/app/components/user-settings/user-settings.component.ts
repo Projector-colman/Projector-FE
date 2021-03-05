@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UsersService } from 'src/app/services/users.service';
 import { User } from '../../interfaces/user';
 import { ActivatedRoute } from '@angular/router';
+import { Project } from 'src/app/interfaces/project';
+import { ProjectsService } from 'src/app/services/projects.service';
 
 @Component({
   selector: 'app-user-settings',
@@ -17,7 +19,8 @@ export class UserSettingsComponent implements OnInit {
   newImage: string;
   constructor(
     private usersService: UsersService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private projectService: ProjectsService
   ) {
     this.userChanged = false;
     this.imageChanged = false;
@@ -39,6 +42,12 @@ export class UserSettingsComponent implements OnInit {
         newUser.password == this.user.password
       );
     });
+  }
+
+  getProjectsOfCurrUser(): Project[] {
+    return this.projectService.projects.filter(
+      (project: Project) => project.owner == this.user
+    );
   }
 
   loadFile(event: any): void {
@@ -68,7 +77,6 @@ export class UserSettingsComponent implements OnInit {
       userName: this.userEditForm.controls['userName'].value,
       email: this.userEditForm.controls['email'].value,
       password: this.userEditForm.controls['password'].value,
-      userProjects: this.user.userProjects,
     };
     this.usersService.updateUser(userToUpdate);
   }
