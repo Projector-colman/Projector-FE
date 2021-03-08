@@ -23,12 +23,11 @@ import { MainPageComponent } from './views/main-page/main-page.component';
 import { MyProjectsComponent } from './views/my-projects/my-projects.component';
 import { UserSettingsComponent } from './components/user-settings/user-settings.component';
 import { ProjectsWrapperComponent } from './components/projects-wrapper/projects-wrapper.component';
+import { routes } from './app-routing.module';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { BacklogComponent } from './views/backlog/backlog.component';
 import { CreateIssueComponent } from './components/modals/create-issue/create-issue.component';
-
 import { RouterModule } from '@angular/router';
-import { routes } from './app-routing.module';
 import { ProjectBoardComponent } from './views/project-board/project-board.component';
 import { IssuesBacklogComponent } from './components/issues-backlog/issues-backlog.component';
 import { IssueComponent } from './components/issue/issue.component';
@@ -45,6 +44,7 @@ import { AssignedToMeComponent } from './components/assigned-to-me/assigned-to-m
     UserSettingsComponent,
     ProjectsWrapperComponent,
     NavigationComponent,
+    IssueComponent,
     BacklogComponent,
     CreateIssueComponent,
     ProjectBoardComponent,
@@ -55,6 +55,7 @@ import { AssignedToMeComponent } from './components/assigned-to-me/assigned-to-m
     AssignedToMeComponent,
   ],
   imports: [
+    MatCardModule,
     BrowserAnimationsModule,
     MatDividerModule,
     BrowserModule,
