@@ -6,11 +6,11 @@
       [issues]="getStatusIssues(issuesLocation.CurrentSprint)">
     </app-issues-backlog>
     <app-issues-backlog cdkDropList id="PlannedStrint" [cdkDropListConnectedTo]="['CurrSprint', 'Backlog']"
-      [header]="'Planned sprint'" (cdkDropListDropped)="drop($event)"
-      [issues]="getStatusIssues(issuesLocation.PlannedSprint)">
+    [header]="'Planned sprint'" (cdkDropListDropped)="drop($event)"
+    [issues]="getStatusIssues(issuesLocation.PlannedSprint)">
     </app-issues-backlog>
-    <app-issues-backlog cdkDropList id="Backlog" [cdkDropListConnectedTo]="['CurrSprint', 'Backlog']"
-      [header]="'Backlog'" (cdkDropListDropped)="drop($event)" [issues]="getStatusIssues(issuesLocation.Backlog)">
+    <app-issues-backlog cdkDropList id="Backlog" [cdkDropListConnectedTo]="['CurrSprint', 'PlannedStrint']"
+    [header]="'Backlog'" (cdkDropListDropped)="drop($event)" [issues]="getStatusIssues(issuesLocation.Backlog)">
     </app-issues-backlog>
   </div>
 </div>

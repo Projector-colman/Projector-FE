@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { TimeType } from '../enum/timeType.enum';
 import { Project } from '../interfaces/project';
 import { UsersService } from './users.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -206,8 +207,10 @@ export class ProjectsService {
     ];
   }
 
-  getProjects() {
-    return this.projects;
+  getProjects(): Observable<Project[]> {
+    return new Observable<Project[]>((subscriber) =>
+      subscriber.next(this.projects)
+    );
   }
 
   getProject(name: string): Project {
