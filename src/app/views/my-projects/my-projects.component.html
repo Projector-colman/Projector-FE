@@ -1,1 +1,17 @@
-<a routerLink='/projects/cookbook'>cookbook</a>
+<h1 class="title">Active Sprint</h1>
+
+<!--b>quick filters :</b> <button mat-button style="display:inline-block;" *ngFor="let filter of filters">{{ filter }}</button-->
+
+<div cdkDropListGroup class="main-container">
+    <div class="tasks-container" *ngFor="let title of taskTitles">
+      <h2>{{title}}</h2>
+  
+      <div
+        cdkDropList
+        [cdkDropListData]="this.tasksHolder[title]"
+        class="tasks-list"
+        (cdkDropListDropped)="drop($event)">
+        <div *ngFor="let item of this.tasksHolder[title]" cdkDrag><app-issue id="PRJ-1" desc="{{item}}" status="G" time="9h" assignee="mr.something"></app-issue></div>
+      </div>
+    </div>
+  </div>
