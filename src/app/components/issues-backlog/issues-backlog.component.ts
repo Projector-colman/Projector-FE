@@ -1,3 +1,4 @@
+import { CdkDrag, CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, Input, OnInit } from '@angular/core';
 import { Issue } from 'src/app/interfaces/issue';
 

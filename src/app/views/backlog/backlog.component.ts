@@ -1,13 +1,14 @@
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Router } from '@angular/router';
 import { IssueLocation } from 'src/app/enum/issueLocation.enum';
 import { issuesService } from 'src/app/services/issues.service';
+import { IssueStatus } from 'src/app/enum/issueStatus.enum';
 import { Issue } from 'src/app/interfaces/issue';
 import { Project } from 'src/app/interfaces/project';
 import { ProjectsService } from 'src/app/services/projects.service';
 import { SidenavUpdateService } from 'src/app/services/sidenav-update.service';
-import { IssueStatus } from 'src/app/enum/issueStatus.enum';
 
 @Component({
   selector: 'app-backlog',
