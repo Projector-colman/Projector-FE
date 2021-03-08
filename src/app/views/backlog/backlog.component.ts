@@ -1,6 +1,5 @@
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Router } from '@angular/router';
 import { IssueLocation } from 'src/app/enum/issueLocation.enum';
 import { issuesService } from 'src/app/services/issues.service';
