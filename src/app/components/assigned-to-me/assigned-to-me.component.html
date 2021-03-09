@@ -1,4 +1,8 @@
-<div *ngFor="let issue of assignedIssues">
-    <app-issue [issue]="issue"></app-issue>
+<div class='container'>
+    <div class='header'>Assigned To Me</div>
+    <div class='issues'>
+        <div *ngFor="let issue of assignedIssues">
+            <app-issue [issue]="issue"></app-issue>
+        </div>
+    </div>
 </div>
-  

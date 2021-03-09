@@ -1,3 +1,4 @@
+import { AutofillMonitor } from "@angular/cdk/text-field";
 import { Component, ViewChild } from "@angular/core";
 
 import {
@@ -54,10 +55,6 @@ export class SprintGraphComponent {
       },
       stroke: {
         curve: "straight"
-      },
-      title: {
-        text: "My Sprint Worksheet",
-        align: "left"
       },
       grid: {
         row: {
