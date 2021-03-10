@@ -36,6 +36,7 @@ import { SprintGraphComponent } from './components/sprint-graph/sprint-graph.com
 import { NgApexchartsModule } from "ng-apexcharts";
 import { AssignedToMeComponent } from './components/assigned-to-me/assigned-to-me.component';
 import { MainIssueComponent } from './components/main-issue/main-issue.component';
+import { CreateProjectComponent } from './components/modals/create-project/create-project.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { MainIssueComponent } from './components/main-issue/main-issue.component
     SprintGraphComponent,
     AssignedToMeComponent,
     MainIssueComponent,
+    CreateProjectComponent,
   ],
   imports: [
     MatCardModule,

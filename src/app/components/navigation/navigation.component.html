@@ -3,7 +3,7 @@
   <button mat-button class="navbtn" routerLink='/projects'>projects</button>
   <button mat-button class="navbtn" [matMenuTriggerFor]="dropMenu">create</button>
   <mat-menu #dropMenu="matMenu">
-    <button mat-menu-item>
+    <button mat-menu-item (click)="createProject()">
       <mat-icon class="mr">horizontal_split</mat-icon>
       Project
     </button>
