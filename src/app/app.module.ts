@@ -35,6 +35,7 @@ import { ButtonComponent } from './components/button/button.component';
 import { SprintGraphComponent } from './components/sprint-graph/sprint-graph.component';
 import { NgApexchartsModule } from "ng-apexcharts";
 import { AssignedToMeComponent } from './components/assigned-to-me/assigned-to-me.component';
+import { MainIssueComponent } from './components/main-issue/main-issue.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { AssignedToMeComponent } from './components/assigned-to-me/assigned-to-m
     ButtonComponent,
     SprintGraphComponent,
     AssignedToMeComponent,
+    MainIssueComponent,
   ],
   imports: [
     MatCardModule,
