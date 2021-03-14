@@ -21,7 +21,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { AppComponent } from './app.component';
 import { MainPageComponent } from './views/main-page/main-page.component';
 import { MyProjectsComponent } from './views/my-projects/my-projects.component';
-import { UserSettingsComponent } from './components/user-settings/user-settings.component';
+import { UserSettingsComponent } from './views/user-settings/user-settings.component';
 import { ProjectsWrapperComponent } from './components/projects-wrapper/projects-wrapper.component';
 import { routes } from './app-routing.module';
 import { NavigationComponent } from './components/navigation/navigation.component';
@@ -37,6 +37,7 @@ import { NgApexchartsModule } from "ng-apexcharts";
 import { AssignedToMeComponent } from './components/assigned-to-me/assigned-to-me.component';
 import { MainIssueComponent } from './components/main-issue/main-issue.component';
 import { CreateProjectComponent } from './components/modals/create-project/create-project.component';
+import { ProjectsCardComponent } from './components/projects-card/projects-card.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { CreateProjectComponent } from './components/modals/create-project/creat
     AssignedToMeComponent,
     MainIssueComponent,
     CreateProjectComponent,
+    ProjectsCardComponent,
   ],
   imports: [
     MatCardModule,

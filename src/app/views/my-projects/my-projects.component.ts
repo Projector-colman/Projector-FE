@@ -12,6 +12,8 @@ export class MyProjectsComponent implements OnInit {
   filters = ['My Issues', 'In Progress'];
   taskTitles;
 
+  myProjects = ['projector', 'cookbook', 'test', 'some very long name for a project'];
+
   tasksHolder = {
     Todo: [
       'Get to work',

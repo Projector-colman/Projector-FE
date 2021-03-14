@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ProjectsWrapperComponent } from './components/projects-wrapper/projects-wrapper.component';
-import { UserSettingsComponent } from './components/user-settings/user-settings.component';
+import { UserSettingsComponent } from './views/user-settings/user-settings.component';
 import { BacklogComponent } from './views/backlog/backlog.component';
 import { MainPageComponent } from './views/main-page/main-page.component';
 import { MyProjectsComponent } from './views/my-projects/my-projects.component';

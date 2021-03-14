@@ -1,2 +1,6 @@
-
-<a routerLink='/projects/cookbook'>cookbook</a> <a></a>
+<h1 class="title">My Projects: </h1>
+<div class="container">
+    <ng-container *ngFor="let project of myProjects">
+        <app-projects-card class="card" projectName={{project}}></app-projects-card>
+    </ng-container>
+</div>
