@@ -5,6 +5,7 @@ import { IssueStatus } from 'src/app/enum/issueStatus.enum';
 import { Issue } from 'src/app/interfaces/issue';
 import { CommentsService } from 'src/app/services/comments.service';
 import { UsersService } from 'src/app/services/users.service';
+import { filterByProjectId } from '../../pipes/filter-by-project-id.pipe';
 
 @Component({
   selector: 'app-issue',
@@ -24,12 +25,6 @@ export class IssueComponent implements OnInit {
 
   ngOnInit(): void {
     this.currProjectComments = this.commentsService.comments;
-    // this.commentsService.getCommentsByProjectId.subscribe(
-    //   (comments: Comment[]) => {
-    //     console.log(comments);
-
-    //   }
-    // );
   }
 
   public get issuesLocation(): typeof IssueLocation {

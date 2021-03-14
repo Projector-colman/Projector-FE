@@ -40,6 +40,7 @@ import { CreateProjectComponent } from './components/modals/create-project/creat
 import { ProjectsCardComponent } from './components/projects-card/projects-card.component';
 import { IssueComponent } from './components/issue/issue.component';
 import { CommentComponent } from './components/comment/comment.component';
+import { filterByProjectId } from './pipes/filter-by-project-id.pipe';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { CommentComponent } from './components/comment/comment.component';
     ProjectsCardComponent,
     IssueComponent,
     CommentComponent,
+    filterByProjectId,
   ],
   imports: [
     MatCardModule,

@@ -15,5 +15,7 @@
   </div>
   <app-comment class="comment" *ngIf="addNewComment" [newComment]="true" [comment]="addComment()"
     (closeNewCommentEmitter)="cancleNewComment()"></app-comment>
-  <app-comment class="comment" *ngFor="let comment of currProjectComments.reverse()" [comment]="comment"></app-comment>
+  <app-comment class="comment"
+    *ngFor="let comment of currProjectComments.reverse() | filterByProjectId: issue.projectId" [comment]="comment">
+  </app-comment>
 </div>
