@@ -3,6 +3,7 @@
     <app-button *ngIf="showPlanSprintBtn" [header]="'Plan Sprint'"></app-button>
   </div>
   <div *ngFor="let issue of issues" cdkDrag>
-    <app-issue [issue]="issue"></app-issue>
+    <app-issue-preview [issue]="issue" (click)="openIssue(issue)">
+    </app-issue-preview>
   </div>
 </div>

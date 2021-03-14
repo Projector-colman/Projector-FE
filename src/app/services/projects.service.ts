@@ -13,6 +13,7 @@ export class ProjectsService {
   constructor(private usersService: UsersService) {
     this.projects = [
       {
+        id: 'cookbook',
         projectName: 'cookbook',
         projectIcon: 'fas fa-projector',
         owner: this.usersService.getCurrConnectedUser(),
@@ -20,14 +21,15 @@ export class ProjectsService {
         issues: [
           {
             id: 1,
+            projectId: 'cookbook',
             number: '1',
             name: 'Create a mock',
-            description: '',
+            description: 'epik-link',
             reporter: this.usersService.getCurrConnectedUser(),
             assignee: this.usersService.getCurrConnectedUser(),
             priority: 1,
-            epikLink: '',
-            status: 5,
+            epikLink: 'epik-link',
+            status: 1,
             location: 1,
             time: {
               number: 2,
@@ -36,14 +38,15 @@ export class ProjectsService {
           },
           {
             id: 2,
+            projectId: 'cookbook',
             number: '2',
             name: 'Create backlog',
             description: '',
             reporter: this.usersService.getCurrConnectedUser(),
             assignee: this.usersService.getCurrConnectedUser(),
             priority: 1,
-            epikLink: '',
-            status: 5,
+            epikLink: 'epik-link',
+            status: 1,
             location: 2,
             time: {
               number: 2,
@@ -52,13 +55,14 @@ export class ProjectsService {
           },
           {
             id: 3,
+            projectId: 'cookbook',
             number: '3',
             name: 'Create a mock',
             description: '',
             reporter: this.usersService.getCurrConnectedUser(),
             assignee: this.usersService.getCurrConnectedUser(),
             priority: 1,
-            epikLink: '',
+            epikLink: 'epik-link',
             status: 2,
             location: 1,
             time: {
@@ -68,14 +72,15 @@ export class ProjectsService {
           },
           {
             id: 4,
+            projectId: 'cookbook',
             number: '4',
             name: 'Create backlog',
             description: '',
             reporter: this.usersService.getCurrConnectedUser(),
             assignee: this.usersService.getCurrConnectedUser(),
             priority: 1,
-            epikLink: '',
-            status: 5,
+            epikLink: 'epik-link',
+            status: 2,
             location: 2,
             time: {
               number: 2,
@@ -84,14 +89,15 @@ export class ProjectsService {
           },
           {
             id: 5,
+            projectId: 'cookbook',
             number: '5',
             name: 'Create a mock',
             description: '',
             reporter: this.usersService.getCurrConnectedUser(),
             assignee: this.usersService.getCurrConnectedUser(),
             priority: 1,
-            epikLink: '',
-            status: 5,
+            epikLink: 'epik-link',
+            status: 2,
             location: 3,
             time: {
               number: 2,
@@ -100,13 +106,14 @@ export class ProjectsService {
           },
           {
             id: 6,
+            projectId: 'cookbook',
             number: '6',
             name: 'Create backlog',
             description: '',
             reporter: this.usersService.getCurrConnectedUser(),
             assignee: this.usersService.getCurrConnectedUser(),
             priority: 1,
-            epikLink: '',
+            epikLink: 'epik-link',
             status: 2,
             location: 1,
             time: {
@@ -116,13 +123,14 @@ export class ProjectsService {
           },
           {
             id: 7,
+            projectId: 'cookbook',
             number: '7',
             name: 'Create a mock',
             description: '',
             reporter: this.usersService.getCurrConnectedUser(),
             assignee: this.usersService.getCurrConnectedUser(),
             priority: 1,
-            epikLink: '',
+            epikLink: 'epik-link',
             status: 2,
             location: 1,
             time: {
@@ -132,14 +140,15 @@ export class ProjectsService {
           },
           {
             id: 8,
+            projectId: 'cookbook',
             number: '8',
             name: 'Create backlog',
             description: '',
             reporter: this.usersService.getCurrConnectedUser(),
             assignee: this.usersService.getCurrConnectedUser(),
             priority: 1,
-            epikLink: '',
-            status: 5,
+            epikLink: 'epik-link',
+            status: 1,
             location: 3,
             time: {
               number: 2,
@@ -148,13 +157,14 @@ export class ProjectsService {
           },
           {
             id: 9,
+            projectId: 'cookbook',
             number: '9',
             name: 'Create a mock',
             description: '',
             reporter: this.usersService.getCurrConnectedUser(),
             assignee: this.usersService.getCurrConnectedUser(),
             priority: 1,
-            epikLink: '',
+            epikLink: 'epik-link',
             status: 3,
             location: 1,
             time: {
@@ -164,14 +174,15 @@ export class ProjectsService {
           },
           {
             id: 10,
+            projectId: 'cookbook',
             number: '10',
             name: 'Create backlog',
             description: '',
             reporter: this.usersService.getCurrConnectedUser(),
             assignee: this.usersService.getCurrConnectedUser(),
             priority: 1,
-            epikLink: '',
-            status: 5,
+            epikLink: 'epik-link',
+            status: 3,
             location: 2,
             time: {
               number: 2,
@@ -188,13 +199,14 @@ export class ProjectsService {
         issues: [
           {
             id: 2,
+            projectId: 'cookbook',
             number: '2',
             name: 'Create backlog',
             description: '',
             reporter: this.usersService.getCurrConnectedUser(),
             assignee: this.usersService.getCurrConnectedUser(),
             priority: 1,
-            epikLink: '',
+            epikLink: 'epik-link',
             status: 2,
             location: 2,
             time: {

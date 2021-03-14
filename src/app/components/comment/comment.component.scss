@@ -1,0 +1,53 @@
+.img {
+  position: flex;
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: none;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.comment {
+  padding: 5px;
+  background-color: white;
+  border-radius: 3px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.time {
+  color: #466e96;
+  font-size: 10px;
+  font-weight: 500;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.content {
+  margin-top: 3px;
+  font-size: 11px;
+  font-weight: 500;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  padding: 5px 5px 0 5px;
+  outline: none;
+  border: none;
+}
+
+.save-comment {
+  display: flex;
+  justify-content: flex-end;
+  color: rgb(242, 102, 116);
+  text-shadow: 2px 2px 3px rgb(124, 108, 108);
+  width: 100%;
+  padding: 0 5px 5px 0;
+}
+
+.save-comment:hover {
+  color: rgb(247, 154, 163);
+  cursor: pointer;
+}

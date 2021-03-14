@@ -1,5 +1,5 @@
 import { CdkDrag, CdkDragDrop } from '@angular/cdk/drag-drop';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Issue } from 'src/app/interfaces/issue';
 
 @Component({
@@ -11,9 +11,15 @@ export class IssuesBacklogComponent implements OnInit {
   @Input() header: string;
   @Input() issues: Issue[];
   @Input() showPlanSprintBtn: boolean;
+  @Output() openIssueEmitter: EventEmitter<Issue>;
   constructor() {
     this.showPlanSprintBtn = false;
+    this.openIssueEmitter = new EventEmitter<Issue>();
   }
 
   ngOnInit(): void {}
+
+  openIssue(issue: Issue): void {
+    this.openIssueEmitter.emit(issue);
+  }
 }

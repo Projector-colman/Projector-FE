@@ -1,11 +1,18 @@
 <div class="issue">
-  <div class="left-info">
-    <i class="far fa-bookmark icon"></i>
-    <span class="header">PRJ-{{issue.number}}</span>
-    <span class="name">{{issue.name}}</span>
-  </div>
-  <div class="right-info">
+  <i class="fas fa-times exit-icon"></i>
+  <div class="header">PRJ-{{issue.number}}<i class="far fa-bookmark prj-icon"></i></div>
+  <span class="time-info">
+    <span class="status">{{issuesStatus}}</span>
     <span class="time">{{issue.time.number}}{{issue.time.type}}</span>
-    <img class="user-image" src="{{issue.assignee.imageSrc}}">
+  </span>
+  <span class="name">{{issue.name}}</span>
+  <app-button class="epikLink" [header]="issue.epikLink"></app-button>
+  <span class="block">Blocked by:</span>
+  <span class="block">Blocking:</span>
+  <div class="comment-header">
+    <i class="fas fa-plus comment-icon add-comment" (click)="addComment()"></i>
+    <i class="fas fa-comment-alt comment-icon"></i>
   </div>
+  <app-comment class="comment" *ngIf="addNewComment" [newComment]="true" [comment]="addComment()"></app-comment>
+  <app-comment class="comment" *ngFor="let comment of comments(issue.projectId)" [comment]="comment"></app-comment>
 </div>

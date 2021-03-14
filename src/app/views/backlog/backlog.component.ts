@@ -17,6 +17,7 @@ import { SidenavUpdateService } from 'src/app/services/sidenav-update.service';
 export class BacklogComponent implements OnInit {
   projectName: string;
   currProject: Project;
+  issueToOpen: Issue;
 
   constructor(
     public router: Router,
@@ -37,7 +38,7 @@ export class BacklogComponent implements OnInit {
   }
 
   getStatusIssues(status: number): Issue[] {
-    return this.currProject.issues.filter(
+    return this.currProject?.issues.filter(
       (issue: Issue) => issue.location == status
     );
   }
@@ -119,5 +120,9 @@ export class BacklogComponent implements OnInit {
         }
       }
     }
+  }
+
+  openIssue(issue: Issue): void {
+    this.issueToOpen = issue;
   }
 }

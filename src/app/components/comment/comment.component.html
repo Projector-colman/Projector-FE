@@ -1,0 +1,9 @@
+<div class="comment">
+  <div class="header">
+    <span class="time">{{getTime()}}</span>
+    <img class="img" [src]="comment.reporter.imageSrc">
+  </div>
+  <div *ngIf="!newComment" class="content">{{comment.content}}</div>
+  <input *ngIf="newComment" class="content">
+  <i *ngIf="newComment" class="fas fa-check save-comment"></i>
+</div>

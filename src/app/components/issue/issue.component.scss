@@ -1,60 +1,99 @@
 .issue {
-    background-color: white;
-    padding: 2px;
-    box-shadow: 3px 3px 4px 1px #818385;
-    margin-top: 4px;
-    border-radius: 2px;
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .issue:hover {
-    cursor: pointer;
-    opacity: 0.85;
-  }
-  
-  .icon {
-    margin-left: 10px;
-    color: #7ac28d;
-  }
-  
-  .name {
-    font-size: 12px;
-    margin-left: 10px;
-  }
-  
-  .header {
-    color: #2e6194;
-    font-size: 12px;
-    margin-left: 10px;
-    font-weight: bold;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  }
-  
-  .time {
-    display: flex;
-    justify-content: center;
-    background-color: #e6e1e6;
-    width: 20px;
-    height: 20px;
-    font-size: 10px;
-    padding: 2px;
-    border-radius: 2px;
-    font-weight: bold;
-    color: #414142;
-  }
-  
-  .user-image {
-    position: flex;
-    width: 21px;
-    height: 21px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: none;
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-  
-  .right-info {
-    display: flex;
-  }
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  color: #2e6194;
+  font-size: 12px;
+  margin-left: 10px;
+  font-weight: bold;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  justify-content: space-between;
+}
+
+.prj-icon {
+  margin-left: 10px;
+  color: #7ac28d;
+}
+
+.exit-icon {
+  color: #8e959c;
+}
+
+.exit-icon:hover {
+  color: #c4c1c1;
+  cursor: pointer;
+}
+
+.status {
+  color: #466e96;
+  margin-top: 10px;
+  font-size: 12px;
+  margin-left: 10px;
+  font-weight: 500;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.time {
+  display: flex;
+  justify-content: center;
+  background-color: #cac3ca;
+  width: 20px;
+  height: 20px;
+  font-size: 10px;
+  padding: 2px;
+  border-radius: 2px;
+  font-weight: bold;
+  color: #414142;
+}
+
+.time-info {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.name {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 13px;
+  margin-top: 10px;
+  font-weight: 500;
+  margin-left: 10px;
+}
+
+.epikLink {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.block {
+  color: #466e96;
+  margin-top: 10px;
+  font-size: 12px;
+  margin-left: 10px;
+  font-weight: 500;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.comment-icon {
+  color: rgb(242, 102, 116);
+  text-shadow: 2px 2px 3px rgb(124, 108, 108);
+}
+
+.add-comment:hover {
+  color: rgb(247, 154, 163);
+  cursor: pointer;
+}
+
+.comment {
+  margin: 3px;
+}

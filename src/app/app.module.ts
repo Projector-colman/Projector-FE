@@ -30,14 +30,16 @@ import { CreateIssueComponent } from './components/modals/create-issue/create-is
 import { RouterModule } from '@angular/router';
 import { ProjectBoardComponent } from './views/project-board/project-board.component';
 import { IssuesBacklogComponent } from './components/issues-backlog/issues-backlog.component';
-import { IssueComponent } from './components/issue/issue.component';
+import { IssuePreviewComponent } from './components/issue-preview/issue-preview.component';
 import { ButtonComponent } from './components/button/button.component';
 import { SprintGraphComponent } from './components/sprint-graph/sprint-graph.component';
-import { NgApexchartsModule } from "ng-apexcharts";
+import { NgApexchartsModule } from 'ng-apexcharts';
 import { AssignedToMeComponent } from './components/assigned-to-me/assigned-to-me.component';
 import { MainIssueComponent } from './components/main-issue/main-issue.component';
 import { CreateProjectComponent } from './components/modals/create-project/create-project.component';
 import { ProjectsCardComponent } from './components/projects-card/projects-card.component';
+import { IssueComponent } from './components/issue/issue.component';
+import { CommentComponent } from './components/comment/comment.component';
 
 @NgModule({
   declarations: [
@@ -47,18 +49,19 @@ import { ProjectsCardComponent } from './components/projects-card/projects-card.
     UserSettingsComponent,
     ProjectsWrapperComponent,
     NavigationComponent,
-    IssueComponent,
     BacklogComponent,
     CreateIssueComponent,
     ProjectBoardComponent,
     IssuesBacklogComponent,
-    IssueComponent,
+    IssuePreviewComponent,
     ButtonComponent,
     SprintGraphComponent,
     AssignedToMeComponent,
     MainIssueComponent,
     CreateProjectComponent,
     ProjectsCardComponent,
+    IssueComponent,
+    CommentComponent,
   ],
   imports: [
     MatCardModule,

@@ -1,6 +1,7 @@
 .backlog-board {
   display: flex;
   padding: 10px;
+  width: 100%;
 }
 
 .missions {
@@ -8,4 +9,15 @@
   flex-direction: column;
   margin-top: 20px;
   width: 90%;
+}
+
+.backlog {
+  display: flex;
+  flex-direction: row;
+}
+
+.issue-detail {
+  background-color: #e6e1e6;
+  padding: 10px;
+  width: 250px;
 }
