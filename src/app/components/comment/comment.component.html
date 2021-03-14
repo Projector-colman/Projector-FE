@@ -1,9 +1,10 @@
 <div class="comment">
   <div class="header">
+    <i *ngIf="newComment" class="fas fa-times fa-xs cancle" (click)="closeNewComment()"></i>
     <span class="time">{{getTime()}}</span>
     <img class="img" [src]="comment.reporter.imageSrc">
   </div>
   <div *ngIf="!newComment" class="content">{{comment.content}}</div>
-  <input *ngIf="newComment" class="content">
-  <i *ngIf="newComment" class="fas fa-check save-comment"></i>
+  <input *ngIf="newComment" class="content" [(ngModel)]="content">
+  <i *ngIf="newComment" class="fas fa-check save-comment" (click)="saveComment()"></i>
 </div>

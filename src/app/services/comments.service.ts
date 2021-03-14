@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { IssueStatus } from '../enum/issueStatus.enum';
 import { Comment } from '../interfaces/comment';
 import { Project } from '../interfaces/project';
@@ -67,9 +67,7 @@ export class CommentsService {
     private usersService: UsersService
   ) {}
 
-  getCommentsByProjectId(projectId: string): Comment[] {
-    return this.comments.filter(
-      (comment: Comment) => comment.projectId === projectId
-    );
+  saveComment(comment: Comment): void {
+    this.comments.push(comment);
   }
 }

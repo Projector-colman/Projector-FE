@@ -14,14 +14,23 @@ import { UsersService } from 'src/app/services/users.service';
 export class IssueComponent implements OnInit {
   @Input() issue: Issue;
   addNewComment: boolean;
+  currProjectComments: Comment[];
   constructor(
-    private commentsService: CommentsService,
+    public commentsService: CommentsService,
     private userService: UsersService
   ) {
     this.addNewComment = false;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.currProjectComments = this.commentsService.comments;
+    // this.commentsService.getCommentsByProjectId.subscribe(
+    //   (comments: Comment[]) => {
+    //     console.log(comments);
+
+    //   }
+    // );
+  }
 
   public get issuesLocation(): typeof IssueLocation {
     return IssueLocation;
@@ -72,7 +81,7 @@ export class IssueComponent implements OnInit {
     return newComment;
   }
 
-  comments(projectId: string): Comment[] {
-    return this.commentsService.getCommentsByProjectId(projectId);
+  cancleNewComment() {
+    this.addNewComment = false;
   }
 }

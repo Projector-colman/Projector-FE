@@ -13,6 +13,7 @@
     <i class="fas fa-plus comment-icon add-comment" (click)="addComment()"></i>
     <i class="fas fa-comment-alt comment-icon"></i>
   </div>
-  <app-comment class="comment" *ngIf="addNewComment" [newComment]="true" [comment]="addComment()"></app-comment>
-  <app-comment class="comment" *ngFor="let comment of comments(issue.projectId)" [comment]="comment"></app-comment>
+  <app-comment class="comment" *ngIf="addNewComment" [newComment]="true" [comment]="addComment()"
+    (closeNewCommentEmitter)="cancleNewComment()"></app-comment>
+  <app-comment class="comment" *ngFor="let comment of currProjectComments.reverse()" [comment]="comment"></app-comment>
 </div>

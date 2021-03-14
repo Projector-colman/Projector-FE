@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Comment } from 'src/app/interfaces/comment';
+import { CommentsService } from 'src/app/services/comments.service';
 
 @Component({
   selector: 'app-comment',
@@ -9,8 +10,11 @@ import { Comment } from 'src/app/interfaces/comment';
 export class CommentComponent implements OnInit {
   @Input() comment: Comment;
   @Input() newComment: boolean;
-  constructor() {
+  @Output() closeNewCommentEmitter: EventEmitter<boolean>;
+  content: string;
+  constructor(private commentsService: CommentsService) {
     this.newComment = false;
+    this.closeNewCommentEmitter = new EventEmitter<boolean>();
   }
 
   ngOnInit(): void {}
@@ -26,5 +30,17 @@ export class CommentComponent implements OnInit {
         : this.comment.date.getMinutes();
     let time: string = mm + '/' + dd + '/' + yyyy + ' ' + HH + ':' + MM;
     return time;
+  }
+
+  closeNewComment(): void {
+    this.closeNewCommentEmitter.emit();
+  }
+
+  saveComment(): void {
+    if (this.content) {
+      this.comment.content = this.content;
+      this.commentsService.saveComment(this.comment);
+      this.closeNewComment();
+    }
   }
 }
