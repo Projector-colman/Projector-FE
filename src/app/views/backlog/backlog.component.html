@@ -16,5 +16,6 @@
       </app-issues-backlog>
     </div>
   </div>
-  <app-issue *ngIf="issueToOpen" class="issue-detail" [issue]="issueToOpen"></app-issue>
+  <app-issue *ngIf="issueToOpen" class="issue-detail" [issue]="issueToOpen"
+    (closeIssueEmitter)="issueToOpen = undefined"></app-issue>
 </div>

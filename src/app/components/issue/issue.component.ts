@@ -1,5 +1,5 @@
 import { Comment } from 'src/app/interfaces/comment';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IssueLocation } from 'src/app/enum/issueLocation.enum';
 import { IssueStatus } from 'src/app/enum/issueStatus.enum';
 import { Issue } from 'src/app/interfaces/issue';
@@ -14,6 +14,7 @@ import { filterByProjectId } from '../../pipes/filter-by-project-id.pipe';
 })
 export class IssueComponent implements OnInit {
   @Input() issue: Issue;
+  @Output() closeIssueEmitter: EventEmitter<void>;
   addNewComment: boolean;
   currProjectComments: Comment[];
   constructor(
@@ -21,6 +22,7 @@ export class IssueComponent implements OnInit {
     private userService: UsersService
   ) {
     this.addNewComment = false;
+    this.closeIssueEmitter = new EventEmitter<void>();
   }
 
   ngOnInit(): void {
@@ -78,5 +80,9 @@ export class IssueComponent implements OnInit {
 
   cancleNewComment() {
     this.addNewComment = false;
+  }
+
+  closeIssue(): void {
+    this.closeIssueEmitter.emit();
   }
 }
