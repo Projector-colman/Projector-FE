@@ -12,7 +12,10 @@ export class AssignedToMeComponent implements OnInit {
   constructor(private homepageService: HomepageService) { }
 
   ngOnInit(): void {
-    this.assignedIssues = this.homepageService.getCurrentUserAssignedIssues();
+    this.homepageService.getCurrentUserAssignedIssues().subscribe((issues: Issue[]) => {
+      this.assignedIssues = issues;
+    })
+    //this.assignedIssues = this.homepageService.getCurrentUserAssignedIssues();
   }
 
 }

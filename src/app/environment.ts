@@ -1,0 +1,1 @@
+export const beAddress = "http://localhost:3000/";

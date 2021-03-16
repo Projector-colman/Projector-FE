@@ -2,6 +2,8 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { Component, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { SidenavUpdateService } from 'src/app/services/sidenav-update.service';
+import { issuesService } from '../../services/issues.service';
+import { Issue } from '../../interfaces/issue';
 
 @Component({
   selector: 'app-project-board',
@@ -19,6 +21,7 @@ export class ProjectBoardComponent implements OnInit {
       'Pick up groceries',
       'Go home',
       'Fall asleep'],
+      inProgress: [],
       Done : [
         'Get up',
         'Brush teeth',
@@ -43,9 +46,20 @@ export class ProjectBoardComponent implements OnInit {
     'Walk dog'
   ];
 
-  constructor(public router: Router, private sidenavUpdateService: SidenavUpdateService) { }
+  constructor(public router: Router, private sidenavUpdateService: SidenavUpdateService, private issuesService: issuesService) { }
 
   ngOnInit(): void {
+    this.tasksHolder = {Todo: [], inProgress:[] ,Done: []};
+    this.issuesService.getIssues({}).subscribe((issues: any[]) => {
+      issues.forEach(issue => {
+        if(issue.status === "to-do") {
+          this.tasksHolder.Todo.push(issue.description);
+        }
+        if(issue.status === "in-progress") {
+          this.tasksHolder.inProgress.push(issue.description);
+        }
+      });
+    });
     this.taskTitles = Object.keys(this.tasksHolder);
     this.sidenavUpdateService.changeMessage('projects');
     this.sidenavUpdateService.changeProject(this.router.url.split('/')[2]);

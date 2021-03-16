@@ -28,6 +28,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { BacklogComponent } from './views/backlog/backlog.component';
 import { CreateIssueComponent } from './components/modals/create-issue/create-issue.component';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 import { ProjectBoardComponent } from './views/project-board/project-board.component';
 import { IssuesBacklogComponent } from './components/issues-backlog/issues-backlog.component';
 import { IssuePreviewComponent } from './components/issue-preview/issue-preview.component';
@@ -88,6 +89,7 @@ import { filterByProjectId } from './pipes/filter-by-project-id.pipe';
     FormsModule,
     DragDropModule,
     NgApexchartsModule,
+    HttpClientModule,
     RouterModule.forRoot(
       routes,
       { enableTracing: true } // for debugging
