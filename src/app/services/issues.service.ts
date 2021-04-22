@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { Issue } from '../interfaces/issue';
 import { HttpClient } from '@angular/common/http';
 import { beAddress } from '../environment';
+
 @Injectable({
   providedIn: 'root',
 })

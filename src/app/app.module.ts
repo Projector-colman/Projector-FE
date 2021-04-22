@@ -42,6 +42,7 @@ import { ProjectsCardComponent } from './components/projects-card/projects-card.
 import { IssueComponent } from './components/issue/issue.component';
 import { CommentComponent } from './components/comment/comment.component';
 import { filterByProjectId } from './pipes/filter-by-project-id.pipe';
+import { LoginComponent } from './views/login/login.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { filterByProjectId } from './pipes/filter-by-project-id.pipe';
     IssueComponent,
     CommentComponent,
     filterByProjectId,
+    LoginComponent,
   ],
   imports: [
     MatCardModule,
