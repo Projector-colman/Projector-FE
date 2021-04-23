@@ -10,24 +10,27 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   login(email: string, password: string) {
-    this.setSession({id: 'asdasd', isAdmin : true});
+    this.setSession({id: '123456'});
     return true;
-    //return this.http.post(beAddress + 'api/auth', {email: email, password: password}).do(res => this.setSession).shareReplay();;
+    this.http.post(beAddress + 'api/auth', {email: email, password: password}).subscribe(res => {
+      if(res == null) {
+        return false;
+      }
+      this.setSession(res);
+      return true;
+    })
   }
 
   private setSession(authResult) {
     localStorage.setItem('id_token', authResult.id);
-    localStorage.setItem('is_admin', authResult.isAdmin);
   }          
 
   logout() {
     localStorage.removeItem("id_token");
-    localStorage.removeItem("is_admin");
   }
 
   public isLoggedIn() {
     // TODO test
-    return true;
     return localStorage.getItem("id_token") != null;
   }
 

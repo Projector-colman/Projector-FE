@@ -13,7 +13,8 @@ import { LoginComponent } from './views/login/login.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  {path: '', canActivate: [AuthGuard], children: [
+  { path: 'register',component: LoginComponent}, // TODO create register comp
+  { path: '', canActivate: [AuthGuard], children: [
     { path: '', component: MainPageComponent },
     { path: 'user-settings/:id', component: UserSettingsComponent },
     { path: 'projects', component: MyProjectsComponent },
