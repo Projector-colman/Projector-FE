@@ -10,19 +10,11 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   login(email: string, password: string) {
-    this.setSession({id: '123456'});
-    return true;
-    this.http.post(beAddress + 'api/auth', {email: email, password: password}).subscribe(res => {
-      if(res == null) {
-        return false;
-      }
-      this.setSession(res);
-      return true;
-    })
+    return this.http.post(beAddress + 'api/auth', {email: email, password: password});
   }
 
-  private setSession(authResult) {
-    localStorage.setItem('id_token', authResult.id);
+  setSession(token) {
+    localStorage.setItem('id_token', token);
   }          
 
   logout() {
@@ -36,5 +28,9 @@ export class AuthService {
 
   isLoggedOut() {
       return !this.isLoggedIn();
-  }   
+  }
+
+  register(email: string, name: string, password: string) {
+    return this.http.post(beAddress + 'api/users', {email: email, name: name, password: password});
+  }
 }

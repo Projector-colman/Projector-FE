@@ -43,6 +43,7 @@ import { IssueComponent } from './components/issue/issue.component';
 import { CommentComponent } from './components/comment/comment.component';
 import { filterByProjectId } from './pipes/filter-by-project-id.pipe';
 import { LoginComponent } from './views/login/login.component';
+import { RegisterComponent } from './views/register/register.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { LoginComponent } from './views/login/login.component';
     CommentComponent,
     filterByProjectId,
     LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     MatCardModule,

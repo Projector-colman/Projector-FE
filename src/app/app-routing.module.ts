@@ -10,10 +10,11 @@ import {
   AuthGuardService as AuthGuard 
 } from './services/auth-guard.service';
 import { LoginComponent } from './views/login/login.component';
+import { RegisterComponent } from './views/register/register.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'register',component: LoginComponent}, // TODO create register comp
+  { path: 'register',component: RegisterComponent},
   { path: '', canActivate: [AuthGuard], children: [
     { path: '', component: MainPageComponent },
     { path: 'user-settings/:id', component: UserSettingsComponent },

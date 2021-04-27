@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UsersService } from 'src/app/services/users.service';
 import { User } from '../../interfaces/user';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Project } from 'src/app/interfaces/project';
 import { ProjectsService } from 'src/app/services/projects.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-user-settings',
@@ -20,7 +21,9 @@ export class UserSettingsComponent implements OnInit {
   constructor(
     private usersService: UsersService,
     private route: ActivatedRoute,
-    private projectService: ProjectsService
+    private projectService: ProjectsService,
+    private auth: AuthService,
+    private router: Router
   ) {
     this.userChanged = false;
     this.imageChanged = false;
@@ -79,5 +82,10 @@ export class UserSettingsComponent implements OnInit {
       password: this.userEditForm.controls['password'].value,
     };
     this.usersService.updateUser(userToUpdate);
+  }
+
+  logout() {
+    this.auth.logout();
+    this.router.navigate(['/login']);
   }
 }

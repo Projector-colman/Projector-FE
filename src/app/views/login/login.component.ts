@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -13,11 +12,10 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loading = false;
   submitted = false;
-  returnUrl: string;
+  attemps = 0;
 
   constructor(
         private formBuilder: FormBuilder,
-        private route: ActivatedRoute,
         private router: Router,
         private authService: AuthService
     ) {
@@ -41,23 +39,23 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
-
+    this.loading = true;
     // stop here if form is invalid
     if (this.loginForm.invalid) {
         return;
     }
 
-    this.loading = true;
-    this.authService.login(this.f.email.value, this.f.password.value)
-        /*.pipe(first())
-        .subscribe(
-            data => {
-                this.router.navigate([this.returnUrl]);
-            },
-            error => {
-                this.alertService.error(error);
-                this.loading = false;
-            });
-          */}
+    this.authService.login(this.f.email.value, this.f.password.value).subscribe((response: loginResponse) => {
+      this.loading = false;
+      this.authService.setSession(response.token);
+      this.router.navigate(['/']);
+    }, (error) => {
+      console.log(error)
+      this.attemps++;
+    });
+  }
+}
+
+interface loginResponse {
+  token: string;
 }

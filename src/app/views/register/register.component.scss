@@ -62,23 +62,28 @@ h2, label , button{
 	height:100px;
 	width: 55%;
 }
-
-button {
-	background-color: rgb(242, 102, 116);
+.form-style-2 input[type=submit],
+.form-style-2 input[type=button]{
 	border: none;
-	outline: none;
+	padding: 8px 15px 8px 15px;
+	background: #FF8500;
+	color: #fff;
+	box-shadow: 1px 1px 4px #DADADA;
+	-moz-box-shadow: 1px 1px 4px #DADADA;
+	-webkit-box-shadow: 1px 1px 4px #DADADA;
 	border-radius: 3px;
-	color: white;
-	padding: 3px;
-	font-size: 18px;
-  }
-  
-  button:hover:enabled {
-	opacity: 0.8;
-	cursor: pointer;
-  }
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+}
+.form-style-2 input[type=submit]:hover,
+.form-style-2 input[type=button]:hover{
+	background: #EA7B00;
+	color: #fff;
+}
 
-  
+.hidden {
+	opacity: 0%;
+}
 .error {
 	color: red;
 }
