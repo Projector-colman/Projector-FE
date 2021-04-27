@@ -1,0 +1,11 @@
+<div class="form-style-2">
+    <h2><b>Login</b></h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <label><span>Email: <span class="required">*</span></span><input type="text" class="input-field" formControlName="email" value="" /></label>
+        <label><div class="error" *ngIf="submitted && f.email.errors">* Email is Required</div></label>
+
+        <label><span>Password: <span class="required">*</span></span><input type="password" class="input-field" formControlName="password" value="" /></label>
+        <label><div class="error" *ngIf="submitted && attemps > 0">* Email or Password is incorrect</div></label>
+        <button type="submit" [disabled]="loginForm.invalid">Submit</button> <button routerLink='/register'>Register</button>
+    </form>
+</div>
