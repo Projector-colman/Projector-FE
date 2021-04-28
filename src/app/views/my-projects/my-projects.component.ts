@@ -1,54 +1,21 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit, Output } from '@angular/core';
-import { EventEmitter } from 'events';
 import { SidenavUpdateService } from 'src/app/services/sidenav-update.service';
-
+import { ProjectsService } from '../../services/projects.service';
 @Component({
   selector: 'app-my-projects',
   templateUrl: './my-projects.component.html',
   styleUrls: ['./my-projects.component.scss']
 })
 export class MyProjectsComponent implements OnInit {
-  filters = ['My Issues', 'In Progress'];
-  taskTitles;
+  myProjects;
 
-  myProjects = ['projector', 'cookbook', 'test', 'some very long name for a project'];
-
-  tasksHolder = {
-    Todo: [
-      'Get to work',
-      'Pick up groceries',
-      'Go home',
-      'Fall asleep'],
-      Done : [
-        'Get up',
-        'Brush teeth',
-        'Take a shower',
-        'Check e-mail',
-        'Walk dog'
-      ]
-  };
-
-  todo = [
-    'Get to work',
-    'Pick up groceries',
-    'Go home',
-    'Fall asleep'
-  ];
-
-  done = [
-    'Get up',
-    'Brush teeth',
-    'Take a shower',
-    'Check e-mail',
-    'Walk dog'
-  ];
-
-  constructor(private sidenavUpdateService: SidenavUpdateService) { }
+  constructor(private sidenavUpdateService: SidenavUpdateService,
+              private projectsService: ProjectsService) { }
 
   ngOnInit(): void {
-    this.taskTitles = Object.keys(this.tasksHolder);
     this.sidenavUpdateService.changeMessage('projects');
+    this.myProjects = this.projectsService.getProjectsNew();
   }
 
   drop(event: CdkDragDrop<string[]>) {

@@ -11,6 +11,7 @@ import { CreateIssueComponent } from '../modals/create-issue/create-issue.compon
   styleUrls: ['./navigation.component.scss'],
 })
 export class NavigationComponent implements OnInit {
+  
   constructor(private dialog: MatDialog, private userService: UsersService) {}
 
   ngOnInit(): void {}
@@ -18,11 +19,13 @@ export class NavigationComponent implements OnInit {
   getCurrUser(): User {
     return this.userService.getCurrConnectedUser();
   }
+
   createProject() {
     const issueDialogRef = this.dialog.open(CreateProjectComponent, {
       width: '65vh',
       height: '75vh',
-    });}
+    });
+  }
   createIssue() {
     const issueDialogRef = this.dialog.open(CreateIssueComponent, {
       width: '65vh',

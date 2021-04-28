@@ -28,7 +28,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { BacklogComponent } from './views/backlog/backlog.component';
 import { CreateIssueComponent } from './components/modals/create-issue/create-issue.component';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ProjectBoardComponent } from './views/project-board/project-board.component';
 import { IssuesBacklogComponent } from './components/issues-backlog/issues-backlog.component';
 import { IssuePreviewComponent } from './components/issue-preview/issue-preview.component';
@@ -44,6 +44,7 @@ import { CommentComponent } from './components/comment/comment.component';
 import { filterByProjectId } from './pipes/filter-by-project-id.pipe';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
+import { AuthInterceptor } from '../app/interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -96,10 +97,17 @@ import { RegisterComponent } from './views/register/register.component';
     HttpClientModule,
     RouterModule.forRoot(
       routes,
-      { enableTracing: true } // for debugging
+      { enableTracing: true, // for debugging
+        onSameUrlNavigation: 'reload'} 
     ),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

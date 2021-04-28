@@ -3,6 +3,8 @@ import { TimeType } from '../enum/timeType.enum';
 import { Project } from '../interfaces/project';
 import { UsersService } from './users.service';
 import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { beAddress } from '../environment';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +12,8 @@ import { Observable } from 'rxjs';
 export class ProjectsService {
   projects: Project[];
 
-  constructor(private usersService: UsersService) {
+  constructor(private usersService: UsersService,
+              private httpClient: HttpClient) {
     this.projects = [
       {
         id: 'cookbook',
@@ -225,6 +228,13 @@ export class ProjectsService {
     );
   }
 
+  getProjectsNew() {
+    return this.httpClient.get(beAddress + 'api/projects');
+  }
+
+  createProject(name: string) {
+    return this.httpClient.post(beAddress + 'api/projects', {name: name});
+  }
   getProject(name: string): Project {
     return this.projects.find(
       (project: Project) => project.projectName == name
