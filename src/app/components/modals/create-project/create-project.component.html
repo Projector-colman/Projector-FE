@@ -4,7 +4,7 @@
   
     <label><span>Name: <span class="required">*</span></span><input type="text" class="input-field" formControlName="name" value="" /></label>
     <label><div class="error" *ngIf="isNameTaken">* Project Name Taken</div></label>
-    
+
     <button type="submit" [disabled]="projectForm.invalid">Create</button>
     </form>
     </div>

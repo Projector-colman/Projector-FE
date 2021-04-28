@@ -232,9 +232,14 @@ export class ProjectsService {
     return this.httpClient.get(beAddress + 'api/projects');
   }
 
+  getOwnerProjects() {
+    return this.httpClient.get(beAddress + 'api/projects/owner');
+  }
+
   createProject(name: string) {
     return this.httpClient.post(beAddress + 'api/projects', {name: name});
   }
+
   getProject(name: string): Project {
     return this.projects.find(
       (project: Project) => project.projectName == name

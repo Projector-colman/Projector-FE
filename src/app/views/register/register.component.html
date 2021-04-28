@@ -2,15 +2,15 @@
     <h2><b>Register</b></h2>
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <label><span>Name: <span class="required">*</span></span><input type="text" class="input-field" formControlName="name" value="" /></label>
-        <label><div class="error" *ngIf="submitted && f.name.errors">* Name is Required</div></label>
+        <label><div class="error" *ngIf="submitted && !loading && f.name.errors">* Name is Required</div></label>
 
         <label><span>Email: <span class="required">*</span></span><input type="text" class="input-field" formControlName="email" value="" /></label>
-        <label><div class="error" *ngIf="submitted && isMailTaken">* Email Already Taken</div></label>
-        <label><div class="error" *ngIf="submitted && isMailValid">* Please Enter valid email adress</div></label>
+        <label><div class="error" *ngIf="submitted && !loading && isMailTaken">* Email Already Taken</div></label>
+        <label><div class="error" *ngIf="submitted && !loading && !isMailValid">* Please Enter valid email adress</div></label>
 
         <label><span>Password: <span class="required">*</span></span><input type="password" class="input-field" formControlName="password" value="" /></label>
-        <label><div class="error" *ngIf="submitted && f.password.errors">* Password must be atleast 5 characters long</div></label>
+        <label><div class="error" *ngIf="submitted && !loading && f.password.errors">* Password must be atleast 5 characters long</div></label>
 
-        <button type="submit">Submit</button>
+        <button type="submit" [disabled]="registerForm.invalid">Submit</button> <mat-spinner *ngIf="loading"></mat-spinner>
     </form>
 </div>

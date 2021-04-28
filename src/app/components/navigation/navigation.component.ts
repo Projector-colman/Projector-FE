@@ -4,7 +4,7 @@ import { User } from 'src/app/interfaces/user';
 import { UsersService } from 'src/app/services/users.service';
 import { CreateProjectComponent } from '../modals/create-project/create-project.component';
 import { CreateIssueComponent } from '../modals/create-issue/create-issue.component';
-
+import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'projector-navigation',
   templateUrl: './navigation.component.html',
@@ -12,7 +12,9 @@ import { CreateIssueComponent } from '../modals/create-issue/create-issue.compon
 })
 export class NavigationComponent implements OnInit {
   
-  constructor(private dialog: MatDialog, private userService: UsersService) {}
+  constructor(private dialog: MatDialog, 
+              private userService: UsersService,
+              public authService: AuthService,) {}
 
   ngOnInit(): void {}
 
@@ -26,6 +28,7 @@ export class NavigationComponent implements OnInit {
       height: '75vh',
     });
   }
+  
   createIssue() {
     const issueDialogRef = this.dialog.open(CreateIssueComponent, {
       width: '65vh',

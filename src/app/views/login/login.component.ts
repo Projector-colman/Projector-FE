@@ -45,17 +45,13 @@ export class LoginComponent implements OnInit {
         return;
     }
 
-    this.authService.login(this.f.email.value, this.f.password.value).subscribe((response: loginResponse) => {
+    this.authService.login(this.f.email.value, this.f.password.value).subscribe((response: {token: string}) => {
       this.loading = false;
-      this.authService.setSession(response.token);
+      this.authService.setSession(response.token, this.f.email.value);
       this.router.navigate(['/']);
     }, (error) => {
-      console.log(error)
+      this.loading = false;
       this.attemps++;
     });
   }
-}
-
-interface loginResponse {
-  token: string;
 }

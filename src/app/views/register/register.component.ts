@@ -37,13 +37,13 @@ export class RegisterComponent implements OnInit {
       this.loading = false;
       this.router.navigate(['/login']);
     }, (error) => {
+      this.loading = false;
       if(error.error === '"email" must be a valid email') {
         this.isMailValid = false;
       }
       if(error.error === 'User already registered.') {
         this.isMailTaken = true;
       }
-      this.loading = false;
       this.submitted = true;
     });
   }
