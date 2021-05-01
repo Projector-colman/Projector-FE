@@ -14,13 +14,17 @@ export class CreateIssueComponent implements OnInit {
   submitted = false;
 
   allProjects;
+  projectUsers;
+  projectEpics;
+  
   issueTypes = ['Story', 'Epic'];
   priorityTypes = ['highest', 'high', 'medium', 'low', 'lowest'];
 
   selectedProject;
   selectedIssueType = this.issueTypes[0];
   selectedPriority;
-  
+  selectedAssignee;
+
   constructor(private projectService: ProjectsService,
               private issuesService: issuesService,
               private formBuilder: FormBuilder,) { }
@@ -39,9 +43,17 @@ export class CreateIssueComponent implements OnInit {
     });
   }
 
+  // form helper
+  get f() { 
+    return this.issueForm.controls; 
+  }
+
   changeProject(e) {
     // extract proper project name from event
-    this.selectedProject = e.target.value.substring(e.target.value.indexOf(' ') + 1);
+    this.selectedProject = +e.target.value.substring(e.target.value.indexOf(' ') + 1);
+    this.projectService.getProjectUsers(this.selectedProject).subscribe(users => {
+      this.projectUsers = users;
+    });
   }
 
   changeIssueType(e) {
@@ -54,27 +66,28 @@ export class CreateIssueComponent implements OnInit {
     this.selectedPriority = e.target.value.substring(e.target.value.indexOf(' ') + 1);
   }
 
+  changeAssignee(e) {
+    // extract proper project name from event
+    this.selectedAssignee = e.target.value.substring(e.target.value.indexOf(' ') + 1);
+  }
+
   onSubmit() {
     this.isFormValid = true;
     this.submitted = true;
-
-    switch(this.selectedIssueType) {
-      case this.issueTypes[0]: {
-        if (!this.issueForm.value.priority || !this.issueForm.value.epicLink) {
-          this.isFormValid = false;
-        } else {
-
-        }
-       break; 
-      }
-      case this.issueTypes[1]: {
-        break;
-      }
-      default: {
-        console.log('Unknown Error');
-        this.isFormValid = false;
-        break;
-      }
+    
+    if (this.issueForm.invalid) {
+      this.isFormValid = false;
+      return;
     }
+
+    if (this.selectedIssueType == "Story" && 
+        !this.issueForm.value.priority || !this.issueForm.value.epicLink) {
+      this.isFormValid = false;
+      return;
+    }
+
+    this.issuesService.createIssue({name: this.f.name.value,
+                                    description: this.f.description.value,
+                                    })
   }
 }

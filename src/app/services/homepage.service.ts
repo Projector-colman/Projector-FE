@@ -11,9 +11,5 @@ export class HomepageService {
   constructor(private projectsService: ProjectsService, private usersService: UsersService, private http: HttpClient) { }
   getCurrentUserAssignedIssues() {
     return this.http.get(beAddress + 'api/issues');
-    /*return this.projectsService.getProject('cookbook').issues
-      .filter(issue => issue.assignee.id === this.usersService.getCurrConnectedUser().id)
-      .filter(issue => issue.status !== IssueStatus.Done)
-      .sort(issue => issue.priority);*/
   }
 }

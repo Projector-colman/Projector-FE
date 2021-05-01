@@ -15,7 +15,6 @@ export class AssignedToMeComponent implements OnInit {
     this.homepageService.getCurrentUserAssignedIssues().subscribe((issues: Issue[]) => {
       this.assignedIssues = issues;
     })
-    //this.assignedIssues = this.homepageService.getCurrentUserAssignedIssues();
   }
 
 }

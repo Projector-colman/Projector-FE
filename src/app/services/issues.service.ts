@@ -24,4 +24,8 @@ export class issuesService {
   getIssues(filters): Observable<any> {
     return this.http.get(beAddress + 'api/issues', filters);
   }
+
+  createIssue(issueData) {
+    return this.http.post(beAddress + 'api/issues', issueData);
+  }
 }

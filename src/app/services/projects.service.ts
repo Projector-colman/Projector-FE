@@ -3,7 +3,7 @@ import { TimeType } from '../enum/timeType.enum';
 import { Project } from '../interfaces/project';
 import { UsersService } from './users.service';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { beAddress } from '../environment';
 
 @Injectable({
@@ -228,7 +228,7 @@ export class ProjectsService {
     );
   }
 
-  getProjectsNew() {
+  getAllProjects() {
     return this.httpClient.get(beAddress + 'api/projects');
   }
 
@@ -240,9 +240,12 @@ export class ProjectsService {
     return this.httpClient.post(beAddress + 'api/projects', {name: name});
   }
 
-  getProject(name: string): Project {
-    return this.projects.find(
-      (project: Project) => project.projectName == name
-    );
+  getProjectByName(name: string) {
+    let params = new HttpParams().set('name', name);
+    return this.httpClient.get(beAddress + 'api/projects', {params: params});
+  }
+
+  getProjectUsers(id: number) {
+    return this.httpClient.get(beAddress + `api/projects/${id}/users`);
   }
 }

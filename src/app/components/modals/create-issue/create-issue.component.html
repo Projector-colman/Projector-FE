@@ -5,7 +5,7 @@
   <label><span>Project: <span class="required">*</span></span>
     <select class="select-field" (change)="changeProject($event)" formControlName="project">
       <option value="" disabled>Choose your project</option>
-      <option *ngFor="let proj of allProjects | async" [ngValue]="proj.name">{{ proj.name }}</option>
+      <option *ngFor="let proj of allProjects | async" [ngValue]="proj.id">{{ proj.name }}</option>
    </select>
   </label>
 
@@ -25,7 +25,12 @@
    </select>
   </label>
 
-  <label><span>Assignee: </span><input type="text" class="input-field" formControlName="assignee" value="" /></label>
+  <label><span>Assignee: </span>
+    <select class="select-field" (change)="changeAssignee($event)" formControlName="project">
+      <option *ngFor="let user of projectUsers | async" [ngValue]="user.id">{{ user.name }}</option>
+   </select>
+  </label>
+
   <label *ngIf='this.selectedIssueType === "Story"'><span>Epic Link: <span class="required">*</span></span><input type="text" class="input-field" formControlName="epicLink" value="" /></label>
   <label><div class="error" *ngIf="submitted && !isFormValid">*Missing information</div></label>
 
