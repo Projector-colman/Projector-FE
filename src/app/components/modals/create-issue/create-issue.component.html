@@ -2,6 +2,7 @@
   <div class="form-style-2-heading">Create Issue</div>
   <form [formGroup]="issueForm" (ngSubmit)="onSubmit()">
 
+  <!-- Project -->
   <label><span>Project: <span class="required">*</span></span>
     <select class="select-field" (change)="changeProject($event)" formControlName="project">
       <option value="" disabled>Choose your project</option>
@@ -9,29 +10,53 @@
    </select>
   </label>
 
+  <!-- Issue Type -->
   <label><span>Issue Type: <span class="required">*</span></span>
     <select class="select-field" (change)="changeIssueType($event)" formControlName="issueType">
       <option *ngFor="let issueType of issueTypes" [ngValue]="issueType">{{ issueType }}</option>
    </select>
   </label>
 
+  <!-- Name -->
   <label><span>Name: <span class="required">*</span></span><input type="text" class="input-field" formControlName="name" value="" /></label>
-  <label><span>Reporter: <span class="required">*</span></span><input type="text" class="input-field" formControlName="reporter" value="" /></label>
-  <label><span>Description: <span class="required">*</span></span><textarea formControlName="description" class="textarea-field"></textarea></label>
-  
-  <label *ngIf='this.selectedIssueType === "Story"'><span>Priority: <span class="required">*</span></span>
-    <select class="select-field" (change)="changePriority($event)" formControlName="priority">
-      <option *ngFor="let priority of priorityTypes" [ngValue]="priority">{{ priority }}</option>
-   </select>
+
+  <!-- Reporter -->
+  <label *ngIf='this.selectedIssueType === "Story"'>
+    <span>Reporter: </span>
+      <select class="select-field" (change)="changeAssignee($event)" formControlName="reporter">
+        <option *ngFor="let user of projectUsers | async" [ngValue]="user.id">{{ user.name }}</option>
+    </select>
   </label>
 
+  <!-- Description -->
+  <label><span>Description: </span><textarea formControlName="description" class="textarea-field"></textarea></label>
+  
+  <!-- Priority -->
+  <label *ngIf='this.selectedIssueType === "Story"'>
+    <span>Priority: <span class="required">*</span></span>
+      <select class="select-field" (change)="changePriority($event)" formControlName="priority">
+        <option *ngFor="let priority of priorityTypes" [ngValue]="priority">{{ priority }}</option>
+    </select>
+  </label>
+
+  <!-- Story Points -->
+  <label><span>Story Points: <span class="required">*</span></span><input type="text" class="input-field" formControlName="storyPoints" value="0" /></label>
+
+  <!-- Assignee -->
   <label><span>Assignee: </span>
-    <select class="select-field" (change)="changeAssignee($event)" formControlName="project">
+    <select class="select-field" (change)="changeAssignee($event)" formControlName="assignee">
       <option *ngFor="let user of projectUsers | async" [ngValue]="user.id">{{ user.name }}</option>
    </select>
   </label>
 
-  <label *ngIf='this.selectedIssueType === "Story"'><span>Epic Link: <span class="required">*</span></span><input type="text" class="input-field" formControlName="epicLink" value="" /></label>
+  <!-- Epic Link -->
+  <label><span>Epic Link: <span class="required">*</span></span>
+    <select class="select-field" (change)="changeEpic($event)" formControlName="epicLink">
+      <option *ngFor="let epic of projectEpics | async" [ngValue]="epic.id">{{ epic.name }}</option>
+   </select>
+  </label>
+
+  <!-- Error Message -->
   <label><div class="error" *ngIf="submitted && !isFormValid">*Missing information</div></label>
 
   <button type="submit" [disabled]="this.issueForm.invalid">Create</button>

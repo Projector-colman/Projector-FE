@@ -17,14 +17,16 @@ export class AuthService {
     return this.http.post(beAddress + 'api/users', {email: email, name: name, password: password});
   }
   
-  setSession(token, email) {
+  setSession(token, email, id) {
     localStorage.setItem('id_token', token);
     localStorage.setItem('email', email);
+    localStorage.setItem('id', id);
   }          
 
   logout() {
     localStorage.removeItem("id_token");
     localStorage.removeItem("email");
+    localStorage.removeItem("id");
   }
 
   public isLoggedIn() {

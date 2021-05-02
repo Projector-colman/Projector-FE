@@ -2,7 +2,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { Component, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { SidenavUpdateService } from 'src/app/services/sidenav-update.service';
-import { issuesService } from '../../services/issues.service';
+import { IssuesService } from '../../services/issues.service';
 import { Issue } from '../../interfaces/issue';
 
 @Component({
@@ -15,40 +15,15 @@ export class ProjectBoardComponent implements OnInit {
   filters = ['My Issues', 'In Progress'];
   taskTitles;
 
-  tasksHolder = {
-    Todo: [
-      'Get to work',
-      'Pick up groceries',
-      'Go home',
-      'Fall asleep'],
-      inProgress: [],
-      Done : [
-        'Get up',
-        'Brush teeth',
-        'Take a shower',
-        'Check e-mail',
-        'Walk dog'
-      ]
-  };
+  tasksHolder;
 
-  todo = [
-    'Get to work',
-    'Pick up groceries',
-    'Go home',
-    'Fall asleep'
-  ];
-
-  done = [
-    'Get up',
-    'Brush teeth',
-    'Take a shower',
-    'Check e-mail',
-    'Walk dog'
-  ];
-
-  constructor(public router: Router, private sidenavUpdateService: SidenavUpdateService, private issuesService: issuesService) { }
+  constructor(public router: Router, private sidenavUpdateService: SidenavUpdateService, private issuesService: IssuesService) { }
 
   ngOnInit(): void {
+    // Hack for keeping sidenav state active to light up which item we're on if refreshed
+    this.sidenavUpdateService.changeMessage('projects');
+    this.sidenavUpdateService.changeProject(this.router.url.split('/')[2]);
+
     this.tasksHolder = {Todo: [], inProgress:[] ,Done: []};
     this.issuesService.getIssues({}).subscribe((issues: any[]) => {
       issues.forEach(issue => {
@@ -61,8 +36,6 @@ export class ProjectBoardComponent implements OnInit {
       });
     });
     this.taskTitles = Object.keys(this.tasksHolder);
-    this.sidenavUpdateService.changeMessage('projects');
-    this.sidenavUpdateService.changeProject(this.router.url.split('/')[2]);
   }
 
   drop(event: CdkDragDrop<string[]>) {

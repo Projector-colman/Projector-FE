@@ -229,7 +229,8 @@ export class ProjectsService {
   }
 
   getAllProjects() {
-    return this.httpClient.get(beAddress + 'api/projects');
+    const userId = localStorage.getItem('id');
+    return this.httpClient.get(beAddress + `api/users/${userId}/projects`);
   }
 
   getOwnerProjects() {

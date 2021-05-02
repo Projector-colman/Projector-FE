@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Router } from '@angular/router';
 import { IssueLocation } from 'src/app/enum/issueLocation.enum';
-import { issuesService } from 'src/app/services/issues.service';
+import { IssuesService } from 'src/app/services/issues.service';
 import { IssueStatus } from 'src/app/enum/issueStatus.enum';
 import { Issue } from 'src/app/interfaces/issue';
 import { Project } from 'src/app/interfaces/project';
@@ -23,7 +23,7 @@ export class BacklogComponent implements OnInit {
     public router: Router,
     private sidenavUpdateService: SidenavUpdateService,
     private projectsService: ProjectsService,
-    private issuesService: issuesService
+    private issuesService: IssuesService
   ) {}
 
   ngOnInit(): void {

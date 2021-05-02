@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectsService } from '../../../services/projects.service';
-import { issuesService } from '../../../services/issues.service';
+import { IssuesService } from '../../../services/issues.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-create-issue',
@@ -18,16 +19,18 @@ export class CreateIssueComponent implements OnInit {
   projectEpics;
   
   issueTypes = ['Story', 'Epic'];
-  priorityTypes = ['highest', 'high', 'medium', 'low', 'lowest'];
+  priorityTypes = ['lowest', 'low', 'medium', 'high', 'highest'];
 
   selectedProject;
   selectedIssueType = this.issueTypes[0];
   selectedPriority;
   selectedAssignee;
+  selectedEpic;
 
   constructor(private projectService: ProjectsService,
-              private issuesService: issuesService,
-              private formBuilder: FormBuilder,) { }
+              private issuesService: IssuesService,
+              private formBuilder: FormBuilder,
+              private dialogRef: MatDialogRef<CreateIssueComponent>) { }
 
   ngOnInit(): void {
     this.allProjects = this.projectService.getOwnerProjects();
@@ -35,11 +38,12 @@ export class CreateIssueComponent implements OnInit {
       project: [this.selectedProject, Validators.required],
       issueType: [this.selectedIssueType, Validators.required],
       name: ['', Validators.required],
-      reporter: ['', Validators.required],
+      reporter: [''],
       description: [''],
       priority: this.selectedPriority,
+      storyPoints: [0],
       assignee: [''],
-      epicLink: ['']
+      epicLink: this.selectedEpic
     });
   }
 
@@ -51,9 +55,8 @@ export class CreateIssueComponent implements OnInit {
   changeProject(e) {
     // extract proper project name from event
     this.selectedProject = +e.target.value.substring(e.target.value.indexOf(' ') + 1);
-    this.projectService.getProjectUsers(this.selectedProject).subscribe(users => {
-      this.projectUsers = users;
-    });
+    this.projectUsers = this.projectService.getProjectUsers(this.selectedProject);
+    this.projectEpics = this.issuesService.getEpics({});
   }
 
   changeIssueType(e) {
@@ -71,23 +74,57 @@ export class CreateIssueComponent implements OnInit {
     this.selectedAssignee = e.target.value.substring(e.target.value.indexOf(' ') + 1);
   }
 
+  changeEpic(e) {
+    // extract proper project name from event
+    this.selectedEpic = e.target.value.substring(e.target.value.indexOf(' ') + 1);
+  }
+
+
   onSubmit() {
     this.isFormValid = true;
     this.submitted = true;
-    
+
     if (this.issueForm.invalid) {
       this.isFormValid = false;
       return;
     }
 
-    if (this.selectedIssueType == "Story" && 
-        !this.issueForm.value.priority || !this.issueForm.value.epicLink) {
-      this.isFormValid = false;
-      return;
+    if (this.selectedIssueType === "Story") {
+      if (!this.f.priority.value || !this.f.epicLink.value || !this.f.storyPoints.value || !this.f.reporter.value) {
+        this.isFormValid = false;
+        return;
+      }
+      const data = {
+        name: this.f.name.value,
+        epic: this.f.epicLink.value,
+        description: this.f.description.value,
+        asignee: this.f.assignee.value,
+        storyPoints: +this.f.storyPoints.value,
+        priority: this.priorityTypes.indexOf(this.f.priority.value),
+        sprint: undefined,
+        status: 'to-do'
+      }
+
+      this.issuesService.createStory(data).subscribe(response => {
+        this.dialogRef.close();
+      }, 
+      error => {
+        console.error(error)
+      });
     }
 
-    this.issuesService.createIssue({name: this.f.name.value,
-                                    description: this.f.description.value,
-                                    })
+    if(this.selectedIssueType === "Epic") {
+      const data = { name: this.f.name.value,
+        project: this.f.project.value,
+        description: this.f.description.value,
+        asignee: this.f.assignee.value};
+
+      this.issuesService.createEpic(data).subscribe(response => {
+        this.dialogRef.close();
+      }, 
+      error => {
+        console.log('error in create epic')
+      });
+    }
   }
 }
