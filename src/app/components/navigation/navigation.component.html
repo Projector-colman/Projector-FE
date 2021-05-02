@@ -1,18 +1,20 @@
 <mat-toolbar class="topnav" fxLayout="row" color="primary">
   <div class="projectorTitle" routerLink='/'>Projector</div>
   <button mat-button class="navbtn" routerLink='/projects'>projects</button>
-  <button mat-button class="navbtn" [matMenuTriggerFor]="dropMenu">create</button>
-  <mat-menu #dropMenu="matMenu">
-    <button mat-menu-item (click)="createProject()">
-      <mat-icon class="mr">horizontal_split</mat-icon>
-      Project
-    </button>
-    <mat-divider></mat-divider>
-    <button mat-menu-item (click)="createIssue()">
-      <mat-icon class="mr">lightbulb</mat-icon>
-      Issue
-    </button>
-  </mat-menu>
+  <ng-container *ngIf="this.authService.isLoggedIn()">
+    <button mat-button class="navbtn" [matMenuTriggerFor]="dropMenu">create</button>
+    <mat-menu #dropMenu="matMenu">
+      <button mat-menu-item (click)="createProject()">
+        <mat-icon class="mr">horizontal_split</mat-icon>
+        Project
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="createIssue()">
+        <mat-icon class="mr">lightbulb</mat-icon>
+        Issue
+      </button>
+    </mat-menu>
+  </ng-container>
   <span class="example-spacer"></span>
   <img class="user-image" src='{{getCurrUser() ? getCurrUser().imageSrc : "/assets/images/user.png"}}'
     routerLink='user-settings/{{getCurrUser() ? getCurrUser().id : undefined}}'>

@@ -13,24 +13,27 @@ export class AuthService {
     return this.http.post(beAddress + 'api/auth', {email: email, password: password});
   }
 
-  setSession(token) {
+  register(email: string, name: string, password: string) {
+    return this.http.post(beAddress + 'api/users', {email: email, name: name, password: password});
+  }
+  
+  setSession(token, email, id) {
     localStorage.setItem('id_token', token);
+    localStorage.setItem('email', email);
+    localStorage.setItem('id', id);
   }          
 
   logout() {
     localStorage.removeItem("id_token");
+    localStorage.removeItem("email");
+    localStorage.removeItem("id");
   }
 
   public isLoggedIn() {
-    // TODO test
     return localStorage.getItem("id_token") != null;
   }
 
   isLoggedOut() {
       return !this.isLoggedIn();
-  }
-
-  register(email: string, name: string, password: string) {
-    return this.http.post(beAddress + 'api/users', {email: email, name: name, password: password});
   }
 }

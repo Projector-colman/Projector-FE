@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Issue } from '../interfaces/issue';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { beAddress } from '../environment';
 
 @Injectable({
   providedIn: 'root',
 })
-export class issuesService {
-  constructor(private http: HttpClient) {}
+export class IssuesService {
+  constructor(private httpClient: HttpClient) {}
 
   updateIssue(issue: Issue): Observable<string> {
     // return this.http
@@ -22,6 +22,32 @@ export class issuesService {
   }
 
   getIssues(filters): Observable<any> {
-    return this.http.get(beAddress + 'api/issues', filters);
+    let params = new HttpParams();
+    const keys = Object.keys(filters);
+    
+    keys.forEach(key => {
+      params.set(key, filters[key]);  
+    });
+
+    return this.httpClient.get(beAddress + 'api/issues', {params: params});
+  }
+
+  getEpics(filters) {
+    let params = new HttpParams();
+    const keys = Object.keys(filters);
+    
+    keys.forEach(key => {
+      params.set(key, filters[key]);  
+    });
+
+    return this.httpClient.get(beAddress + 'api/epics', {params: params});
+  }
+
+  createStory(issueData) {
+    return this.httpClient.post(beAddress + 'api/issues', issueData);
+  }
+
+  createEpic(issueData) {
+    return this.httpClient.post(beAddress + 'api/epics', issueData);
   }
 }

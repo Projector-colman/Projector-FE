@@ -15,7 +15,7 @@ export class MyProjectsComponent implements OnInit {
 
   ngOnInit(): void {
     this.sidenavUpdateService.changeMessage('projects');
-    this.myProjects = this.projectsService.getProjectsNew();
+    this.myProjects = this.projectsService.getAllProjects();
   }
 
   drop(event: CdkDragDrop<string[]>) {

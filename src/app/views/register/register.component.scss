@@ -1,7 +1,8 @@
 h2, label , button{
     margin-left: 10vh;
 }
-.form-style-2{
+.form-style-2 {
+	margin-left: 80vh;
 	max-width: 500px;
 	padding: 20px 12px 10px 20px;
 	font: 13px Arial, Helvetica, sans-serif;
@@ -81,6 +82,21 @@ h2, label , button{
 	color: #fff;
 }
 
+button {
+	background-color: rgb(242, 102, 116);
+	border: none;
+	outline: none;
+	border-radius: 3px;
+	color: white;
+	padding: 3px;
+	font-size: 18px;
+  }
+  
+  button:hover:enabled {
+	opacity: 0.8;
+	cursor: pointer;
+  }
+  
 .hidden {
 	opacity: 0%;
 }

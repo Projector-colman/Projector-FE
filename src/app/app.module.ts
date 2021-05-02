@@ -45,6 +45,7 @@ import { filterByProjectId } from './pipes/filter-by-project-id.pipe';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 import { AuthInterceptor } from '../app/interceptors/auth.interceptor';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -95,6 +96,7 @@ import { AuthInterceptor } from '../app/interceptors/auth.interceptor';
     DragDropModule,
     NgApexchartsModule,
     HttpClientModule,
+    MatProgressSpinnerModule,
     RouterModule.forRoot(
       routes,
       { enableTracing: true, // for debugging
