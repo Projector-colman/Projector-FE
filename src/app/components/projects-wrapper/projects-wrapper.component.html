@@ -5,19 +5,19 @@
 
             <a id="projects" md-list mat-list-item [routerLink]="['/projects', currentProject]">
                 <mat-icon mat-list-icon >calendar_view_week</mat-icon>
-                <p matLine *ngIf="isExpanded">sprint</p></a>
+                <p matLine *ngIf="isExpanded">Sprint</p></a>
 
             <a id="backlog" mat-list-item [routerLink]="['/projects', currentProject, 'backlog']">
                 <mat-icon mat-list-icon>line_weight</mat-icon>
-                <p matLine *ngIf="isExpanded" >backlog</p></a>
+                <p matLine *ngIf="isExpanded">Backlog</p></a>
 
-            <a mat-list-item>
+            <a mat-list-item [routerLink]="['/projects', currentProject, 'reports']">
                 <mat-icon mat-list-icon>trending_up</mat-icon>
-                <p matLine *ngIf="isExpanded">trending</p></a>
+                <p matLine *ngIf="isExpanded">Reports</p></a>
 
-            <a mat-list-item>
-                <mat-icon mat-list-icon>drafts</mat-icon>
-                <p matLine *ngIf="isExpanded">Drafts</p></a>
+            <a mat-list-item [routerLink]="['/projects', currentProject, 'lead']">
+                <mat-icon mat-list-icon>manage_accounts</mat-icon>
+                <p matLine *ngIf="isExpanded">Lead View</p></a>
 
             <a md-list mat-list-item (click)="expand()">
                 <mat-icon mat-list-icon>compare_arrows</mat-icon></a>

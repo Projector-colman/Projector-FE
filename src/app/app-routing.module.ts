@@ -11,6 +11,8 @@ import {
 } from './services/auth-guard.service';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
+import { LeadViewComponent } from './views/lead-view/lead-view.component';
+import { ReportsComponent } from './views/reports/reports.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -25,6 +27,8 @@ export const routes: Routes = [
       children: [
         { path: '', component: ProjectBoardComponent },
         { path: 'backlog', component: BacklogComponent },
+        { path: 'reports', component: ReportsComponent },
+        { path: 'lead', component: LeadViewComponent },
       ],
     }
   ]}

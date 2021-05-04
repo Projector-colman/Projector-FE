@@ -40,7 +40,9 @@
   </label>
 
   <!-- Story Points -->
-  <label><span>Story Points: <span class="required">*</span></span><input type="text" class="input-field" formControlName="storyPoints" value="0" /></label>
+  <label *ngIf='this.selectedIssueType === "Story"'>
+    <span>Story Points: <span class="required">*</span></span><input type="text" class="input-field" formControlName="storyPoints" value="" />
+  </label>
 
   <!-- Assignee -->
   <label><span>Assignee: </span>
@@ -50,7 +52,7 @@
   </label>
 
   <!-- Epic Link -->
-  <label><span>Epic Link: <span class="required">*</span></span>
+  <label *ngIf='this.selectedIssueType === "Story"'><span>Epic Link: <span class="required">*</span></span>
     <select class="select-field" (change)="changeEpic($event)" formControlName="epicLink">
       <option *ngFor="let epic of projectEpics | async" [ngValue]="epic.id">{{ epic.name }}</option>
    </select>

@@ -37,7 +37,7 @@ export class IssuesService {
     const keys = Object.keys(filters);
     
     keys.forEach(key => {
-      params.set(key, filters[key]);  
+      params = params.append(key, filters[key]);  
     });
 
     return this.httpClient.get(beAddress + 'api/epics', {params: params});

@@ -1,9 +1,10 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { Project } from 'src/app/interfaces/project';
 import { SidenavUpdateService } from 'src/app/services/sidenav-update.service';
 import { IssuesService } from '../../services/issues.service';
-import { Issue } from '../../interfaces/issue';
+import { ProjectsService } from '../../services/projects.service';
 
 @Component({
   selector: 'app-project-board',
@@ -11,27 +12,51 @@ import { Issue } from '../../interfaces/issue';
   styleUrls: ['./project-board.component.scss']
 })
 export class ProjectBoardComponent implements OnInit {
-
+  project: Project = {};
   filters = ['My Issues', 'In Progress'];
   taskTitles;
 
   tasksHolder;
 
-  constructor(public router: Router, private sidenavUpdateService: SidenavUpdateService, private issuesService: IssuesService) { }
+  constructor(public router: Router, 
+              private sidenavUpdateService: SidenavUpdateService, 
+              private issuesService: IssuesService,
+              public projectsService: ProjectsService) { }
 
   ngOnInit(): void {
     // Hack for keeping sidenav state active to light up which item we're on if refreshed
     this.sidenavUpdateService.changeMessage('projects');
     this.sidenavUpdateService.changeProject(this.router.url.split('/')[2]);
+    this.sidenavUpdateService.currentProject.subscribe(name => this.project.projectName = name);
 
-    this.tasksHolder = {Todo: [], inProgress:[] ,Done: []};
+    this.projectsService.getProject({name: this.project.projectName}).subscribe((proj: Project[]) => {
+      this.project.key = proj[0].key;
+    });
+    
+    this.tasksHolder = {Todo: [], inProgress: [], Verify: [] ,Done: []};
     this.issuesService.getIssues({}).subscribe((issues: any[]) => {
       issues.forEach(issue => {
-        if(issue.status === "to-do") {
-          this.tasksHolder.Todo.push(issue.description);
-        }
-        if(issue.status === "in-progress") {
-          this.tasksHolder.inProgress.push(issue.description);
+        switch (issue.status) {
+          case "to-do" : {
+            this.tasksHolder.Todo.push(issue);
+            break;
+          }
+          case "in-progress" : {
+            this.tasksHolder.inProgress.push(issue);
+            break;
+          }
+          case "verify" : {
+            this.tasksHolder.Verify.push(issue);
+            break;
+          }
+          case "done" : {
+            this.tasksHolder.Done.push(issue);
+            break;
+          }
+          default: {
+            console.error('Unfamiliar issue status');
+            break;
+          }
         }
       });
     });

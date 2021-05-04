@@ -11,6 +11,7 @@ export class MainIssueComponent implements OnInit {
   @Input() status: string;
   @Input() time: string;
   @Input() assignee: string;
+  @Input() projectKey: string | 'prj';
   constructor() { }
 
   ngOnInit(): void {

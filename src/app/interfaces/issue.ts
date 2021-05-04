@@ -11,7 +11,7 @@ export interface Issue {
   name: string;
   description: string;
   reporter: User;
-  assignee: User;
+  asignee: User;
   priority: number;
   epikLink: string;
   status: IssueStatus;

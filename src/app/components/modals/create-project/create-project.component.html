@@ -1,8 +1,11 @@
 <div class="form-style-2">
     <div class="form-style-2-heading">Create Project</div>
     <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+
         <label><span>Name: <span class="required">*</span></span><input type="text" class="input-field" formControlName="name" value="" /></label>
         <label><div class="error" *ngIf="isNameTaken">* Project Name Taken</div></label>
+
+        <label><span>Project Key: <span class="required">*</span></span><input type="text" class="input-field" formControlName="key" value="" /></label>
 
         <button type="submit" [disabled]="projectForm.invalid">Create</button>
     </form>

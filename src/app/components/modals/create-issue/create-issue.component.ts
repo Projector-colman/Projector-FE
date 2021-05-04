@@ -3,6 +3,7 @@ import { ProjectsService } from '../../../services/projects.service';
 import { IssuesService } from '../../../services/issues.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Project } from 'src/app/interfaces/project';
 
 @Component({
   selector: 'app-create-issue',
@@ -21,7 +22,7 @@ export class CreateIssueComponent implements OnInit {
   issueTypes = ['Story', 'Epic'];
   priorityTypes = ['lowest', 'low', 'medium', 'high', 'highest'];
 
-  selectedProject;
+  selectedProject: Project;
   selectedIssueType = this.issueTypes[0];
   selectedPriority;
   selectedAssignee;
@@ -41,7 +42,7 @@ export class CreateIssueComponent implements OnInit {
       reporter: [''],
       description: [''],
       priority: this.selectedPriority,
-      storyPoints: [0],
+      storyPoints: [0, Validators.min(1)],
       assignee: [''],
       epicLink: this.selectedEpic
     });
@@ -54,8 +55,14 @@ export class CreateIssueComponent implements OnInit {
 
   changeProject(e) {
     // extract proper project name from event
-    this.selectedProject = +e.target.value.substring(e.target.value.indexOf(' ') + 1);
-    this.projectUsers = this.projectService.getProjectUsers(this.selectedProject);
+    const projID = e.target.value.substring(e.target.value.indexOf(' ') + 1);
+
+    this.projectService.getProject({id: projID}).subscribe(proj => {
+      this.selectedProject = proj;
+    });
+
+    //this.selectedProject = +e.target.value.substring(e.target.value.indexOf(' ') + 1);
+    this.projectUsers = this.projectService.getProjectUsers(projID);
     this.projectEpics = this.issuesService.getEpics({});
   }
 

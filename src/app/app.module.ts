@@ -46,6 +46,8 @@ import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 import { AuthInterceptor } from '../app/interceptors/auth.interceptor';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ReportsComponent } from './views/reports/reports.component';
+import { LeadViewComponent } from './views/lead-view/lead-view.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +73,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     filterByProjectId,
     LoginComponent,
     RegisterComponent,
+    ReportsComponent,
+    LeadViewComponent,
   ],
   imports: [
     MatCardModule,

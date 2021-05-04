@@ -5,13 +5,21 @@
 <div cdkDropListGroup class="main-container">
     <div class="tasks-container" *ngFor="let title of taskTitles">
       <h2>{{title}}</h2>
-  
       <div
         cdkDropList
         [cdkDropListData]="this.tasksHolder[title]"
         class="tasks-list"
         (cdkDropListDropped)="drop($event)">
-        <div *ngFor="let item of this.tasksHolder[title]" cdkDrag><app-main-issue id="PRJ-1" desc="{{item}}" status="G" time="9h" assignee="mr.something"></app-main-issue></div>
-      </div>
+        <ng-container *ngIf="this.project.key">
+          <div *ngFor="let item of this.tasksHolder[title]" cdkDrag>
+            <app-main-issue id="{{item.id}}" 
+                            desc="{{item.description}}" 
+                            status="{{item.status}}" 
+                            time="{{item.storyPoints}}" 
+                            assignee="{{item.asignee}}"
+                            projectKey="{{this.project.key}}">
+            </app-main-issue>
+          </div>
+      </ng-container>
     </div>
   </div>
