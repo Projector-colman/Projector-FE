@@ -1,0 +1,25 @@
+.container {
+    display:flex;
+    flex-direction: column;
+    width: fit-content;
+    box-shadow: -2px 2px 4px 1px rgb(204, 204, 204);
+  }
+  
+.header {
+    height: 52px;
+    background-color: #f26674;
+    color: white;
+    text-align: center;
+    width: auto;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    }
+
+#chart {
+    align-self: center;
+    max-width: 380px;
+    margin: 35px auto;
+    padding: 0;
+  }
+  

@@ -48,6 +48,7 @@ import { AuthInterceptor } from '../app/interceptors/auth.interceptor';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ReportsComponent } from './views/reports/reports.component';
 import { LeadViewComponent } from './views/lead-view/lead-view.component';
+import { IssuesByStatusChartComponent } from './components/issues-by-status-chart/issues-by-status-chart.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +76,7 @@ import { LeadViewComponent } from './views/lead-view/lead-view.component';
     RegisterComponent,
     ReportsComponent,
     LeadViewComponent,
+    IssuesByStatusChartComponent,
   ],
   imports: [
     MatCardModule,
