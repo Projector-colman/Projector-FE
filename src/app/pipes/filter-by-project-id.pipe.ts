@@ -2,13 +2,11 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Comment } from '../interfaces/comment';
 
 @Pipe({
-  name: 'filterByProjectId',
+  name: 'filterByIssueId',
   pure: false,
 })
-export class filterByProjectId implements PipeTransform {
-  transform(currProjectComments: Comment[], projectId: string): Comment[] {
-    return currProjectComments.filter(
-      (comment: Comment) => comment.projectId === projectId
-    );
+export class filterByIssueId implements PipeTransform {
+  transform(comments: Comment[], issueId: number): Comment[] {
+    return comments.filter((comment: Comment) => comment.issue === issueId);
   }
 }

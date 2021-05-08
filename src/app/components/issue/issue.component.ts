@@ -5,7 +5,6 @@ import { IssueStatus } from 'src/app/enum/issueStatus.enum';
 import { Issue } from 'src/app/interfaces/issue';
 import { CommentsService } from 'src/app/services/comments.service';
 import { UsersService } from 'src/app/services/users.service';
-import { filterByProjectId } from '../../pipes/filter-by-project-id.pipe';
 
 @Component({
   selector: 'app-issue',
@@ -16,7 +15,7 @@ export class IssueComponent implements OnInit {
   @Input() issue: Issue;
   @Output() closeIssueEmitter: EventEmitter<void>;
   addNewComment: boolean;
-  currProjectComments: Comment[];
+  comments: Comment[];
   constructor(
     public commentsService: CommentsService,
     private userService: UsersService
@@ -26,7 +25,7 @@ export class IssueComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.currProjectComments = this.commentsService.comments;
+    this.comments = this.commentsService.comments;
   }
 
   public get issuesLocation(): typeof IssueLocation {
@@ -49,7 +48,7 @@ export class IssueComponent implements OnInit {
         return 'Done';
       }
       case IssueStatus.None: {
-        switch (this.issue.location) {
+        switch (this.issue.sprint) {
           case IssueLocation.CurrentSprint: {
             return '';
           }
@@ -69,10 +68,10 @@ export class IssueComponent implements OnInit {
 
   addComment(): Comment {
     let newComment: Comment = {
-      projectId: this.issue.projectId,
-      reporter: this.userService.getCurrConnectedUser(),
-      date: new Date(),
-      content: '',
+      writer: this.userService.getCurrConnectedUser().id,
+      time: new Date(),
+      description: '',
+      issue: this.issue.id,
     };
     this.addNewComment = true;
     return newComment;

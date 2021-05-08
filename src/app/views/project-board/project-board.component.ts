@@ -1,4 +1,8 @@
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem,
+} from '@angular/cdk/drag-drop';
 import { Component, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Project } from 'src/app/interfaces/project';
@@ -9,19 +13,21 @@ import { ProjectsService } from '../../services/projects.service';
 @Component({
   selector: 'app-project-board',
   templateUrl: './project-board.component.html',
-  styleUrls: ['./project-board.component.scss']
+  styleUrls: ['./project-board.component.scss'],
 })
 export class ProjectBoardComponent implements OnInit {
-  project: Project = {};
+  project: Project;
   filters = ['My Issues', 'In Progress'];
 
   taskTitles;
   tasksHolder;
 
-  constructor(public router: Router, 
-              private sidenavUpdateService: SidenavUpdateService, 
-              private issuesService: IssuesService,
-              public projectsService: ProjectsService) { }
+  constructor(
+    public router: Router,
+    private sidenavUpdateService: SidenavUpdateService,
+    private issuesService: IssuesService,
+    public projectsService: ProjectsService
+  ) {}
 
   ngOnInit(): void {
     // Hack for keeping sidenav state active to light up which item we're on if refreshed
@@ -67,13 +73,18 @@ export class ProjectBoardComponent implements OnInit {
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
     } else {
-      transferArrayItem(event.previousContainer.data,
-                        event.container.data,
-                        event.previousIndex,
-                        event.currentIndex);
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
     }
   }
-
 }

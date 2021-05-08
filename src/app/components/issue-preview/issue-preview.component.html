@@ -1,11 +1,11 @@
 <div class="issue">
   <div class="left-info">
     <i class="far fa-bookmark icon"></i>
-    <span class="header">PRJ-{{issue.number}}</span>
+    <span class="header">PRJ-{{issue.id}}</span>
     <span class="name">{{issue.name}}</span>
   </div>
   <div class="right-info">
-    <span class="time">{{issue.time.number}}{{issue.time.type}}</span>
-    <img class="user-image" src="{{issue.asignee.imageSrc}}">
+    <span class="time">{{issue.storyPoints}}</span>
+    <img class="user-image" [src]="getUserImage()">
   </div>
 </div>

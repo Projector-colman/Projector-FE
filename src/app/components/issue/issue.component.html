@@ -1,12 +1,12 @@
 <div class="issue">
   <i class="fas fa-times exit-icon" (click)="closeIssue()"></i>
-  <div class="header">PRJ-{{issue.number}}<i class="far fa-bookmark prj-icon"></i></div>
+  <div class="header">PRJ-{{issue.id}}<i class="far fa-bookmark prj-icon"></i></div>
   <span class="time-info">
     <span class="status">{{issuesStatus}}</span>
-    <span class="time">{{issue.time.number}}{{issue.time.type}}</span>
+    <span class="time">{{issue.storyPoints}}</span>
   </span>
   <span class="name">{{issue.name}}</span>
-  <app-button class="epikLink" [header]="issue.epikLink"></app-button>
+  <app-button class="epikLink" [header]="issue.epic"></app-button>
   <span class="block">Blocked by:</span>
   <span class="block">Blocking:</span>
   <div class="comment-header">
@@ -15,7 +15,7 @@
   </div>
   <app-comment class="comment" *ngIf="addNewComment" [newComment]="true" [comment]="addComment()"
     (closeNewCommentEmitter)="cancleNewComment()"></app-comment>
-  <app-comment class="comment"
-    *ngFor="let comment of currProjectComments.reverse() | filterByProjectId: issue.projectId" [comment]="comment">
+  <app-comment class="comment" *ngFor="let comment of comments.reverse() | filterByIssueId: issue.id"
+    [comment]="comment">
   </app-comment>
 </div>

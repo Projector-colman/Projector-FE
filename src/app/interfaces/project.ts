@@ -6,7 +6,7 @@ export interface Project {
   projectName?: string;
   projectIcon?: string;
   owner?: User;
+  icon?: string;
   color?: string;
-  issues?: Issue[];
-  key?: string;
+  key: string;
 }

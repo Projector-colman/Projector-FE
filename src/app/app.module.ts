@@ -33,7 +33,7 @@ import { ProjectBoardComponent } from './views/project-board/project-board.compo
 import { IssuesBacklogComponent } from './components/issues-backlog/issues-backlog.component';
 import { IssuePreviewComponent } from './components/issue-preview/issue-preview.component';
 import { ButtonComponent } from './components/button/button.component';
-import { SprintGraphComponent } from './components/sprint-graph/sprint-graph.component';
+import { SprintGraphComponent } from './components/charts/sprint-graphs/sprint-graph/sprint-graph.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { AssignedToMeComponent } from './components/assigned-to-me/assigned-to-me.component';
 import { MainIssueComponent } from './components/main-issue/main-issue.component';
@@ -41,13 +41,17 @@ import { CreateProjectComponent } from './components/modals/create-project/creat
 import { ProjectsCardComponent } from './components/projects-card/projects-card.component';
 import { IssueComponent } from './components/issue/issue.component';
 import { CommentComponent } from './components/comment/comment.component';
-import { filterByProjectId } from './pipes/filter-by-project-id.pipe';
+import { filterByIssueId } from './pipes/filter-by-project-id.pipe';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 import { AuthInterceptor } from '../app/interceptors/auth.interceptor';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ReportsComponent } from './views/reports/reports.component';
 import { LeadViewComponent } from './views/lead-view/lead-view.component';
+import { IssuesByStatusChartComponent } from './components/charts/issues-by-status-chart/issues-by-status-chart.component';
+import { SprintGraphSelectUserComponent } from './components/charts/sprint-graphs/sprint-graph-select-user.component';
+import { SprintGraphSelectProjectComponent } from './components/charts/sprint-graphs/sprint-graph-select-project.component';
+import { SprintGraphCurrentUserComponent } from './components/charts/sprint-graphs/sprint-graph-current-user.component';
 
 @NgModule({
   declarations: [
@@ -70,11 +74,15 @@ import { LeadViewComponent } from './views/lead-view/lead-view.component';
     ProjectsCardComponent,
     IssueComponent,
     CommentComponent,
-    filterByProjectId,
+    filterByIssueId,
     LoginComponent,
     RegisterComponent,
     ReportsComponent,
     LeadViewComponent,
+    IssuesByStatusChartComponent,
+    SprintGraphSelectUserComponent,
+    SprintGraphSelectProjectComponent,
+    SprintGraphCurrentUserComponent,
   ],
   imports: [
     MatCardModule,
@@ -101,18 +109,17 @@ import { LeadViewComponent } from './views/lead-view/lead-view.component';
     NgApexchartsModule,
     HttpClientModule,
     MatProgressSpinnerModule,
-    RouterModule.forRoot(
-      routes,
-      { enableTracing: true, // for debugging
-        onSameUrlNavigation: 'reload'} 
-    ),
+    RouterModule.forRoot(routes, {
+      enableTracing: true, // for debugging
+      onSameUrlNavigation: 'reload',
+    }),
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
-      multi: true
-    }
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })

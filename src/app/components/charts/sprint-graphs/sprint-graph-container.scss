@@ -1,0 +1,40 @@
+.container {
+    display:flex;
+    flex-direction: column;
+    box-shadow: -2px 2px 4px 1px rgb(204, 204, 204);
+  }
+  
+  .header {
+    height: 52px;
+    background-color: #f26674;
+    color: white;
+    text-align: center;
+    width: auto;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .title {
+    width: -webkit-fill-available;
+  }
+
+  .chart {
+      align-self: center;
+      width: 680px;
+  }
+  
+  .mat-select {
+    width: 200px;
+    -webkit-text-fill-color: white;
+    font-weight: 500;
+    text-align: end;
+  }
+  
+  ::ng-deep .mat-select-arrow {
+    visibility: hidden;
+  }
+  
+  .hidden {
+    visibility: hidden;
+  }

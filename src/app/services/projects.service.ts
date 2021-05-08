@@ -12,9 +12,10 @@ import { beAddress } from '../environment';
 export class ProjectsService {
   projects: Project[];
 
-  constructor(private usersService: UsersService,
-              private httpClient: HttpClient) {
-  }
+  constructor(
+    private usersService: UsersService,
+    private httpClient: HttpClient
+  ) {}
 
   getProjects(): Observable<Project[]> {
     return new Observable<Project[]>((subscriber) =>
@@ -35,15 +36,15 @@ export class ProjectsService {
     return this.httpClient.post(beAddress + 'api/projects', {name: name, key: key});
   }
 
-  getProject(filters: any) {
+  getProject(filters: any): Observable<any> {
     let params = new HttpParams();
     const keys = Object.keys(filters);
 
-    keys.forEach(key => {
-      params = params.append(key, filters[key]);  
+    keys.forEach((key) => {
+      params = params.append(key, filters[key]);
     });
 
-    return this.httpClient.get(beAddress + 'api/projects', {params: params});
+    return this.httpClient.get(beAddress + 'api/projects', { params: params });
   }
 
   getProjectUsers(id: number) {

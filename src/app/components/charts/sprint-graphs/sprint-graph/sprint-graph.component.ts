@@ -1,4 +1,3 @@
-import { AutofillMonitor } from "@angular/cdk/text-field";
 import { Component, ViewChild } from "@angular/core";
 
 import {
@@ -20,6 +19,7 @@ export type ChartOptions = {
   grid: ApexGrid;
   stroke: ApexStroke;
   title: ApexTitleSubtitle;
+  responsive: any;
 };
 
 @Component({
@@ -50,6 +50,19 @@ export class SprintGraphComponent {
           enabled: false
         }
       },
+      responsive: [
+        {
+          breakpoint: 1300,
+          options: {
+            chart: {
+              height: 300
+            },
+            legend: {
+              position: "bottom"
+            }
+          }
+        }
+      ],
       dataLabels: {
         enabled: false
       },
