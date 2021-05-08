@@ -32,8 +32,8 @@ export class ProjectsService {
     return this.httpClient.get(beAddress + 'api/projects/owner');
   }
 
-  createProject(name: string) {
-    return this.httpClient.post(beAddress + 'api/projects', { name: name });
+  createProject(name: string, key: string) {
+    return this.httpClient.post(beAddress + 'api/projects', {name: name, key: key});
   }
 
   getProject(filters: any): Observable<any> {

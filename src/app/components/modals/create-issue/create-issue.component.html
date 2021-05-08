@@ -18,7 +18,10 @@
   </label>
 
   <!-- Name -->
-  <label><span>Name: <span class="required">*</span></span><input type="text" class="input-field" formControlName="name" value="" /></label>
+  <label><span>Name: <span class="required">*</span></span>
+    <input type="text" class="input-field" formControlName="name" value="" />
+    <div *ngIf="!this.isFormValid && this.errorTypes.reporter" class="error">Please enter a name between 2 to 255</div>
+  </label> 
 
   <!-- Reporter -->
   <label *ngIf='this.selectedIssueType === "Story"'>
@@ -26,35 +29,47 @@
       <select class="select-field" (change)="changeAssignee($event)" formControlName="reporter">
         <option *ngFor="let user of projectUsers | async" [ngValue]="user.id">{{ user.name }}</option>
     </select>
+    <div *ngIf="!this.isFormValid && this.errorTypes.reporter" class="error">Please pick a reporter</div>
   </label>
 
   <!-- Description -->
-  <label><span>Description: </span><textarea formControlName="description" class="textarea-field"></textarea></label>
+  <label><span>Description: <span class="required">*</span></span><textarea formControlName="description" class="textarea-field"></textarea></label>
   
   <!-- Priority -->
   <label *ngIf='this.selectedIssueType === "Story"'>
-    <span>Priority: <span class="required">*</span></span>
+    <span>Priority: <span class="required">*</span></span> 
       <select class="select-field" (change)="changePriority($event)" formControlName="priority">
-        <option *ngFor="let priority of priorityTypes" [ngValue]="priority">{{ priority }}</option>
+        <option *ngFor="let priority of priorityTypes" [ngValue]="priority.id">{{ priority.name }}</option>
     </select>
+    <div *ngIf="!this.isFormValid && this.errorTypes.priority" class="error">Please pick a priority</div>
   </label>
 
   <!-- Story Points -->
   <label *ngIf='this.selectedIssueType === "Story"'>
-    <span>Story Points: <span class="required">*</span></span><input type="text" class="input-field" formControlName="storyPoints" value="" />
+    <span>Story Points: <span class="required">*</span></span><input type="text" class="input-field" formControlName="storyPoints" value="" /> <div *ngIf="!this.isFormValid && this.errorTypes.storyPoints" class="error">Please enter a number greater than 0</div>
   </label>
+  
 
   <!-- Assignee -->
   <label><span>Assignee: </span>
     <select class="select-field" (change)="changeAssignee($event)" formControlName="assignee">
       <option *ngFor="let user of projectUsers | async" [ngValue]="user.id">{{ user.name }}</option>
    </select>
+   <div *ngIf="!this.isFormValid && this.errorTypes.assignee" class="error">Please pick an assignee</div>
   </label>
 
   <!-- Epic Link -->
   <label *ngIf='this.selectedIssueType === "Story"'><span>Epic Link: <span class="required">*</span></span>
     <select class="select-field" (change)="changeEpic($event)" formControlName="epicLink">
       <option *ngFor="let epic of projectEpics | async" [ngValue]="epic.id">{{ epic.name }}</option>
+   </select>
+   <div *ngIf="!this.isFormValid && this.errorTypes.epic" class="error">Please pick an epic</div>
+  </label>
+
+  <!-- Blocked By-->
+  <label *ngIf='this.selectedIssueType === "Story"'><span>Blocked By: </span>
+    <select class="select-field" (change)="changeBlocked($event)" formControlName="blockedBy">
+      <option *ngFor="let issue of projectIssues | async" [ngValue]="issue.id">{{ issue.name }}</option>
    </select>
   </label>
 

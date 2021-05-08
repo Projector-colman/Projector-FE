@@ -1,6 +1,6 @@
 <h1 class="title">My Projects: </h1>
 <div class="container">
     <ng-container *ngFor="let project of myProjects | async">
-        <app-projects-card class="card" projectName={{project.name}}></app-projects-card>
+        <app-projects-card class="card" projectName={{project.name}} projectId={{project.id}}></app-projects-card>
     </ng-container>
 </div>
