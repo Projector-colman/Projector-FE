@@ -30,6 +30,8 @@ export class CreateIssueComponent implements OnInit {
   selectedEpic;
   selectedBlockedIssue = undefined;
 
+  errorTypes = {storyPoints : false, priority : false, epic : false, reporter: false, assignee: false};
+
   constructor(private projectService: ProjectsService,
               private issuesService: IssuesService,
               private formBuilder: FormBuilder,
@@ -40,7 +42,7 @@ export class CreateIssueComponent implements OnInit {
     this.issueForm = this.formBuilder.group({
       project: [this.selectedProject, Validators.required],
       issueType: [this.selectedIssueType, Validators.required],
-      name: ['', Validators.required],
+      name: ['', Validators.required, Validators.minLength(2), Validators.maxLength(255)],
       reporter: [''],
       description: ['', Validators.required],
       priority: this.selectedPriority,
@@ -98,6 +100,7 @@ export class CreateIssueComponent implements OnInit {
   onSubmit() {
     this.isFormValid = true;
     this.submitted = true;
+    this.resetErrors();
 
     if (this.issueForm.invalid) {
       this.isFormValid = false;
@@ -105,10 +108,27 @@ export class CreateIssueComponent implements OnInit {
     }
 
     if (this.selectedIssueType === "Story") {
-      if (!this.f.priority.value || !this.f.epicLink.value || +this.f.storyPoints.value <= 0 || !this.f.reporter.value) {
+      if (!this.f.priority.value) {
         this.isFormValid = false;
-        return;
+        this.errorTypes.priority = true;
       }
+      if (!this.f.epicLink.value) {
+        this.isFormValid = false;
+        this.errorTypes.epic = true;
+      }
+      if (+this.f.storyPoints.value <= 0) {
+        this.isFormValid = false;
+        this.errorTypes.storyPoints = true;
+      }
+      if(!this.f.reporter.value) {
+        this.isFormValid = false;
+        this.errorTypes.reporter = true;
+      }
+      if(!this.f.assignee.value) {
+        this.isFormValid = false;
+        this.errorTypes.assignee = true;
+      }
+
       const data = {
         name: this.f.name.value,
         epic: this.f.epicLink.value,
@@ -128,6 +148,7 @@ export class CreateIssueComponent implements OnInit {
         this.isFormValid = false;
         console.error(error)
       });
+      
     }
 
     if(this.selectedIssueType === "Epic") {
@@ -144,5 +165,12 @@ export class CreateIssueComponent implements OnInit {
         console.log('error in create epic')
       });
     }
+  }
+
+  resetErrors() {
+    let errors = Object.keys(this.errorTypes);
+    errors.forEach(error => {
+      this.errorTypes[error] = false;
+    })
   }
 }

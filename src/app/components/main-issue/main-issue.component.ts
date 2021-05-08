@@ -12,6 +12,7 @@ export class MainIssueComponent implements OnInit {
   @Input() time: string;
   @Input() assignee: string;
   @Input() projectKey: string | 'prj';
+  @Input() name: string;
   constructor() { }
 
   ngOnInit(): void {
