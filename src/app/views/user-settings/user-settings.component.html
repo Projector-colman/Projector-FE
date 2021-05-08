@@ -1,7 +1,7 @@
 <div class="settings-page">
   <div class="top-settings">
-    <div>{{user.fullName}}</div>
-    <img class="user-image" src='{{newImage ? newImage : user.imageSrc}}'>
+    <div>{{user.name}}</div>
+    <img class="user-image" src='{{newImage ? newImage : user.image}}'>
     <label class="imageUploader">
       <i class="fas fa-pencil-alt edit-icon"></i>
       <input type="file" accept="image/*" (change)="loadFile($event)">
@@ -11,7 +11,7 @@
     <form class="edit-form" [formGroup]="userEditForm">
       <div class="username">
         <div>Username</div>
-        <input id="userName" formControlName="userName" class="field" required />
+        <input id="name" formControlName="name" class="field" required />
       </div>
       <div class="email">
         <div>Email</div>
@@ -31,10 +31,9 @@
       <div class="projectBtns">
         <button class="projectBtn" *ngFor="let project of getProjectsOfCurrUser()">
           <i class="fas fa-camera-retro" [ngStyle]="{'color': project.color}"></i><span
-            class="btnText">{{project.projectName}}</span></button>
+            class="btnText">{{project.name}}</span></button>
       </div>
     </div>
   </div>
   <button mat-button (click)="logout()">Logout</button>
 </div>
-
