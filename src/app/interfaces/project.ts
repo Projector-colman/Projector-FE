@@ -8,5 +8,5 @@ export interface Project {
   owner?: User;
   icon?: string;
   color?: string;
-  key: string;
+  key?: string;
 }

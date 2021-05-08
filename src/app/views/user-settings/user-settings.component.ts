@@ -49,7 +49,7 @@ export class UserSettingsComponent implements OnInit {
 
   getProjectsOfCurrUser(): Project[] {
     return this.projectService.projects.filter(
-      (project: Project) => project.owner == this.user.id
+      (project: Project) => true
     );
   }
 

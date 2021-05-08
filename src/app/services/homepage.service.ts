@@ -10,6 +10,7 @@ import { beAddress } from '../environment';
 export class HomepageService {
   constructor(private projectsService: ProjectsService, private usersService: UsersService, private http: HttpClient) { }
   getCurrentUserAssignedIssues() {
-    return this.http.get(beAddress + 'api/issues');
+    let userId = localStorage.getItem('id')
+    return this.http.get(beAddress + `api/users/${userId}/issues/assignee`);
   }
 }

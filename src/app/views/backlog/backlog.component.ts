@@ -33,7 +33,7 @@ export class BacklogComponent implements OnInit {
     this.sidenavUpdateService.changeProject(this.projectName);
     this.projectsService.getProjects().subscribe((projects: Project[]) => {
       this.currProject = projects.find(
-        (project: Project) => project.name == this.projectName
+        (project: Project) => project.projectName == this.projectName
       );
     });
   }

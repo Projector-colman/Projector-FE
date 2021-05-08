@@ -2,7 +2,7 @@
     <div class='header'>Assigned To Me</div>
     <div class='issues'>
         <div *ngFor="let issue of assignedIssues">
-            <app-main-issue id="PRJ-1" desc="{{issue.description}}" status="{{issue.status}}" time="9h" assignee="{{issue.asignee}}"></app-main-issue>
+            <app-main-issue id="{{issue.id}}" projectKey="PRJ" name="{{issue.name}}" desc="{{issue.description}}" status="{{issue.status}}" time="9h" assignee="{{issue.asignee}}"></app-main-issue>
         </div>
     </div>
 </div>

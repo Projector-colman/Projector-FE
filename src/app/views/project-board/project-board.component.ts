@@ -16,7 +16,7 @@ import { ProjectsService } from '../../services/projects.service';
   styleUrls: ['./project-board.component.scss'],
 })
 export class ProjectBoardComponent implements OnInit {
-  project: Project;
+  project: Project = {};
   filters = ['My Issues', 'In Progress'];
 
   taskTitles;
