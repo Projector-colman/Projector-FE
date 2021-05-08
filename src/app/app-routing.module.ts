@@ -21,6 +21,8 @@ export const routes: Routes = [
     { path: '', component: MainPageComponent },
     { path: 'user-settings/:id', component: UserSettingsComponent },
     { path: 'projects', component: MyProjectsComponent },
+    // remove
+    { path: 'reports', component: ReportsComponent },
     {
       path: 'projects/:name',
       component: ProjectsWrapperComponent,
