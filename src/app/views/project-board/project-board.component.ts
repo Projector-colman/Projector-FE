@@ -14,8 +14,8 @@ import { ProjectsService } from '../../services/projects.service';
 export class ProjectBoardComponent implements OnInit {
   project: Project = {};
   filters = ['My Issues', 'In Progress'];
-  taskTitles;
 
+  taskTitles;
   tasksHolder;
 
   constructor(public router: Router, 
@@ -27,40 +27,42 @@ export class ProjectBoardComponent implements OnInit {
     // Hack for keeping sidenav state active to light up which item we're on if refreshed
     this.sidenavUpdateService.changeMessage('projects');
     this.sidenavUpdateService.changeProject(this.router.url.split('/')[2]);
-    this.sidenavUpdateService.currentProject.subscribe(name => this.project.projectName = name);
+    this.sidenavUpdateService.currentProject.subscribe(id => this.project.id = id);
 
-    this.projectsService.getProject({name: this.project.projectName}).subscribe((proj: Project[]) => {
-      this.project.key = proj[0].key;
-    });
-    
     this.tasksHolder = {Todo: [], inProgress: [], Verify: [] ,Done: []};
-    this.issuesService.getIssues({}).subscribe((issues: any[]) => {
-      issues.forEach(issue => {
-        switch (issue.status) {
-          case "to-do" : {
-            this.tasksHolder.Todo.push(issue);
-            break;
+    this.taskTitles = Object.keys(this.tasksHolder);
+
+    this.projectsService.getProject({id: this.project.id}).subscribe((proj: Project[]) => {
+      this.project.key = proj[0].key;
+      this.project.id = proj[0].id;
+
+      this.issuesService.getProjectIssues(this.project.id).subscribe((issues: any[]) => {
+        issues.forEach(issue => {
+          switch (issue.status) {
+            case "to-do" : {
+              this.tasksHolder.Todo.push(issue);
+              break;
+            }
+            case "in-progress" : {
+              this.tasksHolder.inProgress.push(issue);
+              break;
+            }
+            case "verify" : {
+              this.tasksHolder.Verify.push(issue);
+              break;
+            }
+            case "done" : {
+              this.tasksHolder.Done.push(issue);
+              break;
+            }
+            default: {
+              console.error('Unfamiliar issue status');
+              break;
+            }
           }
-          case "in-progress" : {
-            this.tasksHolder.inProgress.push(issue);
-            break;
-          }
-          case "verify" : {
-            this.tasksHolder.Verify.push(issue);
-            break;
-          }
-          case "done" : {
-            this.tasksHolder.Done.push(issue);
-            break;
-          }
-          default: {
-            console.error('Unfamiliar issue status');
-            break;
-          }
-        }
+        });
       });
     });
-    this.taskTitles = Object.keys(this.tasksHolder);
   }
 
   drop(event: CdkDragDrop<string[]>) {

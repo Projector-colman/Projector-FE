@@ -3,19 +3,19 @@
     <mat-sidenav #sidenav class="sidenav" mode="side" opened="true">
         <mat-nav-list class="dashboard">
 
-            <a id="projects" md-list mat-list-item [routerLink]="['/projects', currentProject]">
+            <a id="projects" md-list mat-list-item [routerLink]="['/projects', currentProjectId]">
                 <mat-icon mat-list-icon >calendar_view_week</mat-icon>
                 <p matLine *ngIf="isExpanded">Sprint</p></a>
 
-            <a id="backlog" mat-list-item [routerLink]="['/projects', currentProject, 'backlog']">
+            <a id="backlog" mat-list-item [routerLink]="['/projects', currentProjectId, 'backlog']">
                 <mat-icon mat-list-icon>line_weight</mat-icon>
                 <p matLine *ngIf="isExpanded">Backlog</p></a>
 
-            <a mat-list-item [routerLink]="['/projects', currentProject, 'reports']">
+            <a mat-list-item [routerLink]="['/projects', currentProjectId, 'reports']">
                 <mat-icon mat-list-icon>trending_up</mat-icon>
                 <p matLine *ngIf="isExpanded">Reports</p></a>
 
-            <a mat-list-item [routerLink]="['/projects', currentProject, 'lead']">
+            <a mat-list-item [routerLink]="['/projects', currentProjectId, 'lead']">
                 <mat-icon mat-list-icon>manage_accounts</mat-icon>
                 <p matLine *ngIf="isExpanded">Lead View</p></a>
 

@@ -20,12 +20,13 @@ export class CreateProjectComponent implements OnInit {
 
   ngOnInit(): void {
     this.projectForm = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.minLength(2)]]
+      name: ['', [Validators.required, Validators.minLength(2)]],
+      key: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(5)]]
     });
   }
 
   onSubmit() {
-    this.projectService.createProject(this.projectForm.value.name).subscribe(response => {
+    this.projectService.createProject(this.projectForm.value.name, this.projectForm.value.key).subscribe(response => {
       this.dialogRef.close();
       if(this.router.url == '/projects') {
         this.router.navigate(['/projects/' + this.projectForm.value.name]);

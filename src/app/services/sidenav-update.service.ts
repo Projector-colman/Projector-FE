@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 export class SidenavUpdateService {
 
   private messageSource = new BehaviorSubject('projects');
-  private projectSource = new BehaviorSubject('');
+  private projectSource = new BehaviorSubject(-1);
 
   currentMessage = this.messageSource.asObservable();
   currentProject = this.projectSource.asObservable();
@@ -21,6 +21,6 @@ export class SidenavUpdateService {
 
   // This functions tells the side nav which project is being watched
   changeProject(project: string) {
-    this.projectSource.next(project);
+    this.projectSource.next(+project);
   }
 }

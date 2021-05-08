@@ -32,6 +32,10 @@ export class IssuesService {
     return this.httpClient.get(beAddress + 'api/issues', {params: params});
   }
 
+  getProjectIssues(id: number): Observable<any> {
+    return this.httpClient.get(beAddress + `api/projects/${id}/issues`);
+  }
+
   getEpics(filters) {
     let params = new HttpParams();
     const keys = Object.keys(filters);

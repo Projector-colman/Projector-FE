@@ -29,13 +29,13 @@
   </label>
 
   <!-- Description -->
-  <label><span>Description: </span><textarea formControlName="description" class="textarea-field"></textarea></label>
+  <label><span>Description: <span class="required">*</span></span><textarea formControlName="description" class="textarea-field"></textarea></label>
   
   <!-- Priority -->
   <label *ngIf='this.selectedIssueType === "Story"'>
     <span>Priority: <span class="required">*</span></span>
       <select class="select-field" (change)="changePriority($event)" formControlName="priority">
-        <option *ngFor="let priority of priorityTypes" [ngValue]="priority">{{ priority }}</option>
+        <option *ngFor="let priority of priorityTypes" [ngValue]="priority.id">{{ priority.name }}</option>
     </select>
   </label>
 
@@ -55,6 +55,13 @@
   <label *ngIf='this.selectedIssueType === "Story"'><span>Epic Link: <span class="required">*</span></span>
     <select class="select-field" (change)="changeEpic($event)" formControlName="epicLink">
       <option *ngFor="let epic of projectEpics | async" [ngValue]="epic.id">{{ epic.name }}</option>
+   </select>
+  </label>
+
+  <!-- Blocked By-->
+  <label *ngIf='this.selectedIssueType === "Story"'><span>Blocked By: </span>
+    <select class="select-field" (change)="changeBlocked($event)" formControlName="blockedBy">
+      <option *ngFor="let issue of projectIssues | async" [ngValue]="issue.id">{{ issue.name }}</option>
    </select>
   </label>
 

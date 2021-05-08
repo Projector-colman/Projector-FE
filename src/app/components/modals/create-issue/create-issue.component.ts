@@ -18,15 +18,17 @@ export class CreateIssueComponent implements OnInit {
   allProjects;
   projectUsers;
   projectEpics;
+  projectIssues;
   
   issueTypes = ['Story', 'Epic'];
-  priorityTypes = ['lowest', 'low', 'medium', 'high', 'highest'];
+  priorityTypes = [{name: 'lowest', id: 1}, {name: 'low', id: 2}, {name: 'medium', id: 3}, {name: 'high', id: 4}, {name: 'highest', id: 5}];
 
   selectedProject: Project;
   selectedIssueType = this.issueTypes[0];
   selectedPriority;
   selectedAssignee;
   selectedEpic;
+  selectedBlockedIssue = undefined;
 
   constructor(private projectService: ProjectsService,
               private issuesService: IssuesService,
@@ -40,11 +42,12 @@ export class CreateIssueComponent implements OnInit {
       issueType: [this.selectedIssueType, Validators.required],
       name: ['', Validators.required],
       reporter: [''],
-      description: [''],
+      description: ['', Validators.required],
       priority: this.selectedPriority,
-      storyPoints: [0, Validators.min(1)],
-      assignee: [''],
-      epicLink: this.selectedEpic
+      storyPoints: [0],
+      assignee: [null],
+      epicLink: this.selectedEpic,
+      blockedBy: this.selectedBlockedIssue
     });
   }
 
@@ -64,6 +67,7 @@ export class CreateIssueComponent implements OnInit {
     //this.selectedProject = +e.target.value.substring(e.target.value.indexOf(' ') + 1);
     this.projectUsers = this.projectService.getProjectUsers(projID);
     this.projectEpics = this.issuesService.getEpics({});
+    this.projectIssues = this.issuesService.getProjectIssues(projID);
   }
 
   changeIssueType(e) {
@@ -86,6 +90,10 @@ export class CreateIssueComponent implements OnInit {
     this.selectedEpic = e.target.value.substring(e.target.value.indexOf(' ') + 1);
   }
 
+  changeBlocked(e) {
+    // extract proper project name from event
+    this.selectedEpic = e.target.value.substring(e.target.value.indexOf(' ') + 1);
+  }
 
   onSubmit() {
     this.isFormValid = true;
@@ -97,7 +105,7 @@ export class CreateIssueComponent implements OnInit {
     }
 
     if (this.selectedIssueType === "Story") {
-      if (!this.f.priority.value || !this.f.epicLink.value || !this.f.storyPoints.value || !this.f.reporter.value) {
+      if (!this.f.priority.value || !this.f.epicLink.value || +this.f.storyPoints.value <= 0 || !this.f.reporter.value) {
         this.isFormValid = false;
         return;
       }
@@ -107,15 +115,17 @@ export class CreateIssueComponent implements OnInit {
         description: this.f.description.value,
         asignee: this.f.assignee.value,
         storyPoints: +this.f.storyPoints.value,
-        priority: this.priorityTypes.indexOf(this.f.priority.value),
+        priority: this.f.priority.value,
         sprint: undefined,
-        status: 'to-do'
+        status: 'to-do',
+        blockedBy: this.f.blocked.value
       }
 
       this.issuesService.createStory(data).subscribe(response => {
         this.dialogRef.close();
       }, 
       error => {
+        this.isFormValid = false;
         console.error(error)
       });
     }
@@ -130,6 +140,7 @@ export class CreateIssueComponent implements OnInit {
         this.dialogRef.close();
       }, 
       error => {
+        this.isFormValid = false;
         console.log('error in create epic')
       });
     }

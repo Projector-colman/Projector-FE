@@ -7,6 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ProjectsCardComponent implements OnInit {
   @Input() projectName: string;
+  @Input() projectId: number;
   constructor() { }
 
   ngOnInit(): void {
