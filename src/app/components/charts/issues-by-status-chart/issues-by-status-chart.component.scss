@@ -1,7 +1,6 @@
 .container {
     display:flex;
     flex-direction: column;
-    width: fit-content;
     box-shadow: -2px 2px 4px 1px rgb(204, 204, 204);
   }
   
@@ -18,7 +17,6 @@
 
 #chart {
     align-self: center;
-    max-width: 380px;
     margin: 35px auto;
     padding: 0;
   }

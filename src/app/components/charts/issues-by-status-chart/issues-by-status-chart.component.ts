@@ -32,7 +32,7 @@ export class IssuesByStatusChartComponent {
     this.chartOptions = {
       series: [44, 55, 13, 43],
       chart: {
-        width: 380,
+        width: 446,
         type: "pie"
       },
       labels: ["To Do", "In Progress", "Stuck", "Done"],
@@ -42,10 +42,10 @@ export class IssuesByStatusChartComponent {
       },
       responsive: [
         {
-          breakpoint: 480,
+          breakpoint: 1300,
           options: {
             chart: {
-              width: 200
+              width: 333
             },
             legend: {
               position: "bottom"
