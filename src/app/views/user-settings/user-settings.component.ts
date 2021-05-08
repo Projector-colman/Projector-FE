@@ -34,13 +34,13 @@ export class UserSettingsComponent implements OnInit {
       this.user = this.usersService.getUser(params.id);
     });
     this.userEditForm = new FormGroup({
-      userName: new FormControl(this.user.userName, Validators.required),
+      name: new FormControl(this.user.name, Validators.required),
       email: new FormControl(this.user.email, Validators.required),
       password: new FormControl(this.user.password, Validators.required),
     });
     this.userEditForm.valueChanges.subscribe((newUser: User) => {
       this.userChanged = !(
-        newUser.userName == this.user.userName &&
+        newUser.name == this.user.name &&
         newUser.email == this.user.email &&
         newUser.password == this.user.password
       );
@@ -49,7 +49,7 @@ export class UserSettingsComponent implements OnInit {
 
   getProjectsOfCurrUser(): Project[] {
     return this.projectService.projects.filter(
-      (project: Project) => project.owner == this.user
+      (project: Project) => project.owner == this.user.id
     );
   }
 
@@ -67,7 +67,7 @@ export class UserSettingsComponent implements OnInit {
 
   cancleEdit() {
     this.newImage = undefined;
-    this.userEditForm.controls['userName'].setValue(this.user.userName);
+    this.userEditForm.controls['name'].setValue(this.user.name);
     this.userEditForm.controls['password'].setValue(this.user.password);
     this.userEditForm.controls['email'].setValue(this.user.email);
   }
@@ -75,9 +75,8 @@ export class UserSettingsComponent implements OnInit {
   submitForm(): void {
     let userToUpdate: User = {
       id: this.user.id,
-      fullName: this.user.fullName,
-      imageSrc: this.newImage ? this.newImage : this.user.imageSrc,
-      userName: this.userEditForm.controls['userName'].value,
+      image: this.newImage ? this.newImage : this.user.image,
+      name: this.userEditForm.controls['name'].value,
       email: this.userEditForm.controls['email'].value,
       password: this.userEditForm.controls['password'].value,
     };

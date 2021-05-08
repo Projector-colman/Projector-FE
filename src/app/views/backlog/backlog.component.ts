@@ -8,6 +8,7 @@ import { Issue } from 'src/app/interfaces/issue';
 import { Project } from 'src/app/interfaces/project';
 import { ProjectsService } from 'src/app/services/projects.service';
 import { SidenavUpdateService } from 'src/app/services/sidenav-update.service';
+import { Epic } from 'src/app/interfaces/epic';
 
 @Component({
   selector: 'app-backlog',
@@ -32,35 +33,44 @@ export class BacklogComponent implements OnInit {
     this.sidenavUpdateService.changeProject(this.projectName);
     this.projectsService.getProjects().subscribe((projects: Project[]) => {
       this.currProject = projects.find(
-        (project: Project) => project.projectName == this.projectName
+        (project: Project) => project.name == this.projectName
       );
     });
   }
 
-  getStatusIssues(status: number): Issue[] {
-    return this.currProject?.issues.filter(
-      (issue: Issue) => issue.location == status
-    );
+  async getStatusIssues(status: number): Promise<Issue[]> {
+    let issues: Issue[] = [];
+    await this.issuesService.getIssues({}).subscribe((issues: Issue[]) => {
+      this.issuesService.getEpics({}).subscribe((epics: Epic[]) => {
+        issues.push(
+          ...issues.filter((issue: Issue) => {
+            epics.find((epic: Epic) => epic.id === issue.id).project ===
+              this.currProject.id;
+          })
+        );
+      });
+    });
+    return issues.filter((issue: Issue) => issue.sprint == status);
   }
 
   public get issuesLocation(): typeof IssueLocation {
     return IssueLocation;
   }
 
-  drop(event: CdkDragDrop<Issue[]>) {
+  async drop(event: CdkDragDrop<Issue[]>) {
     if (event.container.id !== event.previousContainer.id) {
       let list: Issue[];
       switch (event.previousContainer.id) {
         case 'CurrSprint': {
-          list = this.getStatusIssues(this.issuesLocation.CurrentSprint);
+          list = await this.getStatusIssues(this.issuesLocation.CurrentSprint);
           break;
         }
         case 'PlannedStrint': {
-          list = this.getStatusIssues(this.issuesLocation.PlannedSprint);
+          list = await this.getStatusIssues(this.issuesLocation.PlannedSprint);
           break;
         }
         case 'Backlog': {
-          list = this.getStatusIssues(this.issuesLocation.Backlog);
+          list = await this.getStatusIssues(this.issuesLocation.Backlog);
           break;
         }
         default: {
@@ -70,9 +80,7 @@ export class BacklogComponent implements OnInit {
 
       switch (event.container.id) {
         case 'CurrSprint': {
-          list[
-            event.previousIndex
-          ].location = this.issuesLocation.CurrentSprint;
+          list[event.previousIndex].sprint = this.issuesLocation.CurrentSprint;
           list[event.previousIndex].status = IssueStatus.ToDo;
           this.issuesService
             .updateIssue(list[event.previousIndex])
@@ -86,9 +94,7 @@ export class BacklogComponent implements OnInit {
           break;
         }
         case 'PlannedStrint': {
-          list[
-            event.previousIndex
-          ].location = this.issuesLocation.PlannedSprint;
+          list[event.previousIndex].sprint = this.issuesLocation.PlannedSprint;
           list[event.previousIndex].status = IssueStatus.None;
           this.issuesService
             .updateIssue(list[event.previousIndex])
@@ -102,7 +108,7 @@ export class BacklogComponent implements OnInit {
           break;
         }
         case 'Backlog': {
-          list[event.previousIndex].location = this.issuesLocation.Backlog;
+          list[event.previousIndex].sprint = this.issuesLocation.Backlog;
           list[event.previousIndex].status = IssueStatus.None;
           this.issuesService
             .updateIssue(list[event.previousIndex])

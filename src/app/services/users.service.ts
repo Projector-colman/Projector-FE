@@ -10,10 +10,9 @@ export class UsersService {
   users: User[] = [
     {
       id: 1,
-      fullName: 'ITAMAR MAROM',
-      imageSrc:
+      name: 'ITAMAR MAROM',
+      image:
         'https://www.theglobeandmail.com/resizer/a1tsouRgbsPGVK8OvdFYJqxNhEo=/4415x0/filters:quality(80)/arc-anglerfish-tgam-prod-tgam.s3.amazonaws.com/public/5HSZVXDII5BRRHH4S6KE4WZ7RE.jpg',
-      userName: 'Best-user',
       email: 'itsamail@gmail.com',
       password: 'Aa123456',
     },

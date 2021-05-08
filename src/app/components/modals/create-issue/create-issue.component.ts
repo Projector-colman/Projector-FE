@@ -8,7 +8,7 @@ import { Project } from 'src/app/interfaces/project';
 @Component({
   selector: 'app-create-issue',
   templateUrl: './create-issue.component.html',
-  styleUrls: ['./create-issue.component.scss']
+  styleUrls: ['./create-issue.component.scss'],
 })
 export class CreateIssueComponent implements OnInit {
   issueForm: FormGroup;
@@ -18,7 +18,7 @@ export class CreateIssueComponent implements OnInit {
   allProjects;
   projectUsers;
   projectEpics;
-  
+
   issueTypes = ['Story', 'Epic'];
   priorityTypes = ['lowest', 'low', 'medium', 'high', 'highest'];
 
@@ -28,10 +28,12 @@ export class CreateIssueComponent implements OnInit {
   selectedAssignee;
   selectedEpic;
 
-  constructor(private projectService: ProjectsService,
-              private issuesService: IssuesService,
-              private formBuilder: FormBuilder,
-              private dialogRef: MatDialogRef<CreateIssueComponent>) { }
+  constructor(
+    private projectService: ProjectsService,
+    private issuesService: IssuesService,
+    private formBuilder: FormBuilder,
+    private dialogRef: MatDialogRef<CreateIssueComponent>
+  ) {}
 
   ngOnInit(): void {
     this.allProjects = this.projectService.getOwnerProjects();
@@ -44,20 +46,20 @@ export class CreateIssueComponent implements OnInit {
       priority: this.selectedPriority,
       storyPoints: [0, Validators.min(1)],
       assignee: [''],
-      epicLink: this.selectedEpic
+      epicLink: this.selectedEpic,
     });
   }
 
   // form helper
-  get f() { 
-    return this.issueForm.controls; 
+  get f() {
+    return this.issueForm.controls;
   }
 
   changeProject(e) {
     // extract proper project name from event
     const projID = e.target.value.substring(e.target.value.indexOf(' ') + 1);
 
-    this.projectService.getProject({id: projID}).subscribe(proj => {
+    this.projectService.getProject({ id: projID }).subscribe((proj) => {
       this.selectedProject = proj;
     });
 
@@ -68,24 +70,31 @@ export class CreateIssueComponent implements OnInit {
 
   changeIssueType(e) {
     // extract proper project name from event
-    this.selectedIssueType = e.target.value.substring(e.target.value.indexOf(' ') + 1);
+    this.selectedIssueType = e.target.value.substring(
+      e.target.value.indexOf(' ') + 1
+    );
   }
 
   changePriority(e) {
     // extract proper project name from event
-    this.selectedPriority = e.target.value.substring(e.target.value.indexOf(' ') + 1);
+    this.selectedPriority = e.target.value.substring(
+      e.target.value.indexOf(' ') + 1
+    );
   }
 
   changeAssignee(e) {
     // extract proper project name from event
-    this.selectedAssignee = e.target.value.substring(e.target.value.indexOf(' ') + 1);
+    this.selectedAssignee = e.target.value.substring(
+      e.target.value.indexOf(' ') + 1
+    );
   }
 
   changeEpic(e) {
     // extract proper project name from event
-    this.selectedEpic = e.target.value.substring(e.target.value.indexOf(' ') + 1);
+    this.selectedEpic = e.target.value.substring(
+      e.target.value.indexOf(' ') + 1
+    );
   }
-
 
   onSubmit() {
     this.isFormValid = true;
@@ -96,8 +105,13 @@ export class CreateIssueComponent implements OnInit {
       return;
     }
 
-    if (this.selectedIssueType === "Story") {
-      if (!this.f.priority.value || !this.f.epicLink.value || !this.f.storyPoints.value || !this.f.reporter.value) {
+    if (this.selectedIssueType === 'Story') {
+      if (
+        !this.f.priority.value ||
+        !this.f.epicLink.value ||
+        !this.f.storyPoints.value ||
+        !this.f.reporter.value
+      ) {
         this.isFormValid = false;
         return;
       }
@@ -109,29 +123,35 @@ export class CreateIssueComponent implements OnInit {
         storyPoints: +this.f.storyPoints.value,
         priority: this.priorityTypes.indexOf(this.f.priority.value),
         sprint: undefined,
-        status: 'to-do'
-      }
+        status: 'to-do',
+      };
 
-      this.issuesService.createStory(data).subscribe(response => {
-        this.dialogRef.close();
-      }, 
-      error => {
-        console.error(error)
-      });
+      this.issuesService.createStory(data).subscribe(
+        (response) => {
+          this.dialogRef.close();
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
     }
 
-    if(this.selectedIssueType === "Epic") {
-      const data = { name: this.f.name.value,
+    if (this.selectedIssueType === 'Epic') {
+      const data = {
+        name: this.f.name.value,
         project: this.f.project.value,
         description: this.f.description.value,
-        asignee: this.f.assignee.value};
+        asignee: this.f.assignee.value,
+      };
 
-      this.issuesService.createEpic(data).subscribe(response => {
-        this.dialogRef.close();
-      }, 
-      error => {
-        console.log('error in create epic')
-      });
+      this.issuesService.createEpic(data).subscribe(
+        (response) => {
+          this.dialogRef.close();
+        },
+        (error) => {
+          console.log('error in create epic');
+        }
+      );
     }
   }
 }

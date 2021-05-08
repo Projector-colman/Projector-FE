@@ -41,7 +41,7 @@ import { CreateProjectComponent } from './components/modals/create-project/creat
 import { ProjectsCardComponent } from './components/projects-card/projects-card.component';
 import { IssueComponent } from './components/issue/issue.component';
 import { CommentComponent } from './components/comment/comment.component';
-import { filterByProjectId } from './pipes/filter-by-project-id.pipe';
+import { filterByIssueId } from './pipes/filter-by-project-id.pipe';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 import { AuthInterceptor } from '../app/interceptors/auth.interceptor';
@@ -74,7 +74,7 @@ import { SprintGraphCurrentUserComponent } from './components/charts/sprint-grap
     ProjectsCardComponent,
     IssueComponent,
     CommentComponent,
-    filterByProjectId,
+    filterByIssueId,
     LoginComponent,
     RegisterComponent,
     ReportsComponent,
@@ -82,7 +82,7 @@ import { SprintGraphCurrentUserComponent } from './components/charts/sprint-grap
     IssuesByStatusChartComponent,
     SprintGraphSelectUserComponent,
     SprintGraphSelectProjectComponent,
-    SprintGraphCurrentUserComponent
+    SprintGraphCurrentUserComponent,
   ],
   imports: [
     MatCardModule,
@@ -109,18 +109,17 @@ import { SprintGraphCurrentUserComponent } from './components/charts/sprint-grap
     NgApexchartsModule,
     HttpClientModule,
     MatProgressSpinnerModule,
-    RouterModule.forRoot(
-      routes,
-      { enableTracing: true, // for debugging
-        onSameUrlNavigation: 'reload'} 
-    ),
+    RouterModule.forRoot(routes, {
+      enableTracing: true, // for debugging
+      onSameUrlNavigation: 'reload',
+    }),
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
-      multi: true
-    }
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })
