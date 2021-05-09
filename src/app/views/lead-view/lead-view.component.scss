@@ -1,18 +1,20 @@
 .title {
     margin-left: 16px;
+}   
+
+.header {
+    height: 52px;
+    background-color: #f26674;
+    color: white;
+    text-align: center;
+    width: auto;
+    display:flex;
+    align-items: center;
+    justify-content: center;
 }
 
-table {
-    width: 60%;
-}
-.tableTitle {
-    width: 60%;
-    text-align: center;
-    background-color: rgb(242, 102, 116);
-    color: white;
-    margin-bottom: 8px;
-}
 .container {
+    width: 60%;
     padding: 36px;
     padding-left: 120px;
     padding-right: 120px;
