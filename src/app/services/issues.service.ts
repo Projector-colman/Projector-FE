@@ -10,15 +10,8 @@ import { beAddress } from '../environment';
 export class IssuesService {
   constructor(private httpClient: HttpClient) {}
 
-  updateIssue(issue: Issue): Observable<string> {
-    // return this.http
-    //   .post<Issue>(
-    //     'http://34.66.166.236/:3000/api/issues/update',
-    //     issue
-    //   );
-    return new Observable<string>((subscriber) =>
-      subscriber.next('update succeed')
-    );
+  updateIssue(issue: Issue) {
+     return this.httpClient.put(beAddress + `api/issues/${issue.id}`,issue);
   }
 
   getIssues(filters): Observable<any> {

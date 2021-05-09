@@ -17,12 +17,6 @@ export class ProjectsService {
     private httpClient: HttpClient
   ) {}
 
-  getProjects(): Observable<Project[]> {
-    return new Observable<Project[]>((subscriber) =>
-      subscriber.next(this.projects)
-    );
-  }
-
   getAllProjects() {
     const userId = localStorage.getItem('id');
     return this.httpClient.get(beAddress + `api/users/${userId}/projects`);

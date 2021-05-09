@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { SidenavUpdateService } from 'src/app/services/sidenav-update.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lead-view',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LeadViewComponent implements OnInit {
 
-  constructor() { }
+  constructor(private sidenavUpdateService: SidenavUpdateService,
+    private router: Router) { }
 
   ngOnInit(): void {
+    this.sidenavUpdateService.changeMessage('leadView');
+    this.sidenavUpdateService.changeProject(this.router.url.split('/')[2]);
   }
 
 }

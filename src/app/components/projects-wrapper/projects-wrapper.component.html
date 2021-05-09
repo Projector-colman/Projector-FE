@@ -11,11 +11,11 @@
                 <mat-icon mat-list-icon>line_weight</mat-icon>
                 <p matLine *ngIf="isExpanded">Backlog</p></a>
 
-            <a mat-list-item [routerLink]="['/projects', currentProjectId, 'reports']">
+            <a id="reports" mat-list-item [routerLink]="['/projects', currentProjectId, 'reports']">
                 <mat-icon mat-list-icon>trending_up</mat-icon>
                 <p matLine *ngIf="isExpanded">Reports</p></a>
 
-            <a mat-list-item [routerLink]="['/projects', currentProjectId, 'lead']">
+            <a id="leadView" mat-list-item [routerLink]="['/projects', currentProjectId, 'lead']">
                 <mat-icon mat-list-icon>manage_accounts</mat-icon>
                 <p matLine *ngIf="isExpanded">Lead View</p></a>
 

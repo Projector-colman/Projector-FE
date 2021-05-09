@@ -28,13 +28,13 @@ export class BacklogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // Sidenav stuff
     this.projectName = this.router.url.split('/')[2];
     this.sidenavUpdateService.changeMessage('backlog');
     this.sidenavUpdateService.changeProject(this.projectName);
-    this.projectsService.getProjects().subscribe((projects: Project[]) => {
-      this.currProject = projects.find(
-        (project: Project) => project.projectName == this.projectName
-      );
+
+    this.projectsService.getProject({name: this.projectName}).subscribe((projects: Project[]) => {
+      this.currProject = projects[0];
     });
   }
 
