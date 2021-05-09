@@ -52,6 +52,7 @@ import { IssuesByStatusChartComponent } from './components/charts/issues-by-stat
 import { SprintGraphSelectUserComponent } from './components/charts/sprint-graphs/sprint-graph-select-user.component';
 import { SprintGraphSelectProjectComponent } from './components/charts/sprint-graphs/sprint-graph-select-project.component';
 import { SprintGraphCurrentUserComponent } from './components/charts/sprint-graphs/sprint-graph-current-user.component';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -109,6 +110,7 @@ import { SprintGraphCurrentUserComponent } from './components/charts/sprint-grap
     NgApexchartsModule,
     HttpClientModule,
     MatProgressSpinnerModule,
+    MatTableModule,
     RouterModule.forRoot(routes, {
       enableTracing: true, // for debugging
       onSameUrlNavigation: 'reload',

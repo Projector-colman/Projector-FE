@@ -4,6 +4,7 @@ import { IssuesService } from '../../../services/issues.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Project } from 'src/app/interfaces/project';
+import { IssueCreationStateService } from '../../../services/issue-creation-state.service';
 
 @Component({
   selector: 'app-create-issue',
@@ -28,7 +29,7 @@ export class CreateIssueComponent implements OnInit {
   selectedPriority;
   selectedAssignee;
   selectedEpic;
-  selectedBlockedIssue = undefined;
+  selectedBlocker = undefined;
 
   errorTypes = {storyPoints : false, priority : false, epic : false, reporter: false, assignee: false};
 
@@ -36,7 +37,8 @@ export class CreateIssueComponent implements OnInit {
     private projectService: ProjectsService,
     private issuesService: IssuesService,
     private formBuilder: FormBuilder,
-    private dialogRef: MatDialogRef<CreateIssueComponent>
+    private dialogRef: MatDialogRef<CreateIssueComponent>,
+    private issueCreationState: IssueCreationStateService
   ) {}
 
   ngOnInit(): void {
@@ -51,7 +53,7 @@ export class CreateIssueComponent implements OnInit {
       storyPoints: [0],
       assignee: [null],
       epicLink: this.selectedEpic,
-      blockedBy: this.selectedBlockedIssue
+      blocker: this.selectedBlocker
     });
   }
 
@@ -70,7 +72,7 @@ export class CreateIssueComponent implements OnInit {
 
     //this.selectedProject = +e.target.value.substring(e.target.value.indexOf(' ') + 1);
     this.projectUsers = this.projectService.getProjectUsers(projID);
-    this.projectEpics = this.issuesService.getEpics({});
+    this.projectEpics = this.issuesService.getEpics({project: projID});
     this.projectIssues = this.issuesService.getProjectIssues(projID);
   }
 
@@ -102,9 +104,9 @@ export class CreateIssueComponent implements OnInit {
     );
   }
 
-  changeBlocked(e) {
+  changeBlocker(e) {
     // extract proper project name from event
-    this.selectedEpic = e.target.value.substring(e.target.value.indexOf(' ') + 1);
+    this.selectedBlocker = e.target.value.substring(e.target.value.indexOf(' ') + 1);
   }
 
   onSubmit() {
@@ -116,7 +118,8 @@ export class CreateIssueComponent implements OnInit {
       this.isFormValid = false;
       return;
     }
-
+    
+    // bad error checking, who cares
     if (this.selectedIssueType === "Story") {
       if (!this.f.priority.value) {
         this.isFormValid = false;
@@ -148,10 +151,11 @@ export class CreateIssueComponent implements OnInit {
         priority: this.f.priority.value,
         sprint: undefined,
         status: 'to-do',
-        blockedBy: this.f.blocked.value
+        blockerId: +this.f.blocker.value
       }
 
       this.issuesService.createStory(data).subscribe(response => {
+        this.issueCreationState.newIssue(); // This service tells all subscribers that a new issue was created
         this.dialogRef.close();
       }, 
       error => {

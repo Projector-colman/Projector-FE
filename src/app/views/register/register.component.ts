@@ -32,6 +32,7 @@ export class RegisterComponent implements OnInit {
     this.loading = true;
     this.isMailTaken = false;
     this.isMailValid = true;
+    this.registerForm.value.name[0].charAt(0).toUpperCase();
     
     this.authService.register(this.registerForm.value.email, this.registerForm.value.name, this.registerForm.value.password).subscribe((response) => {
       this.loading = false;

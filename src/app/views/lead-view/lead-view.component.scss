@@ -1,0 +1,25 @@
+.title {
+    margin-left: 16px;
+}
+
+table {
+    width: 60%;
+}
+.tableTitle {
+    width: 60%;
+    text-align: center;
+    background-color: rgb(242, 102, 116);
+    color: white;
+    margin-bottom: 8px;
+}
+.container {
+    padding: 36px;
+    padding-left: 120px;
+    padding-right: 120px;
+    display: flex;
+    flex-direction: column;
+}
+
+th {
+    color: rgb(242, 102, 116);
+}

@@ -44,4 +44,8 @@ export class ProjectsService {
   getProjectUsers(id: number) {
     return this.httpClient.get(beAddress + `api/projects/${id}/users`);
   }
+
+  getProjectIssues(id: number) {
+    return this.httpClient.get(beAddress + `api/projects/${id}/issues`);
+  }
 }
