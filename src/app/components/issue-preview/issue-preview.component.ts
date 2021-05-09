@@ -17,6 +17,6 @@ export class IssuePreviewComponent implements OnInit {
   getUserImage(): string {
     return this.usersService
       .getUsers()
-      .find((user: User) => this.issue.asignee === user.id).image;
+      .find((user: User) => this.issue.asignee === user.id)?.image;
   }
 }

@@ -16,9 +16,10 @@ import { Epic } from 'src/app/interfaces/epic';
   styleUrls: ['./backlog.component.scss'],
 })
 export class BacklogComponent implements OnInit {
-  projectName: string;
+  projectId: string;
   currProject: Project;
   issueToOpen: Issue;
+  issues: Issue[];
 
   constructor(
     public router: Router,
@@ -29,28 +30,32 @@ export class BacklogComponent implements OnInit {
 
   ngOnInit(): void {
     // Sidenav stuff
-    this.projectName = this.router.url.split('/')[2];
+    this.projectId = this.router.url.split('/')[2];
     this.sidenavUpdateService.changeMessage('backlog');
-    this.sidenavUpdateService.changeProject(this.projectName);
-
-    this.projectsService.getProject({name: this.projectName}).subscribe((projects: Project[]) => {
-      this.currProject = projects[0];
-    });
+    this.sidenavUpdateService.changeProject(this.projectId);
+    this.projectsService
+      .getProject({ id: this.projectId })
+      .subscribe((projects: Project[]) => {
+        this.currProject = projects[0];
+      });
+    this.getIssues();
   }
 
-  async getStatusIssues(status: number): Promise<Issue[]> {
-    let issues: Issue[] = [];
+  async getIssues(): Promise<void> {
+    let filteredIssues: Issue[] = [];
     await this.issuesService.getIssues({}).subscribe((issues: Issue[]) => {
       this.issuesService.getEpics({}).subscribe((epics: Epic[]) => {
-        issues.push(
-          ...issues.filter((issue: Issue) => {
-            epics.find((epic: Epic) => epic.id === issue.id).project ===
-              this.currProject.id;
-          })
-        );
+        issues.forEach((issue: Issue) => {
+          if (
+            epics.find((epic: Epic) => epic.id === issue.epic)?.project ===
+            +this.projectId
+          ) {
+            filteredIssues.push(issue);
+          }
+        });
+        this.issues = filteredIssues;
       });
     });
-    return issues.filter((issue: Issue) => issue.sprint == status);
   }
 
   public get issuesLocation(): typeof IssueLocation {
@@ -130,5 +135,9 @@ export class BacklogComponent implements OnInit {
 
   openIssue(issue: Issue): void {
     this.issueToOpen = issue;
+  }
+
+  getStatusIssues(status: IssueLocation): Issue[] {
+    return this.issues?.filter((issue: Issue) => issue.sprint === status);
   }
 }

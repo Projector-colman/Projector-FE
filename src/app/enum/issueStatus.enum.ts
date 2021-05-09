@@ -1,7 +1,7 @@
 export enum IssueStatus {
-  ToDo = 1,
-  InProgress,
-  Stuck,
-  Done,
-  None,
+  ToDo = 'to-do',
+  InProgress = 'in-progress',
+  Stuck = 'stuck',
+  Done = 'done',
+  None = 'none',
 }

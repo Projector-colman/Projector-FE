@@ -1,5 +1,5 @@
 export enum IssueLocation {
-  CurrentSprint = 1,
-  PlannedSprint,
-  Backlog,
+  CurrentSprint = 'active',
+  PlannedSprint = 'planned',
+  Backlog = 'backlog',
 }
