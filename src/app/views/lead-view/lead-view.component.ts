@@ -3,8 +3,7 @@ import { SidenavUpdateService } from 'src/app/services/sidenav-update.service';
 import { Router } from '@angular/router';
 import { ProjectsService } from '../../services/projects.service';
 import { Project } from 'src/app/interfaces/project';
-import { User } from 'src/app/interfaces/user';
-import { Issue } from 'src/app/interfaces/issue';
+
 @Component({
   selector: 'app-lead-view',
   templateUrl: './lead-view.component.html',
@@ -14,8 +13,9 @@ export class LeadViewComponent implements OnInit {
   currProject: Project = {};
   projectUsers;
   projectIssues;
-  tableData: TableRow[] = [];
-
+  tableData: TableRow[];
+  displayedColumns: string[] = ['name', 'todo', 'inprogress', 'verify', 'done', 'percent'];
+  
   constructor(private sidenavUpdateService: SidenavUpdateService,
               private router: Router,
               private projectsService: ProjectsService) { }
@@ -31,6 +31,7 @@ export class LeadViewComponent implements OnInit {
     this.projectIssues = this.projectsService.getProjectIssues(this.currProject.id).toPromise();
 
     Promise.all([this.projectUsers, this.projectIssues]).then(values => {
+      this.tableData = [];
       const users  = values[0];
       const issues = values[1];
       
@@ -50,7 +51,11 @@ export class LeadViewComponent implements OnInit {
       });
 
       this.tableData.forEach(row => {
-        row.donePercentage = (row.done / row['to-do'] + row['in-progress'] + row.verify + row.done) * 100;
+        if(row['to-do'] + row['in-progress'] + row.verify + row.done == 0) {
+          row.donePercentage = 0;
+        } else {
+          row.donePercentage = (row.done / row['to-do'] + row['in-progress'] + row.verify + row.done) * 100;
+        }
       })
     });
   }
