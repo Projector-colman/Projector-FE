@@ -54,7 +54,7 @@ export class LeadViewComponent implements OnInit {
         if(row['to-do'] + row['in-progress'] + row.verify + row.done == 0) {
           row.donePercentage = 0;
         } else {
-          row.donePercentage = (row.done / row['to-do'] + row['in-progress'] + row.verify + row.done) * 100;
+          row.donePercentage = (row.done / (row['to-do'] + row['in-progress'] + row.verify + row.done)) * 100;
         }
       })
     });
