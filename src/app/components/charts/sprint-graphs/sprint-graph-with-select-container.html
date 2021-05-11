@@ -3,7 +3,7 @@
       <mat-select></mat-select>
       <div class='title'>{{ title }}</div>
       <mat-select (selectionChange)="onItemChange($event)" [(ngModel)]="selectedItem">
-        <mat-option *ngFor="let item of items" [value]="item">{{ item }}</mat-option>
+        <mat-option *ngFor="let item of items" [value]="item.id">{{ item.name }}</mat-option>
     </mat-select>
     </div>
     <app-sprint-graph class='chart'></app-sprint-graph>

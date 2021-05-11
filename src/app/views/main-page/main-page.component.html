@@ -3,6 +3,6 @@
     <img src='../../../assets/images/projector.png'/>
 </div>
 <div class='content-container'>
-    <app-sprint-graph-select-project class='graph'></app-sprint-graph-select-project>
+    <app-sprint-graph-select-project [items]='projects' class='graph'></app-sprint-graph-select-project>
     <app-assigned-to-me [assignedIssues]='assignedIssues' class='issues'></app-assigned-to-me>
 </div>

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
+import { Base } from 'src/app/interfaces/base';
 
 @Component({
   selector: 'app-sprint-graph-select-project',
@@ -8,16 +9,20 @@ import { MatSelectChange } from '@angular/material/select';
 })
 export class SprintGraphSelectProjectComponent implements OnInit {
   public title: String;
-  public selectedItem: String;
-  public items: String[];
+  public selectedItem: Number;
+  @Input() items: Base[];
 
   constructor() { 
     this.title = 'My Sprint Worksheet';
-    this.items = ["Project 1", "Project 2", "Project 3"];
-    this.selectedItem = this.items[0];
   }
 
   ngOnInit(): void {
+  }
+
+  ngOnChanges() {
+    if(this.items) {
+      this.selectedItem = this.items[0].id;
+    }
   }
 
     
