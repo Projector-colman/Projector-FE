@@ -49,8 +49,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ReportsComponent } from './views/reports/reports.component';
 import { LeadViewComponent } from './views/lead-view/lead-view.component';
 import { IssuesByStatusChartComponent } from './components/charts/issues-by-status-chart/issues-by-status-chart.component';
-import { SprintGraphSelectUserComponent } from './components/charts/sprint-graphs/sprint-graph-select-user.component';
-import { SprintGraphCurrentUserComponent } from './components/charts/sprint-graphs/sprint-graph-current-user.component';
 import { MatTableModule } from '@angular/material/table';
 import { SprintGraphContainerComponent } from './components/charts/sprint-graphs/sprint-graph-container/sprint-graph-container.component';
 
@@ -81,8 +79,6 @@ import { SprintGraphContainerComponent } from './components/charts/sprint-graphs
     ReportsComponent,
     LeadViewComponent,
     IssuesByStatusChartComponent,
-    SprintGraphSelectUserComponent,
-    SprintGraphCurrentUserComponent,
     SprintGraphContainerComponent,
   ],
   imports: [

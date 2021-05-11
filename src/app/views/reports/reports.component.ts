@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SidenavUpdateService } from 'src/app/services/sidenav-update.service';
 import { Router } from '@angular/router';
+import { Base } from 'src/app/interfaces/Base';
 import { ReportsService } from 'src/app/services/reports.service';
-import { Base } from 'src/app/interfaces/base';
 
 @Component({
   selector: 'app-reports',
@@ -10,9 +10,9 @@ import { Base } from 'src/app/interfaces/base';
   styleUrls: ['./reports.component.scss']
 })
 export class ReportsComponent implements OnInit {
-  public users: Base[];
+    public users: Base[];
 
-  constructor(private sidenavUpdateService: SidenavUpdateService, private reportsService: ReportsService,
+  constructor(private reportsService: ReportsService, private sidenavUpdateService: SidenavUpdateService,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -22,18 +22,17 @@ export class ReportsComponent implements OnInit {
   }
 
   getCurrProjectUsers() {
-    var currProject = this.router.url.split('/')[2];
-    debugger;
-    this.reportsService.getProjectUsers(currProject).subscribe(data => {
+    var currProjectId = this.router.url.split('/')[2];
+    this.reportsService.getProjectUsers(currProjectId).subscribe(data => {
       this.users = data;
     });
   }
 
   handleUserChange(userId) {
-    this.getProjectSprintChartByUser(userId);
+    this.getCurrentProjectSprintChart(userId);
   }
 
-  getProjectSprintChartByUser(userId) {
+  getCurrentProjectSprintChart(userId) {
     // be
   }
 
