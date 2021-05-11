@@ -1,17 +1,8 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700);
 
-body {
-  font-family: 'Roboto Slab', serif;
-  font-weight: 300;
-  font-size: 16px;
-  line-height: 1.4em;
-  color: #333;
-  background: #eee;
-}
-
 .card {
-  width: 20vh;
-  height: 10vh;
+  width: 30vh;
+  height: 15vh;
   align-items: center;
   display: flex;
   justify-content: center;
@@ -20,9 +11,8 @@ body {
 
 .card .front{
   font-weight: 300;
-  font-size: 10px;
-  height: 10vh;
-  width: 20vh;
+  width: 30vh;
+  height: 15vh;
   color: white;
   text-align: center;
   text-transform: capitalize;
@@ -31,5 +21,4 @@ body {
 
 .card .front {
   background: rgb(242, 102, 116);
-
 }
