@@ -3,6 +3,6 @@
     <img src='../../../assets/images/projector.png'/>
 </div>
 <div class='content-container'>
-    <app-sprint-graph-select-project title='My Sprint Worksheet' [items]='projects' (onChange)='handleProjectChange($event)' class='graph'></app-sprint-graph-select-project>
+    <app-sprint-graph-container title='My Sprint Worksheet' [items]='projects' (onChange)='handleProjectChange($event)' class='graph'></app-sprint-graph-container>
     <app-assigned-to-me [assignedIssues]='assignedIssues' class='issues'></app-assigned-to-me>
 </div>

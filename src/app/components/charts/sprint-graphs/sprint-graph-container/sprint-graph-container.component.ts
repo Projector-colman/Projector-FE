@@ -3,11 +3,11 @@ import { MatSelectChange } from '@angular/material/select';
 import { Base } from 'src/app/interfaces/base';
 
 @Component({
-  selector: 'app-sprint-graph-select-project',
-  templateUrl: './sprint-graph-with-select-container.html',
-  styleUrls: ['./sprint-graph-container.scss']
+  selector: 'app-sprint-graph-container',
+  templateUrl: './sprint-graph-container.component.html',
+  styleUrls: ['./sprint-graph-container.component.scss']
 })
-export class SprintGraphSelectProjectComponent implements OnInit {
+export class SprintGraphContainerComponent implements OnInit {
   @Input() title: String;
   public selectedItem: Number;
   @Input() items: Base[];
