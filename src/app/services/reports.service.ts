@@ -14,4 +14,8 @@ export class ReportsService {
   getUserProjects(userId) : Observable<Base[]> {
     return this.httpClient.get<Base[]>(`${beAddress}api/users/${userId}/projects`);
   }
+
+  getProjectUsers(projectId): Observable<Base[]> {
+    return this.httpClient.get<Base[]>(`${beAddress}api/projects/${projectId}/users`);
+  }
 }
