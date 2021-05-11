@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
 import { Base } from 'src/app/interfaces/base';
 
@@ -8,12 +8,12 @@ import { Base } from 'src/app/interfaces/base';
   styleUrls: ['./sprint-graph-container.scss']
 })
 export class SprintGraphSelectProjectComponent implements OnInit {
-  public title: String;
+  @Input() title: String;
   public selectedItem: Number;
   @Input() items: Base[];
+  @Output() onChange = new EventEmitter<string>();
 
   constructor() { 
-    this.title = 'My Sprint Worksheet';
   }
 
   ngOnInit(): void {
@@ -27,7 +27,7 @@ export class SprintGraphSelectProjectComponent implements OnInit {
 
     
   onItemChange(event: MatSelectChange) {
-
+    this.onChange.emit(event.value);
   }
 
 }

@@ -35,4 +35,12 @@ export class MainPageComponent implements OnInit {
     });
   }
 
+  handleProjectChange(projectId) {
+    this.getCurrentUserSprintChart(projectId);
+  }
+
+  getCurrentUserSprintChart(projectId) {
+    // be
+  }
+
 }
