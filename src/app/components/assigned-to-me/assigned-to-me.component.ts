@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { HomepageService } from 'src/app/services/homepage.service';
 import { Issue } from '../../interfaces/issue';
 
@@ -8,13 +8,10 @@ import { Issue } from '../../interfaces/issue';
   styleUrls: ['./assigned-to-me.component.scss']
 })
 export class AssignedToMeComponent implements OnInit {
-  assignedIssues: Issue[];
-  constructor(private homepageService: HomepageService) { }
+  @Input() assignedIssues: Issue[];
+  constructor() { }
 
   ngOnInit(): void {
-    this.homepageService.getCurrentUserAssignedIssues().subscribe((issues: Issue[]) => {
-      this.assignedIssues = issues;
-    })
   }
 
 }
