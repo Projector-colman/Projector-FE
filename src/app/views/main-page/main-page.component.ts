@@ -11,8 +11,8 @@ import { ReportsService } from 'src/app/services/reports.service';
   styleUrls: ['./main-page.component.scss']
 })
 export class MainPageComponent implements OnInit {
-  private assignedIssues: Issue[];
-  private projects : Base[];
+  public assignedIssues: Issue[];
+  public projects : Base[];
 
   constructor(private reportsService: ReportsService, private userService: UsersService, private homepageService: HomepageService) { }
 
