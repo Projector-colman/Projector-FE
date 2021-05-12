@@ -11,6 +11,7 @@ import { ReportsService } from 'src/app/services/reports.service';
 })
 export class ReportsComponent implements OnInit {
     public users: Base[];
+    public issuesByUserTitle: String;
 
   constructor(private reportsService: ReportsService, private sidenavUpdateService: SidenavUpdateService,
     private router: Router) { }
@@ -24,12 +25,16 @@ export class ReportsComponent implements OnInit {
   getCurrProjectUsers() {
     var currProjectId = this.router.url.split('/')[2];
     this.reportsService.getProjectUsers(currProjectId).subscribe(data => {
-      this.users = data;
+        var team = [{id: -1, name: "Team"}];
+        this.users = team.concat(data);
+        this.issuesByUserTitle = ' Team Sprint Worksheet';
     });
   }
 
   handleUserChange(userId) {
     this.getCurrentProjectSprintChart(userId);
+    var name = this.users.filter(u => u.id === userId).map(i => i.name);
+    this.issuesByUserTitle = `${name} Sprint Worksheet`;
   }
 
   getCurrentProjectSprintChart(userId) {

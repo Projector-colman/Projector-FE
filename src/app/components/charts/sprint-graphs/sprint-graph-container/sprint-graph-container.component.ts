@@ -10,10 +10,12 @@ import { Base } from 'src/app/interfaces/base';
 export class SprintGraphContainerComponent implements OnInit {
   @Input() title: String;
   public selectedItem: Number;
+  public showSelect : boolean;
   @Input() items: Base[];
   @Output() onChange = new EventEmitter<string>();
 
   constructor() { 
+    this.showSelect = false;
   }
 
   ngOnInit(): void {
@@ -22,9 +24,9 @@ export class SprintGraphContainerComponent implements OnInit {
   ngOnChanges() {
     if(this.items) {
       this.selectedItem = this.items[0].id;
+      this.showSelect = true;
     }
   }
-
     
   onItemChange(event: MatSelectChange) {
     this.onChange.emit(event.value);
