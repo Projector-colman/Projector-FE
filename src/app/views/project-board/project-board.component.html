@@ -9,6 +9,7 @@
         cdkDropList
         [cdkDropListData]="this.tasksHolder[title]"
         class="tasks-list"
+        id={{title}}
         (cdkDropListDropped)="drop($event)">
         <ng-container *ngIf="this.project.key">
           <div *ngFor="let item of this.tasksHolder[title]" cdkDrag>

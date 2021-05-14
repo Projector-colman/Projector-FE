@@ -19,6 +19,10 @@
                 <mat-icon mat-list-icon>manage_accounts</mat-icon>
                 <p matLine *ngIf="isExpanded">Lead View</p></a>
 
+            <a id="settings" mat-list-item [routerLink]="['/projects', currentProjectId, 'settings']">
+                <mat-icon mat-list-icon>settings</mat-icon>
+                <p matLine *ngIf="isExpanded">Settings</p></a>
+
             <a md-list mat-list-item (click)="expand()">
                 <mat-icon mat-list-icon>compare_arrows</mat-icon></a>
 

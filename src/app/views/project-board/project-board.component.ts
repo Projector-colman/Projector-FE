@@ -106,23 +106,25 @@ export class ProjectBoardComponent implements OnInit {
         event.previousIndex,
         event.currentIndex
       );
-      const containerID = (+event.container.id.split('-')[3]) % 4;
+      
+      const containerID = event.container.id;
       let updatedIssue = event.container.data[event.currentIndex];
+
       switch (containerID) {
-        case 0 : {
+        case "Todo" : {
           updatedIssue.status = "to-do"
           this.issuesService.updateIssue
           break;
         }
-        case 1 : {
+        case "inProgress" : {
           updatedIssue.status = "in-progress";
           break;
         }
-        case 2 : {
+        case "Verifiy" : {
           updatedIssue.status = "verify";
           break;
         }
-        case 3 : {
+        case "Done" : {
           updatedIssue.status = "done";
           break;
         }

@@ -51,6 +51,7 @@ import { LeadViewComponent } from './views/lead-view/lead-view.component';
 import { IssuesByStatusChartComponent } from './components/charts/issues-by-status-chart/issues-by-status-chart.component';
 import { MatTableModule } from '@angular/material/table';
 import { SprintGraphContainerComponent } from './components/charts/sprint-graphs/sprint-graph-container/sprint-graph-container.component';
+import { ProjectSettingsComponent } from './views/project-settings/project-settings.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,7 @@ import { SprintGraphContainerComponent } from './components/charts/sprint-graphs
     LeadViewComponent,
     IssuesByStatusChartComponent,
     SprintGraphContainerComponent,
+    ProjectSettingsComponent,
   ],
   imports: [
     MatCardModule,
