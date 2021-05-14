@@ -10,6 +10,7 @@ import { SidenavUpdateService } from 'src/app/services/sidenav-update.service';
 import { IssuesService } from '../../services/issues.service';
 import { ProjectsService } from '../../services/projects.service';
 import { IssueCreationStateService } from '../../services/issue-creation-state.service';
+import { Issue } from 'src/app/interfaces/issue';
 
 @Component({
   selector: 'app-project-board',
@@ -24,6 +25,8 @@ export class ProjectBoardComponent implements OnInit {
   tasksHolder;
 
   isSubscribedToIssueUpdate = false;
+
+  isLoading = false;
 
   constructor(
     public router: Router,
@@ -88,7 +91,8 @@ export class ProjectBoardComponent implements OnInit {
       });
     });
   }
-  drop(event: CdkDragDrop<string[]>) {
+  drop(event: CdkDragDrop<Issue[]>) {
+    this.isLoading = true;
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
@@ -102,6 +106,37 @@ export class ProjectBoardComponent implements OnInit {
         event.previousIndex,
         event.currentIndex
       );
+      const containerID = (+event.container.id.split('-')[3]) % 4;
+      let updatedIssue = event.container.data[event.currentIndex];
+      switch (containerID) {
+        case 0 : {
+          updatedIssue.status = "to-do"
+          this.issuesService.updateIssue
+          break;
+        }
+        case 1 : {
+          updatedIssue.status = "in-progress";
+          break;
+        }
+        case 2 : {
+          updatedIssue.status = "verify";
+          break;
+        }
+        case 3 : {
+          updatedIssue.status = "done";
+          break;
+        }
+        default: {
+          console.error('Unfamiliar issue status');
+          break;
+        }
+      }
+      this.issuesService.updateIssue(updatedIssue).subscribe(res => {
+        this.isLoading = false;
+      }, err => {
+        this.isLoading = false;
+        console.error('error occured when updating issue');
+      });
     }
   }
 }

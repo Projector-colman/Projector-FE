@@ -11,6 +11,6 @@ export interface Issue {
   storyPoints?: number;
   priority?: number;
   sprint?: IssueLocation;
-  status?: IssueStatus;
+  status?: any;
   createdAt?: any;
 }
