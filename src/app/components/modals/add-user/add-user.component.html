@@ -1,0 +1,18 @@
+<div class="form-style-2">
+    <div class="form-style-2-heading">Create Issue</div>
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  
+    <!-- Project -->
+    <label><span>User: <span class="required">*</span></span>
+      <select class="select-field" (change)="changeUser($event)" formControlName="name">
+        <option value="" disabled>Choose a user</option>
+        <option *ngFor="let user of users | async" [value]="user.id">{{ user.name }}</option>
+     </select>
+    </label>
+  
+    <!-- Error Message -->
+    <label><div class="error" *ngIf="submitted">*An error occured</div></label>
+  
+    <button type="submit" [disabled]="this.userForm.invalid">Add</button>
+    </form>
+    </div>

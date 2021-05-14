@@ -3,10 +3,9 @@ import { User } from './user';
 
 export interface Project {
   id?: number;
-  projectName?: string;
-  projectIcon?: string;
-  owner?: User;
+  name?: string;
   icon?: string;
+  owner?: User;
   color?: string;
   key?: string;
 }

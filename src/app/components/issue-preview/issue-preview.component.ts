@@ -15,8 +15,6 @@ export class IssuePreviewComponent implements OnInit {
   ngOnInit(): void {}
 
   getUserImage(): string {
-    return this.usersService
-      .getUsers()
-      .find((user: User) => this.issue.asignee === user.id)?.image;
+    return 'asd'; //TODO Shiraz
   }
 }

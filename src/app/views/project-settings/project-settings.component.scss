@@ -1,0 +1,30 @@
+* {
+    margin-left: 16px;
+}
+
+h2 {
+    margin-left: 40px;
+}
+
+.header {
+    height: 52px;
+    background-color: #f26674;
+    color: white;
+    text-align: center;
+    width: auto;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px;
+}
+
+.container {
+    width: 40%;
+    padding: 36px;
+    display: flex;
+    flex-direction: column;
+}
+
+.add {
+    cursor: pointer;
+}

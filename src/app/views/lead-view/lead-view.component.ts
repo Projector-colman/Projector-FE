@@ -64,8 +64,8 @@ export class LeadViewComponent implements OnInit {
 interface TableRow {
   id:              number;
   name?:           string;
-  'to-do'?:           number;
-  'in-progress'?:     number;
+  'to-do'?:        number;
+  'in-progress'?:  number;
   verify?:         number;
   done?:           number;
   donePercentage?: number;

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { TimeType } from '../enum/timeType.enum';
 import { User } from '../interfaces/user';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { beAddress } from '../environment';
 
 @Injectable({
   providedIn: 'root',
@@ -18,12 +20,12 @@ export class UsersService {
     },
   ];
 
-  constructor() {
+  constructor(private httpClient: HttpClient) {
     this.currentConnectedUser = this.users[0];
   }
 
   getUsers() {
-    return this.users;
+    return this.httpClient.get(beAddress + `api/users`);
   }
 
   getUser(id: number): User {

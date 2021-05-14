@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { TimeType } from '../enum/timeType.enum';
 import { Project } from '../interfaces/project';
 import { UsersService } from './users.service';
 import { Observable } from 'rxjs';
@@ -47,5 +46,9 @@ export class ProjectsService {
 
   getProjectIssues(id: number) {
     return this.httpClient.get(beAddress + `api/projects/${id}/issues`);
+  }
+
+  addUserToProject(projID, userID) {
+    return this.httpClient.post(beAddress + `api/projects/${projID}/users`, {userId : userID});
   }
 }

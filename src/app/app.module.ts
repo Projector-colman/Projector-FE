@@ -52,6 +52,7 @@ import { IssuesByStatusChartComponent } from './components/charts/issues-by-stat
 import { MatTableModule } from '@angular/material/table';
 import { SprintGraphContainerComponent } from './components/charts/sprint-graphs/sprint-graph-container/sprint-graph-container.component';
 import { ProjectSettingsComponent } from './views/project-settings/project-settings.component';
+import { AddUserComponent } from './components/modals/add-user/add-user.component';
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import { ProjectSettingsComponent } from './views/project-settings/project-setti
     IssuesByStatusChartComponent,
     SprintGraphContainerComponent,
     ProjectSettingsComponent,
+    AddUserComponent,
   ],
   imports: [
     MatCardModule,
