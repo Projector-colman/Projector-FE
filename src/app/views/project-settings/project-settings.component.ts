@@ -17,7 +17,7 @@ export class ProjectSettingsComponent implements OnInit {
   project: Project = {};
   
   tableData: TableRow[];
-  displayedColumns: string[] = ['name', 'email'];
+  displayedColumns: string[] = ['name', 'email', 'action'];
 
   constructor(private sidenavUpdateService: SidenavUpdateService,
               private issuesService: IssuesService,
@@ -33,19 +33,35 @@ export class ProjectSettingsComponent implements OnInit {
     this.projectsService.getProject({id: this.project.id}).subscribe(prj => {
       this.project = prj[0];
     });
+    this.getProjectUsers();
+  }
 
+  addUser() {
+    let modal = this.matDialog.open(AddUserComponent, {height: '25vh', width: '45vh', data: {id: this.project.id}});
+    modal.afterClosed().subscribe(() => {
+      this.getProjectUsers();
+    });
+  }
+
+  deleteUser(e) {
+    this.projectsService.removeUserFromProject(this.project.id, e.target.id).subscribe(() => {
+      this.getProjectUsers();
+    }, err => {
+      console.error(err)
+    })
+  }
+
+  getProjectUsers() {
     this.projectsService.getProjectUsers(this.project.id).subscribe((users: User[]) => {
       this.tableData = [];
       users.forEach(user => {
-        this.tableData.push({userName: user.name, email: user.email});
+        this.tableData.push({id: user.id, userName: user.name, email: user.email});
       })
     })
   }
-  addUser() {
-    this.matDialog.open(AddUserComponent, {height: '25vh', width: '45vh', data: {id: this.project.id}});
-  }
 }
 interface TableRow {
+  id: number;
   userName: string;
   email:    string;
 }

@@ -12,7 +12,7 @@ import { ProjectsService } from '../../../services/projects.service';
 })
 export class AddUserComponent implements OnInit {
   userForm: FormGroup;
-  users = this.usersService.getUsers();
+  users: User[];
   selectedUser;
 
   submitted = false;
@@ -24,6 +24,14 @@ export class AddUserComponent implements OnInit {
               private dialogRef: MatDialogRef<AddUserComponent>,) { }
   
   ngOnInit(): void {
+    // Show all users except user already in project
+    this.projectsService.getProjectUsers(this.data.id).subscribe((projUsers: User[]) => {
+      let names = projUsers.map(user => user.name);
+      this.usersService.getUsers().subscribe((allUsers: User[]) => {
+        this.users = allUsers.filter(user => names.indexOf(user.name) == -1);
+      })
+    })
+
     this.userForm = this.formBuilder.group({
       name: ['', Validators.required]
     });

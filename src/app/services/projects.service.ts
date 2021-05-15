@@ -51,4 +51,8 @@ export class ProjectsService {
   addUserToProject(projID, userID) {
     return this.httpClient.post(beAddress + `api/projects/${projID}/users`, {userId : userID});
   }
+  
+  removeUserFromProject(projID, userID) {
+    return this.httpClient.delete(beAddress + `api/projects/${projID}/users/${userID}`);
+  }
 }
