@@ -9,6 +9,6 @@
         <app-sprint-graph-container [title]='issuesByUserTitle' [items]='users' (onChange)='handleUserChange($event)' class='fill'></app-sprint-graph-container>
     </div>
     <div class='secondRow'>
-        <app-issues-by-status-chart class='fill'></app-issues-by-status-chart>
+        <app-issues-by-status-chart [statuses]='issueStatuses' [issues]='issuesGroupedByStatus' class='fill'></app-issues-by-status-chart>
         <app-sprint-graph-container title='My Sprint Worksheet' class='fill'></app-sprint-graph-container>
     </div></div>

@@ -25,7 +25,7 @@ export class ReportsService {
     return this.httpClient.get<Sprint[]>(`${beAddress}api/projects/${projectId}/sprints`);
   }
 
-  getAllIssues() : Observable<Issue[]> {
-    return this.httpClient.get<Issue[]>(`${beAddress}api/issues`);
+  getProjectIssues(projectId) : Observable<Issue[]> {
+    return this.httpClient.get<Issue[]>(`${beAddress}api/projects/${projectId}/issues`);
   }
 }

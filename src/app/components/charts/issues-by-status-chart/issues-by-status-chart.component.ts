@@ -1,4 +1,5 @@
-import { Component, ViewChild } from "@angular/core";
+import { isGeneratedFile } from "@angular/compiler/src/aot/util";
+import { Component, Input, ViewChild } from "@angular/core";
 import { ApexDataLabels, ChartComponent } from "ng-apexcharts";
 
 import {
@@ -6,6 +7,8 @@ import {
   ApexResponsive,
   ApexChart
 } from "ng-apexcharts";
+import { IssueStatus } from "src/app/enum/issueStatus.enum";
+import { Issue } from "src/app/interfaces/issue";
 
 export type ChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -26,19 +29,21 @@ export class IssuesByStatusChartComponent {
   @ViewChild("chart") chart: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
   public title: String;
-
+  @Input() statuses: String[];
+  @Input() issues: any[][];
+;
   constructor() {
     this.title = 'Current Sprint Issues';
     this.chartOptions = {
-      series: [44, 55, 13, 43],
+      series: [],
       chart: {
         width: 446,
         type: "pie"
       },
-      labels: ["To Do", "In Progress", "Stuck", "Done"],
-      colors: ['#0a75ad', '#fff68f', '#ff4040', '#5ac18e'],
+      labels: [],
+      colors: ['#7bc043', '#fdf498', '#0392cf', '#ee4035' ,'#f37736'],
       fill: {
-        colors: ['#0a75ad', '#fff68f', '#ff4040', '#5ac18e']
+        colors: ['#7bc043', '#fdf498', '#0392cf', '#ee4035', '#f37736']
       },
       responsive: [
         {
@@ -54,6 +59,15 @@ export class IssuesByStatusChartComponent {
         }
       ]
     };
+  }
+
+  ngOnChanges() {
+    if(this.statuses) {
+      this.chartOptions.labels = this.statuses;      
+    }
+    if(this.issues) {
+      this.chartOptions.series = this.issues.map(group => group.length);
+    }
   }
 }
 
