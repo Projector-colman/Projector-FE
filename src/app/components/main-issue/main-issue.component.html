@@ -9,7 +9,13 @@
   </mat-card-content>
   <mat-card-actions>
     <span class="material-icons">web</span>
-    <span class="material-icons">low_priority</span>
+    <span>
+      <mat-icon *ngIf="issue.priority == 1" class="lowest">arrow_downward</mat-icon>
+      <mat-icon *ngIf="issue.priority == 2" class="low">keyboard_arrow_down</mat-icon>
+      <mat-icon *ngIf="issue.priority == 3" class="medium">minimize</mat-icon>
+      <mat-icon *ngIf="issue.priority == 4" class="high">keyboard_arrow_up</mat-icon>
+      <mat-icon *ngIf="issue.priority == 5" class="highest">arrow_upward</mat-icon>
+    </span>
     <button mat-button class="time">{{issue.storyPoints}}</button>
   </mat-card-actions>
 </mat-card>

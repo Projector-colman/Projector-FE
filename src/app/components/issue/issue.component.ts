@@ -14,6 +14,7 @@ import { UsersService } from 'src/app/services/users.service';
 export class IssueComponent implements OnInit {
   @Input() issue: Issue;
   @Output() closeIssueEmitter: EventEmitter<void>;
+
   addNewComment: boolean;
   comments: Comment[];
   
@@ -42,8 +43,8 @@ export class IssueComponent implements OnInit {
       case IssueStatus.InProgress: {
         return 'In Progress';
       }
-      case IssueStatus.Stuck: {
-        return 'Stuck';
+      case IssueStatus.Verify: {
+        return 'Verify';
       }
       case IssueStatus.Done: {
         return 'Done';
