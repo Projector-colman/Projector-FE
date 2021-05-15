@@ -4,6 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { beAddress } from '../environment';
 import { Base } from 'src/app/interfaces/Base';
 import { Sprint } from 'src/app/interfaces/sprint';
+import { Issue } from 'src/app/interfaces/issue';
 
 @Injectable({
   providedIn: 'root'
@@ -22,5 +23,9 @@ export class ReportsService {
 
   getProjectSptrints(projectId) : Observable<Sprint[]> {
     return this.httpClient.get<Sprint[]>(`${beAddress}api/projects/${projectId}/sprints`);
+  }
+
+  getAllIssues() : Observable<Issue[]> {
+    return this.httpClient.get<Issue[]>(`${beAddress}api/issues`);
   }
 }
