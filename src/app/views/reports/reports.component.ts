@@ -5,6 +5,9 @@ import { Base } from 'src/app/interfaces/base';
 import { Sprint } from 'src/app/interfaces/sprint';
 import { ReportsService } from 'src/app/services/reports.service';
 import { MatSelectChange } from '@angular/material/select';
+import { IssueLocation } from 'src/app/enum/issueLocation.enum';
+import { IssueStatus } from 'src/app/enum/issueStatus.enum';
+import _ from 'lodash';
 
 @Component({
   selector: 'app-reports',
@@ -13,34 +16,30 @@ import { MatSelectChange } from '@angular/material/select';
 })
 export class ReportsComponent implements OnInit {
     public users: Base[];
-    public sprints: Sprint[];
-    public issuesByUserTitle: String;
-    public selectedSprint: number;
+    public issueStatuses: string[];
+    public issuesGroupedByStatus: any[];
+    public issuesByUserTitle: string;
+    public currProjectId: string;
 
   constructor(private reportsService: ReportsService, private sidenavUpdateService: SidenavUpdateService,
     private router: Router) { }
 
   ngOnInit(): void {
+    this.currProjectId = this.router.url.split('/')[2];
     this.sidenavUpdateService.changeMessage('reports');
-    this.sidenavUpdateService.changeProject(this.router.url.split('/')[2]);
-    this.getCurrProjectSprints();
-    this.getCurrProjectUsers();
-  }
-
-  getCurrProjectSprints() {
-    var currProjectId = this.router.url.split('/')[2];
-    this.reportsService.getProjectSptrints(currProjectId).subscribe(data => {
-        this.sprints = data;
-        this.selectedSprint = this.sprints[0].id;
-    });
-  }
+    this.sidenavUpdateService.changeProject(this.currProjectId);
     
-  onSprintChange(event: MatSelectChange) {
+    this.getCurrProjectUsers();
+
+    // data for pie chart - issues by status
+    const statuses = Object.keys(IssueStatus);
+    this.issueStatuses = statuses.sort();
+    this.getCurrSprintIssues();
   }
 
+  // init users
   getCurrProjectUsers() {
-    var currProjectId = this.router.url.split('/')[2];
-    this.reportsService.getProjectUsers(currProjectId).subscribe(data => {
+    this.reportsService.getProjectUsers(this.currProjectId).subscribe(data => {
         var team = [{id: -1, name: "Team"}];
         this.users = team.concat(data);
         this.issuesByUserTitle = 'Team Sprint Worksheet';
@@ -55,6 +54,13 @@ export class ReportsComponent implements OnInit {
 
   getCurrentProjectSprintChart(userId) {
     // be
+  }
+
+  getCurrSprintIssues() {
+    this.reportsService.getProjectIssues(this.currProjectId).subscribe(data => {
+        const sprintIssues = data.filter(x => x.sprint === IssueLocation.CurrentSprint);
+        this.issuesGroupedByStatus = Object.values(_.groupBy(sprintIssues, 'status'));
+    });
   }
 
 }

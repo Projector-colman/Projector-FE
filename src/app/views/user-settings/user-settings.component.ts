@@ -31,7 +31,7 @@ export class UserSettingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      this.user = this.usersService.getUser(params.id);
+      //this.user = this.usersService.getUser(params.id);
     });
     this.userEditForm = new FormGroup({
       name: new FormControl(this.user.name, Validators.required),
