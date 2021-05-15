@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Comment } from 'src/app/interfaces/comment';
+import { User } from 'src/app/interfaces/user';
 import { CommentsService } from 'src/app/services/comments.service';
 import { UsersService } from 'src/app/services/users.service';
 
@@ -48,7 +49,9 @@ export class CommentComponent implements OnInit {
     }
   }
 
-  getWriterImg(): string {
-    return this.usersService.getUser(this.comment.writer).image;
+  getWriterImg() {
+    this.usersService.getCurrConnectedUser().subscribe((user: User) => {
+      return user.image
+    })
   }
 }

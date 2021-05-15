@@ -11,15 +11,16 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./navigation.component.scss'],
 })
 export class NavigationComponent implements OnInit {
-  
+  myUser: User;
+
   constructor(private dialog: MatDialog, 
               private userService: UsersService,
               public authService: AuthService,) {}
 
-  ngOnInit(): void {}
-
-  getCurrUser(): User {
-    return this.userService.getCurrConnectedUser();
+  ngOnInit(): void {
+    this.userService.getCurrConnectedUser().subscribe(user => {
+      this.myUser = user;
+    });
   }
 
   createProject() {

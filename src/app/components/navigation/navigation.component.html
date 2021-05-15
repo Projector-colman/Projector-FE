@@ -16,6 +16,6 @@
     </mat-menu>
   </ng-container>
   <span class="example-spacer"></span>
-  <img class="user-image" src='{{getCurrUser() ? getCurrUser().image : "/assets/images/user.png"}}'
-    routerLink='user-settings/{{getCurrUser() ? getCurrUser().id : undefined}}'>
+  <img *ngIf="myUser" class="user-image" src='{{myUser.image ? myUser.image : "/assets/images/user.png"}}'
+    routerLink='user-settings/{{myUser.id}}'>
 </mat-toolbar>

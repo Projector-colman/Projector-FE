@@ -5,6 +5,7 @@ import { IssueStatus } from 'src/app/enum/issueStatus.enum';
 import { Issue } from 'src/app/interfaces/issue';
 import { CommentsService } from 'src/app/services/comments.service';
 import { UsersService } from 'src/app/services/users.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-issue',
@@ -20,7 +21,8 @@ export class IssueComponent implements OnInit {
   
   constructor(
     public commentsService: CommentsService,
-    private userService: UsersService
+    private userService: UsersService,
+    private authService: AuthService,
   ) {
     this.addNewComment = false;
     this.closeIssueEmitter = new EventEmitter<void>();
@@ -70,7 +72,7 @@ export class IssueComponent implements OnInit {
 
   addComment(): Comment {
     let newComment: Comment = {
-      writer: this.userService.getCurrConnectedUser().id,
+      writer: +this.authService.getUserID(),
       time: new Date(),
       description: '',
       issue: this.issue.id,

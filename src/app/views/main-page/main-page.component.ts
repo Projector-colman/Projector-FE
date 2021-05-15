@@ -4,6 +4,7 @@ import { HomepageService } from 'src/app/services/homepage.service';
 import { Issue } from '../../interfaces/issue';
 import { Base } from '../../interfaces/base';
 import { ReportsService } from 'src/app/services/reports.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-main-page',
@@ -14,7 +15,9 @@ export class MainPageComponent implements OnInit {
   public assignedIssues: Issue[];
   public projects : Base[];
 
-  constructor(private reportsService: ReportsService, private userService: UsersService, private homepageService: HomepageService) { }
+  constructor(private reportsService: ReportsService, 
+              private homepageService: HomepageService,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
     this.getCurrentUserAssignedIssues();
@@ -29,8 +32,7 @@ export class MainPageComponent implements OnInit {
   }
 
   getCurrUserProjects() {
-    var currUser = this.userService.getCurrConnectedUser();
-    this.reportsService.getUserProjects(currUser.id).subscribe(data => {
+    this.reportsService.getUserProjects(this.authService.getUserID()).subscribe(data => {
       this.projects = data;
     });
   }

@@ -29,10 +29,14 @@ export class AuthService {
     localStorage.removeItem("id");
   }
 
-  public isLoggedIn() {
+  isLoggedIn() {
     return localStorage.getItem("id_token") != null;
   }
 
+  getUserID() {
+    return localStorage.getItem("id");
+  }
+  
   isLoggedOut() {
       return !this.isLoggedIn();
   }

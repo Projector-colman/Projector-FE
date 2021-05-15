@@ -7,7 +7,7 @@ export interface Issue {
   description?: string;
   epic?: number;
   reporter?: number;
-  asignee?: number;
+  asignee?: number | string;
   storyPoints?: number;
   priority?: number;
   sprint?: IssueLocation;
