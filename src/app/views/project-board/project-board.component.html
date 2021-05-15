@@ -13,15 +13,14 @@
         (cdkDropListDropped)="drop($event)">
         <ng-container *ngIf="this.project.key">
           <div *ngFor="let item of this.tasksHolder[title]" cdkDrag>
-            <app-main-issue id="{{item.id}}" 
-                            desc="{{item.description}}" 
-                            status="{{item.status}}" 
-                            time="{{item.storyPoints}}" 
-                            assignee="{{item.asignee}}"
-                            projectKey="{{this.project.key}}"
-                            name="{{item.name}}">
+            <app-main-issue projectKey="{{this.project.key}}"
+                            [issue]="item"
+                            (issueToOpen)="openIssue($event)">
             </app-main-issue>
           </div>
       </ng-container>
     </div>
   </div>
+  <app-issue *ngIf="issueToOpen" class="issue-detail" [issue]="issueToOpen"
+  (closeIssueEmitter)="issueToOpen = undefined"></app-issue>
+</div>

@@ -16,6 +16,7 @@ export class IssueComponent implements OnInit {
   @Output() closeIssueEmitter: EventEmitter<void>;
   addNewComment: boolean;
   comments: Comment[];
+  
   constructor(
     public commentsService: CommentsService,
     private userService: UsersService

@@ -24,6 +24,7 @@ export class ProjectBoardComponent implements OnInit {
   taskTitles;
   tasksHolder;
 
+  issueToOpen: Issue;
   isSubscribedToIssueUpdate = false;
 
   isLoading = false;
@@ -90,6 +91,10 @@ export class ProjectBoardComponent implements OnInit {
         }
       });
     });
+  }
+
+  openIssue(event) {
+    this.issueToOpen = event;
   }
   drop(event: CdkDragDrop<Issue[]>) {
     this.isLoading = true;

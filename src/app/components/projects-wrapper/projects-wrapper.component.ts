@@ -14,7 +14,7 @@ export class ProjectsWrapperComponent implements OnInit {
   isExpanded = false;
   element: HTMLElement;
   currentProjectId = -1;
-  @Output() clickedIcon = new EventEmitter();
+  //@Output() clickedIcon = new EventEmitter();
 
   ngOnInit(): void {
     // Side nav icons changing function

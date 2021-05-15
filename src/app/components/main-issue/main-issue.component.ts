@@ -1,4 +1,5 @@
-import { Component,Input, OnInit } from '@angular/core';
+import { Component,Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Issue } from 'src/app/interfaces/issue';
 
 @Component({
   selector: 'app-main-issue',
@@ -6,15 +7,14 @@ import { Component,Input, OnInit } from '@angular/core';
   styleUrls: ['./main-issue.component.scss']
 })
 export class MainIssueComponent implements OnInit {
-  @Input() id: string;
-  @Input() desc: string;
-  @Input() status: string;
-  @Input() time: string;
-  @Input() assignee: string;
+  @Input() issue: Issue;
   @Input() projectKey: string | 'prj';
-  @Input() name: string;
+  @Output() issueToOpen = new EventEmitter<Issue>();
   constructor() { }
 
   ngOnInit(): void {
+  }
+  clicked() {
+    this.issueToOpen.emit(this.issue);
   }
 }
