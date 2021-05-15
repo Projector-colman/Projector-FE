@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UsersService } from 'src/app/services/users.service';
 import { User } from '../../interfaces/user';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Project } from 'src/app/interfaces/project';
 import { ProjectsService } from 'src/app/services/projects.service';
 import { AuthService } from '../../services/auth.service';
@@ -18,9 +18,10 @@ export class UserSettingsComponent implements OnInit {
   user: User;
   imageChanged: boolean;
   newImage: string;
+  projects;
+
   constructor(
     private usersService: UsersService,
-    private route: ActivatedRoute,
     private projectService: ProjectsService,
     private auth: AuthService,
     private router: Router
@@ -30,13 +31,13 @@ export class UserSettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
-      this.user = this.usersService.getUser(params.id);
-    });
-    this.userEditForm = new FormGroup({
-      name: new FormControl(this.user.name, Validators.required),
-      email: new FormControl(this.user.email, Validators.required),
-      password: new FormControl(this.user.password, Validators.required),
+    this.usersService.userSubject.subscribe(user => {
+      this.user = user;
+      this.userEditForm = new FormGroup({
+        name: new FormControl(this.user.name, Validators.required),
+        email: new FormControl(this.user.email, Validators.required),
+        password: new FormControl(this.user.password, Validators.required),
+      });
     });
     this.userEditForm.valueChanges.subscribe((newUser: User) => {
       this.userChanged = !(
@@ -45,12 +46,8 @@ export class UserSettingsComponent implements OnInit {
         newUser.password == this.user.password
       );
     });
-  }
 
-  getProjectsOfCurrUser(): Project[] {
-    return this.projectService.projects.filter(
-      (project: Project) => true
-    );
+    this.projects = this.usersService.getUserProjects(this.auth.getUserID());
   }
 
   loadFile(event: any): void {

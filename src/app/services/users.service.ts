@@ -9,7 +9,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class UsersService {
-  foundUser = false;
+  private foundUser = false;
   userSubject = new BehaviorSubject<User>(null);
 
   constructor(private httpClient: HttpClient) {
@@ -21,6 +21,10 @@ export class UsersService {
 
   getMyUser() {
     return this.httpClient.get(beAddress + `api/users/me`);
+  }
+
+  getUserProjects(id) {
+    return this.httpClient.get(beAddress + `api/users/${id}/projects`);
   }
 
   updateUser(user: User) {
