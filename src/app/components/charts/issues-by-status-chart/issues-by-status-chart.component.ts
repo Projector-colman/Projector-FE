@@ -1,14 +1,10 @@
-import { isGeneratedFile } from "@angular/compiler/src/aot/util";
 import { Component, Input, ViewChild } from "@angular/core";
-import { ApexDataLabels, ChartComponent } from "ng-apexcharts";
-
+import { ChartComponent } from "ng-apexcharts";
 import {
   ApexNonAxisChartSeries,
   ApexResponsive,
   ApexChart
 } from "ng-apexcharts";
-import { IssueStatus } from "src/app/enum/issueStatus.enum";
-import { Issue } from "src/app/interfaces/issue";
 
 export type ChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -33,6 +29,7 @@ export class IssuesByStatusChartComponent {
   @Input() issues: any[][];
 ;
   constructor() {
+    const colors = ['#7bc043', '#fdf498', '#0392cf', '#ee4035' ,'#f37736'];
     this.title = 'Current Sprint Issues';
     this.chartOptions = {
       series: [],
@@ -41,9 +38,9 @@ export class IssuesByStatusChartComponent {
         type: "pie"
       },
       labels: [],
-      colors: ['#7bc043', '#fdf498', '#0392cf', '#ee4035' ,'#f37736'],
+      colors: colors,
       fill: {
-        colors: ['#7bc043', '#fdf498', '#0392cf', '#ee4035', '#f37736']
+        colors: colors
       },
       responsive: [
         {
