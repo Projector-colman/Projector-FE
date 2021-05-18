@@ -38,7 +38,6 @@ export class MainPageComponent implements OnInit {
   getCurrUserProjects() {
     this.reportsService.getUserProjects(this.authService.getUserID()).subscribe(data => {
       this.projects = data;
-      debugger;
       this.getCurrentUserSprintChart(data[0].id);
     });
   }
@@ -51,6 +50,9 @@ export class MainPageComponent implements OnInit {
     this.reportsService.getProjectSptrints(projectId).subscribe(data => {
       // get the project active sprint
       const currSprint = data.filter(sprint => sprint.status === IssueLocation.CurrentSprint)[0];
+      // get the sprint dates
+      var getDaysArray = function(s,e) {for(var a=[],d=new Date(s);d<=e;d.setDate(d.getDate()+1)){ a.push(new Date(d).toISOString().substring(0, 10));}return a;};
+      var days = getDaysArray(new Date(currSprint.startTime),new Date(currSprint.endTime));
 
       // get the active sprint issues
     this.reportsService.getSprintIssues(currSprint.id).subscribe(data => {
@@ -58,6 +60,8 @@ export class MainPageComponent implements OnInit {
       const issues = data
       // get the current user issues
       .filter(i => i.asignee.toString() === this.authService.getUserID());
+
+      const totalStoryPoints = _.sumBy(issues, 'storyPoints');
 
       // group issues by update date and sum the story points of each day 
       const groupedBy = _(issues)
@@ -70,10 +74,21 @@ export class MainPageComponent implements OnInit {
       }))
       .value();
 
-      this.closedIssuesPointsByDate = groupedBy;
+      // build the chart
+      const list = [];
+      days.forEach((day, i) => {
+        const obj = groupedBy.filter(x => x.date === day);
+        list.push({
+          date: day,
+          planned: totalStoryPoints - (currSprint.storyPoints * i),
+          real: obj.length ? totalStoryPoints - obj[0].storyPoints : list[i - 1].real
+        }); 
+      });
+
+      this.closedIssuesPointsByDate = list;
       debugger;
     });
     })
+  
   }
-
 }
