@@ -1,5 +1,6 @@
 import { Component, Input, ViewChild } from "@angular/core";
 import { ChartComponent } from "ng-apexcharts";
+
 import {
   ApexNonAxisChartSeries,
   ApexResponsive,
@@ -25,10 +26,11 @@ export class IssuesByStatusChartComponent {
   @ViewChild("chart") chart: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
   public title: String;
-  @Input() statuses: String[];
-  @Input() issues: any[][];
+  @Input() issues: any[];
+  public showChart: boolean;
 ;
   constructor() {
+    this.showChart = false;
     const colors = ['#7bc043', '#fdf498', '#0392cf', '#ee4035' ,'#f37736'];
     this.title = 'Current Sprint Issues';
     this.chartOptions = {
@@ -59,11 +61,10 @@ export class IssuesByStatusChartComponent {
   }
 
   ngOnChanges() {
-    if(this.statuses) {
-      this.chartOptions.labels = this.statuses;      
-    }
     if(this.issues) {
-      this.chartOptions.series = this.issues.map(group => group.length);
+      this.chartOptions.series = this.issues.map(x => x.count);
+      this.chartOptions.labels = this.issues.map(x => x.status);
+      if(this.issues.length !== 0) { this.showChart = true };
     }
   }
 }

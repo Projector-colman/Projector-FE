@@ -10,7 +10,8 @@ export interface Issue {
   asignee?: number | string;
   storyPoints?: number;
   priority?: number;
-  sprint?: IssueLocation;
+  sprint?: number;
   status?: any;
   createdAt?: any;
+  updatedAt?: any;
 }

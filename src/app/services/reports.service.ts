@@ -28,4 +28,8 @@ export class ReportsService {
   getProjectIssues(projectId) : Observable<Issue[]> {
     return this.httpClient.get<Issue[]>(`${beAddress}api/projects/${projectId}/issues`);
   }
+
+  getSprintIssues(sprintId) : Observable<Issue[]> {
+    return this.httpClient.get<Issue[]>(`${beAddress}api/sprints/${sprintId}/issues`);
+  }
 }
