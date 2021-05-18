@@ -55,4 +55,8 @@ export class ProjectsService {
   removeUserFromProject(projID, userID) {
     return this.httpClient.delete(beAddress + `api/projects/${projID}/users/${userID}`);
   }
+
+  deleteProject(projID) {
+    return this.httpClient.delete(beAddress + `api/projects/${projID}`);;
+  }
 }

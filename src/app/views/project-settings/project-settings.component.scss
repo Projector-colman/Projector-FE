@@ -12,7 +12,7 @@ h2 {
     color: white;
     text-align: center;
     width: auto;
-    display:flex;
+    display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 8px;
@@ -20,9 +20,9 @@ h2 {
 
 .container {
     width: 40%;
-    padding: 36px;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 }
 
 .add {
@@ -31,4 +31,18 @@ h2 {
 
 .delete {
     cursor: pointer;
+}
+
+.wrap {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.delete-proj {
+    background-color: rgb(194, 16, 16);
+    margin-right: 30%;
+    width: 10%;
+    height: 4%;
 }

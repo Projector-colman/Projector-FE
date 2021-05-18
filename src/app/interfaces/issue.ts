@@ -1,4 +1,3 @@
-import { IssueStatus } from 'src/app/enum/issueStatus.enum';
 import { IssueLocation } from '../enum/issueLocation.enum';
 
 export interface Issue {
@@ -7,7 +6,7 @@ export interface Issue {
   description?: string;
   epic?: number;
   reporter?: number;
-  asignee?: number | string;
+  asignee?: { id: number, name: string};
   storyPoints?: number;
   priority?: number;
   sprint?: IssueLocation;

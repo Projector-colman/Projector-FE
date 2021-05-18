@@ -113,7 +113,8 @@ export class ProjectBoardComponent implements OnInit {
       );
       
       const containerID = event.container.id;
-      let updatedIssue = event.container.data[event.currentIndex];
+      
+      let updatedIssue: any = Object.assign({}, event.container.data[event.currentIndex]);
 
       switch (containerID) {
         case "Todo" : {
@@ -125,7 +126,7 @@ export class ProjectBoardComponent implements OnInit {
           updatedIssue.status = "in-progress";
           break;
         }
-        case "Verifiy" : {
+        case "Verify" : {
           updatedIssue.status = "verify";
           break;
         }
@@ -138,6 +139,7 @@ export class ProjectBoardComponent implements OnInit {
           break;
         }
       }
+      updatedIssue.asignee = updatedIssue.asignee.id;
       this.issuesService.updateIssue(updatedIssue).subscribe(res => {
         this.isLoading = false;
       }, err => {
