@@ -9,7 +9,8 @@ export interface Issue {
   asignee?: { id: number, name: string};
   storyPoints?: number;
   priority?: number;
-  sprint?: number;
+  sprint?: IssueLocation;
+  sprintID?: number;
   status?: any;
   createdAt?: any;
   updatedAt?: any;
