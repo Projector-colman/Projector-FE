@@ -1,6 +1,9 @@
 <div class='container'>
     <div class='header'>
         <h1 class="title">Reports</h1>
+        <mat-select (selectionChange)="onSprintChange($event)" [(ngModel)]="selectedSprint">
+            <mat-option *ngFor="let sprint of sprints" [value]="sprint.id">{{ sprint.startTime }}</mat-option>
+        </mat-select>
     </div>
     <div class='firstRow'>
         <app-sprint-graph-container [title]='issuesByUserTitle' [selectItems]='users' (onChange)='handleUserChange($event)' class='fill'></app-sprint-graph-container>
