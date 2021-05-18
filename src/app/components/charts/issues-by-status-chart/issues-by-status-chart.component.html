@@ -1,7 +1,7 @@
 <div class='container'>
     <div class='header'>Current Sprint Issues</div>
     <div id="chart">
-        <apx-chart *ngIf="issues.length; else elseBlock"
+        <apx-chart *ngIf="showChart; else elseBlock"
           [series]="chartOptions.series"
           [chart]="chartOptions.chart"
           [labels]="chartOptions.labels"

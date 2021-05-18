@@ -13,4 +13,5 @@ export interface Issue {
   sprint?: IssueLocation;
   status?: any;
   createdAt?: any;
+  updatedAt?: any;
 }

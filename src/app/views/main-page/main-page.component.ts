@@ -5,6 +5,9 @@ import { Issue } from '../../interfaces/issue';
 import { Base } from '../../interfaces/base';
 import { ReportsService } from 'src/app/services/reports.service';
 import { AuthService } from '../../services/auth.service';
+import { IssueLocation } from 'src/app/enum/issueLocation.enum';
+import _ from 'lodash';
+import { IssueStatus } from 'src/app/enum/issueStatus.enum';
 
 @Component({
   selector: 'app-main-page',
@@ -14,6 +17,8 @@ import { AuthService } from '../../services/auth.service';
 export class MainPageComponent implements OnInit {
   public assignedIssues: Issue[];
   public projects : Base[];
+  public currUserId: string;
+  public closedIssuesPointsByDate: any[];
 
   constructor(private reportsService: ReportsService, 
               private homepageService: HomepageService,
@@ -22,7 +27,6 @@ export class MainPageComponent implements OnInit {
   ngOnInit(): void {
     this.getCurrentUserAssignedIssues();
     this.getCurrUserProjects();
-
   }
 
   getCurrentUserAssignedIssues() {
@@ -34,6 +38,7 @@ export class MainPageComponent implements OnInit {
   getCurrUserProjects() {
     this.reportsService.getUserProjects(this.authService.getUserID()).subscribe(data => {
       this.projects = data;
+      this.getCurrentUserSprintChart(data[0].id);
     });
   }
 
@@ -42,7 +47,29 @@ export class MainPageComponent implements OnInit {
   }
 
   getCurrentUserSprintChart(projectId) {
-    // be
+    // get the specify project issues
+    this.reportsService.getProjectIssues(projectId).subscribe(data => {
+
+      const issues = data
+      // get the active sprint issues
+      //.filter(i => i.sprint === IssueLocation.CurrentSprint)
+      // get the current user issues
+      .filter(i => i.asignee.toString() === this.authService.getUserID());
+
+      // group issues by update date and sum the story points of each day 
+      const groupedBy = _(issues)
+      .filter(i => i.status === IssueStatus.Done)
+      .filter(i => i.updatedAt !== null)
+      .groupBy('updatedAt')
+      .map((issue, date) => ({
+        date: date,
+        storyPoints: _.sumBy(issue, 'storyPoints'),
+      }))
+      .value();
+
+      this.closedIssuesPointsByDate = groupedBy;
+      debugger;
+    });
   }
 
 }

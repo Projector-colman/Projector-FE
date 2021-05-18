@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { SidenavUpdateService } from 'src/app/services/sidenav-update.service';
 import { Router } from '@angular/router';
 import { Base } from 'src/app/interfaces/base';
-import { Sprint } from 'src/app/interfaces/sprint';
+import { Issue } from 'src/app/interfaces/issue';
 import { ReportsService } from 'src/app/services/reports.service';
 import { MatSelectChange } from '@angular/material/select';
 import { IssueLocation } from 'src/app/enum/issueLocation.enum';
 import { IssueStatus } from 'src/app/enum/issueStatus.enum';
 import _ from 'lodash';
+import { group } from '@angular/animations';
 
 @Component({
   selector: 'app-reports',
@@ -16,7 +17,6 @@ import _ from 'lodash';
 })
 export class ReportsComponent implements OnInit {
     public users: Base[];
-    public issueStatuses: string[];
     public issuesGroupedByStatus: any[];
     public issuesByUserTitle: string;
     public currProjectId: string;
@@ -32,8 +32,6 @@ export class ReportsComponent implements OnInit {
     this.getCurrProjectUsers();
 
     // data for pie chart - issues by status
-    const statuses = Object.keys(IssueStatus);
-    this.issueStatuses = statuses.sort();
     this.getCurrSprintIssues();
   }
 
@@ -58,8 +56,13 @@ export class ReportsComponent implements OnInit {
 
   getCurrSprintIssues() {
     this.reportsService.getProjectIssues(this.currProjectId).subscribe(data => {
-        const sprintIssues = data.filter(x => x.sprint === IssueLocation.CurrentSprint);
-        this.issuesGroupedByStatus = Object.values(_.groupBy(sprintIssues, 'status'));
+        //const sprintIssues = data.filter(x => x.sprint === IssueLocation.CurrentSprint);
+        this.issuesGroupedByStatus = _(data).groupBy('status')
+        .map((issue, status) => ({
+          status: Object.keys(IssueStatus).find(key => IssueStatus[key] === status),
+          count: _.sumBy(issue, issue => 1),
+        }))
+        .value()
     });
   }
 

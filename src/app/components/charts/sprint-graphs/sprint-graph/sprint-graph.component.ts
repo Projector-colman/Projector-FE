@@ -1,4 +1,4 @@
-import { Component, ViewChild } from "@angular/core";
+import { Component, Input, ViewChild } from "@angular/core";
 
 import {
   ChartComponent,
@@ -30,19 +30,11 @@ export type ChartOptions = {
 export class SprintGraphComponent {
   @ViewChild("chart") chart: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
+  @Input() data: any[];
 
   constructor() {
     this.chartOptions = {
-      series: [
-        {
-          name: "Planned",
-          data: [78, 72, 66, 60, 54, 48, 42, 36, 30, 24, 18, 12, 6, 0]
-        },
-        {
-          name: "Real",
-          data: [78, 74, 72, 64, 60, 54, 50, 48, 40, 38, 36, 30, 24, 20]
-        }
-      ],
+      series: [],
       chart: {
         height: 350,
         type: "line",
@@ -94,5 +86,21 @@ export class SprintGraphComponent {
         ]
       }
     };
+  }
+
+  ngOnChanges() {
+    if(this.data) {
+      debugger;
+      this.chartOptions.series = [
+        {
+          name: "Planned",
+          data: [78, 72, 66, 60, 54, 48, 42, 36, 30, 24, 18, 12, 6, 0]
+        },
+        {
+          name: "Real",
+          data: this.data
+        }
+      ]      
+    }
   }
 }

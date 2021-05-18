@@ -11,8 +11,9 @@ export class SprintGraphContainerComponent implements OnInit {
   @Input() title: String;
   public selectedItem: Number;
   public showSelect : boolean;
-  @Input() items: Base[];
+  @Input() selectItems: Base[];
   @Output() onChange = new EventEmitter<string>();
+  @Input() chartData: any[];
 
   constructor() { 
     this.showSelect = false;
@@ -22,8 +23,8 @@ export class SprintGraphContainerComponent implements OnInit {
   }
 
   ngOnChanges() {
-    if(this.items) {
-      this.selectedItem = this.items[0].id;
+    if(this.selectItems) {
+      this.selectedItem = this.selectItems[0].id;
       this.showSelect = true;
     }
   }
