@@ -5,7 +5,6 @@ import { Base } from 'src/app/interfaces/base';
 import { Sprint } from 'src/app/interfaces/sprint';
 import { ReportsService } from 'src/app/services/reports.service';
 import { MatSelectChange } from '@angular/material/select';
-import { IssueLocation } from 'src/app/enum/issueLocation.enum';
 import { IssueStatus } from 'src/app/enum/issueStatus.enum';
 import _ from 'lodash';
 

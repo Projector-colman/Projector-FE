@@ -2,7 +2,7 @@
     <div class='header'>
         <h1 class="title">Reports</h1>
         <mat-select (selectionChange)="onSprintChange($event)" [(ngModel)]="selectedSprint">
-            <mat-option *ngFor="let sprint of sprints" [value]="sprint.id">{{ sprint.startTime }}</mat-option>
+            <mat-option *ngFor="let sprint of sprints" [value]="sprint.id">{{ sprint.startTime }} to {{ sprint.endTime }}</mat-option>
         </mat-select>
     </div>
     <div class='firstRow'>
