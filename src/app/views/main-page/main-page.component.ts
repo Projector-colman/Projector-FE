@@ -38,6 +38,7 @@ export class MainPageComponent implements OnInit {
   getCurrUserProjects() {
     this.reportsService.getUserProjects(this.authService.getUserID()).subscribe(data => {
       this.projects = data;
+      debugger;
       this.getCurrentUserSprintChart(data[0].id);
     });
   }
@@ -47,12 +48,14 @@ export class MainPageComponent implements OnInit {
   }
 
   getCurrentUserSprintChart(projectId) {
-    // get the specify project issues
-    this.reportsService.getProjectIssues(projectId).subscribe(data => {
+    this.reportsService.getProjectSptrints(projectId).subscribe(data => {
+      // get the project active sprint
+      const currSprint = data.filter(sprint => sprint.status === IssueLocation.CurrentSprint)[0];
+
+      // get the active sprint issues
+    this.reportsService.getSprintIssues(currSprint.id).subscribe(data => {
 
       const issues = data
-      // get the active sprint issues
-      //.filter(i => i.sprint === IssueLocation.CurrentSprint)
       // get the current user issues
       .filter(i => i.asignee.toString() === this.authService.getUserID());
 
@@ -70,6 +73,7 @@ export class MainPageComponent implements OnInit {
       this.closedIssuesPointsByDate = groupedBy;
       debugger;
     });
+    })
   }
 
 }
