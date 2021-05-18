@@ -76,17 +76,22 @@ export class MainPageComponent implements OnInit {
 
       // build the chart
       const list = [];
+      let realStoryPoints = totalStoryPoints;
       days.forEach((day, i) => {
-        const obj = groupedBy.filter(x => x.date === day);
+        const currDayGroup = groupedBy.filter(x => x.date === day);
+        if(currDayGroup.length) {
+          realStoryPoints -= currDayGroup[0].storyPoints;
+        } else {
+          realStoryPoints = i !== 0 ? list[i - 1].real : totalStoryPoints;
+        }
         list.push({
           date: day,
           planned: totalStoryPoints - (currSprint.storyPoints * i),
-          real: obj.length ? totalStoryPoints - obj[0].storyPoints : list[i - 1].real
+          real: realStoryPoints
         }); 
       });
 
       this.closedIssuesPointsByDate = list;
-      debugger;
     });
     })
   

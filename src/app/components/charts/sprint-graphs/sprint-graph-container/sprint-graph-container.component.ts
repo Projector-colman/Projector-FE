@@ -14,6 +14,9 @@ export class SprintGraphContainerComponent implements OnInit {
   @Input() selectItems: Base[];
   @Output() onChange = new EventEmitter<string>();
   @Input() chartData: any[];
+  public real: number[];
+  public planned: number[];
+  public categories: string[];
 
   constructor() { 
     this.showSelect = false;
@@ -26,6 +29,11 @@ export class SprintGraphContainerComponent implements OnInit {
     if(this.selectItems) {
       this.selectedItem = this.selectItems[0].id;
       this.showSelect = true;
+    }
+    if(this.chartData) {
+      this.real = this.chartData.map(x => x.real);
+      this.planned = this.chartData.map(x => x.planned);
+      this.categories = this.chartData.map(x => x.date);
     }
   }
     

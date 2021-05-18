@@ -30,7 +30,9 @@ export type ChartOptions = {
 export class SprintGraphComponent {
   @ViewChild("chart") chart: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
-  @Input() data: any[];
+  @Input() planned: number[];
+  @Input() real: number[];
+  @Input() categories: string[];
 
   constructor() {
     this.chartOptions = {
@@ -68,39 +70,26 @@ export class SprintGraphComponent {
         }
       },
       xaxis: {
-        categories: [
-          "1",
-          "2",
-          "3",
-          "4",
-          "5",
-          "6",
-          "7",
-          "8",
-          "9",
-          "10",
-          "11",
-          "12",
-          "13",
-          "14"
-        ]
+        categories: []
       }
     };
   }
 
   ngOnChanges() {
-    if(this.data) {
-      debugger;
-      this.chartOptions.series = [
-        {
-          name: "Planned",
-          data: [78, 72, 66, 60, 54, 48, 42, 36, 30, 24, 18, 12, 6, 0]
-        },
-        {
-          name: "Real",
-          data: this.data
-        }
-      ]      
+    if(this.planned) {
+      this.chartOptions.series.push({
+        name: "Planned",
+        data: this.planned
+      })
+    }
+    if(this.real) {
+      this.chartOptions.series.push({
+        name: "Real",
+        data: this.real
+      })
+    }
+    if(this.categories) {
+      this.chartOptions.xaxis.categories = this.categories;
     }
   }
 }
