@@ -76,20 +76,24 @@ export class SprintGraphComponent {
   }
 
   ngOnChanges() {
-    if(this.planned) {
-      this.chartOptions.series.push({
-        name: "Planned",
-        data: this.planned
-      })
-    }
-    if(this.real) {
-      this.chartOptions.series.push({
-        name: "Real",
-        data: this.real
-      })
-    }
-    if(this.categories) {
-      this.chartOptions.xaxis.categories = this.categories;
+    if(this.planned && this.real && this.categories) {
+      const today = new Date().toISOString().substring(0, 10);
+      debugger;
+      this.chartOptions = {...this.chartOptions, ...{
+        series: [
+          {
+            name: "Real",
+            data: this.real
+          }, 
+          {
+            name: "Planned",
+            data: this.planned
+          }
+        ],
+        xaxis: {
+          categories: this.categories
+        },
+      }}
     }
   }
 }
