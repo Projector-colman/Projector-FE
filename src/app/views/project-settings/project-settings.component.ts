@@ -59,6 +59,12 @@ export class ProjectSettingsComponent implements OnInit {
       })
     })
   }
+
+  delete() {
+    this.projectsService.deleteProject(this.project.id).subscribe(() => {
+      this.router.navigate(['/projects'])
+    })
+  }
 }
 interface TableRow {
   id: number;

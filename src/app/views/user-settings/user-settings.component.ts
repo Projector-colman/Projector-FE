@@ -32,6 +32,9 @@ export class UserSettingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.usersService.userSubject.subscribe(user => {
+      if(!user) {
+        this.router.navigate(['/']);
+      }
       this.user = user;
       this.userEditForm = new FormGroup({
         name: new FormControl(this.user.name, Validators.required),
