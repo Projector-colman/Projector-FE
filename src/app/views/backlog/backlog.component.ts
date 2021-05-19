@@ -85,7 +85,7 @@ export class BacklogComponent implements OnInit {
 
       switch (event.container.id) {
         case 'CurrSprint': {
-          list[event.previousIndex].sprint = this.issuesLocation.CurrentSprint;
+          list[event.previousIndex].sprintStatus = this.issuesLocation.CurrentSprint;
           list[event.previousIndex].status = IssueStatus.ToDo;
           this.issuesService
             .updateIssue(list[event.previousIndex])
@@ -99,7 +99,7 @@ export class BacklogComponent implements OnInit {
           break;
         }
         case 'PlannedStrint': {
-          list[event.previousIndex].sprint = this.issuesLocation.PlannedSprint;
+          list[event.previousIndex].sprintStatus = this.issuesLocation.PlannedSprint;
           list[event.previousIndex].status = IssueStatus.None;
           this.issuesService
             .updateIssue(list[event.previousIndex])
@@ -113,7 +113,7 @@ export class BacklogComponent implements OnInit {
           break;
         }
         case 'Backlog': {
-          list[event.previousIndex].sprint = this.issuesLocation.Backlog;
+          list[event.previousIndex].sprintStatus = this.issuesLocation.Backlog;
           list[event.previousIndex].status = IssueStatus.None;
           this.issuesService
             .updateIssue(list[event.previousIndex])
@@ -138,6 +138,6 @@ export class BacklogComponent implements OnInit {
   }
 
   getStatusIssues(status: IssueLocation): Issue[] {
-    return this.issues?.filter((issue: Issue) => issue.sprint === status);
+    return this.issues?.filter((issue: Issue) => issue.sprintStatus === status);
   }
 }
