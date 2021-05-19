@@ -33,7 +33,7 @@ export class LeadViewComponent implements OnInit {
     Promise.all([this.projectUsers, this.projectIssues]).then(values => {
       this.tableData = [];
       const users  = values[0];
-      const issues = values[1];
+      const issues = values[1].filter(issue => issue.sprintStatus == 'active');
       
       users.forEach(user => {
         this.tableData.push({ id: user.id, 
@@ -47,7 +47,10 @@ export class LeadViewComponent implements OnInit {
 
       issues.forEach(issue => {
         let asigneeTableData = this.tableData.filter(row => row.id === issue.asignee)[0];
-        asigneeTableData[issue.status]++;
+        if(asigneeTableData) {
+          asigneeTableData[issue.status]++;
+        }
+        
       });
 
       this.tableData.forEach(row => {

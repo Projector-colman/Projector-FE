@@ -65,7 +65,8 @@ export class ProjectBoardComponent implements OnInit {
     this.tasksHolder = {Todo: [], inProgress: [], Verify: [] ,Done: []};
     this.taskTitles = Object.keys(this.tasksHolder);
     
-    this.issuesService.getProjectIssues(this.project.id).subscribe((issues: any[]) => {
+    this.issuesService.getProjectIssues(this.project.id).subscribe((issues: Issue[]) => {
+      issues = issues.filter(issue => issue.sprintStatus == 'active');
       issues.forEach(issue => {
         switch (issue.status) {
           case "to-do" : {
