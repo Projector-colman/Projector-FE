@@ -11,17 +11,21 @@
   margin-top: 30px;
 }
 
+.top-settings div {
+  font-size: 29px;
+}
+
 .user-image {
   border-radius: 50%;
-  width: 100px;
-  height: 100px;
+  width: 170px;
+  height: 170px;
   object-fit: cover;
   margin-top: 10px;
 }
 
 .edit-icon {
-  width: 20px;
-  height: 20px;
+  width: 50px;
+  height: 50px;
   margin-top: 10px;
 }
 
@@ -44,21 +48,15 @@
   top: 7px;
   padding-right: 10px;
   color: gray;
-  font-size: 9px;
 }
 
 .edit-form i:hover {
   cursor: pointer;
 }
 
-.edit-form span {
-  font-size: 11px;
-  padding-right: 3px;
-}
-
 .edit-form input {
-  height: 10px;
-  font-size: 10px;
+  height: 30px;
+  font-size: 16px;
   border-radius: 5px;
   background-color: #f0f0f0;
   border: none;
@@ -71,8 +69,8 @@
 }
 
 .submitBtn {
-  font-size: 10px;
-  max-width: 40px;
+  font-size: 18px;
+  max-width: 50px;
   align-self: center;
   padding: 5px;
   border-radius: 3px;
@@ -88,8 +86,8 @@
 }
 
 .cancleBtn {
-  font-size: 10px;
-  max-width: 40px;
+  font-size: 18px;
+  max-width: 50px;
   align-self: center;
   padding: 5px;
   border-radius: 3px;
@@ -105,7 +103,7 @@
 }
 
 .bottom-settings {
-  font-size: 12px;
+  font-size: 17px;
   display: flex;
   flex-direction: row;
 }
@@ -138,7 +136,7 @@
 
 .btnText {
   margin-left: 8px;
-  font-size: 10px;
+  font-size: 16px;
   font-weight: bold;
   color: #205b87;
 }
@@ -147,4 +145,8 @@
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+}
+
+.logoutBtn {
+  font-size: 17px;
 }
