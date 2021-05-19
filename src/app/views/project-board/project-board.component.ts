@@ -139,7 +139,7 @@ export class ProjectBoardComponent implements OnInit {
           break;
         }
       }
-      updatedIssue.asignee = updatedIssue.asignee.id;
+      updatedIssue.asignee = updatedIssue.asignee;
       this.issuesService.updateIssue(updatedIssue).subscribe(res => {
         this.isLoading = false;
       }, err => {

@@ -46,7 +46,7 @@ export class LeadViewComponent implements OnInit {
       });
 
       issues.forEach(issue => {
-        let asigneeTableData = this.tableData.filter(row => row.id === issue.asignee.id)[0];
+        let asigneeTableData = this.tableData.filter(row => row.id === issue.asignee)[0];
         asigneeTableData[issue.status]++;
       });
 

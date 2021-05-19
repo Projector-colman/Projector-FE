@@ -67,7 +67,7 @@ export class ReportsComponent implements OnInit {
 
   getSelectedSprintIssuesGroupedByStatus() {
     this.reportsService.getProjectIssues(this.currProjectId).subscribe(data => {
-        const sprintIssues = data.filter(x => x.sprintID === this.selectedSprint);
+        const sprintIssues = data.filter(x => x.sprint === this.selectedSprint);
         this.issuesGroupedByStatus = _(sprintIssues).groupBy('status')
         .map((issue, status) => ({
           status: Object.keys(IssueStatus).find(key => IssueStatus[key] === status),

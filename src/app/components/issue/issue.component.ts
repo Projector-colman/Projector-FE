@@ -52,7 +52,7 @@ export class IssueComponent implements OnInit {
         return 'Done';
       }
       case IssueStatus.None: {
-        switch (this.issue.sprint) {
+        switch (this.issue.sprintStatus) {
           case IssueLocation.CurrentSprint: {
             return '';
           }
