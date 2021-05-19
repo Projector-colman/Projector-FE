@@ -16,3 +16,9 @@
 app-button {
   justify-content: flex-end;
 }
+
+::ng-deep .planSprintDialogRef {
+  mat-dialog-container {
+    background-color: lightgray;
+  }
+}

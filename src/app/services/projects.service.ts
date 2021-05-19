@@ -4,6 +4,7 @@ import { UsersService } from './users.service';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { beAddress } from '../environment';
+import { User } from '../interfaces/user';
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +27,10 @@ export class ProjectsService {
   }
 
   createProject(name: string, key: string) {
-    return this.httpClient.post(beAddress + 'api/projects', {name: name, key: key});
+    return this.httpClient.post(beAddress + 'api/projects', {
+      name: name,
+      key: key,
+    });
   }
 
   getProject(filters: any): Observable<any> {
@@ -49,14 +53,28 @@ export class ProjectsService {
   }
 
   addUserToProject(projID, userID) {
-    return this.httpClient.post(beAddress + `api/projects/${projID}/users`, {userId : userID});
+    return this.httpClient.post(beAddress + `api/projects/${projID}/users`, {
+      userId: userID,
+    });
   }
-  
+
   removeUserFromProject(projID, userID) {
-    return this.httpClient.delete(beAddress + `api/projects/${projID}/users/${userID}`);
+    return this.httpClient.delete(
+      beAddress + `api/projects/${projID}/users/${userID}`
+    );
   }
 
   deleteProject(projID) {
-    return this.httpClient.delete(beAddress + `api/projects/${projID}`);;
+    return this.httpClient.delete(beAddress + `api/projects/${projID}`);
+  }
+
+  planSprintByProject(
+    projID,
+    usersStoryPoints: { user: User; storyPoints: number }[]
+  ) {
+    return this.httpClient.post(beAddress + 'api/sprints/plan', {
+      projectId: projID,
+      usersStoryPoints: usersStoryPoints,
+    });
   }
 }

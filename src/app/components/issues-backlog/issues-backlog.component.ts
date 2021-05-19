@@ -1,4 +1,4 @@
-import { CdkDrag, CdkDragDrop } from '@angular/cdk/drag-drop';
+import { MatDialog } from '@angular/material/dialog';
 import {
   Component,
   EventEmitter,
@@ -8,6 +8,8 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Issue } from 'src/app/interfaces/issue';
+import { PlanSprintComponent } from '../plan-sprint/plan-sprint.component';
+import { ProjectsService } from 'src/app/services/projects.service';
 
 @Component({
   selector: 'app-issues-backlog',
@@ -18,8 +20,9 @@ export class IssuesBacklogComponent implements OnChanges {
   @Input() header: string;
   @Input() issues: Issue[];
   @Input() showPlanSprintBtn: boolean;
+  @Input() projectId: string;
   @Output() openIssueEmitter: EventEmitter<Issue>;
-  constructor() {
+  constructor(private dialog: MatDialog) {
     this.showPlanSprintBtn = false;
     this.openIssueEmitter = new EventEmitter<Issue>();
   }
@@ -28,5 +31,14 @@ export class IssuesBacklogComponent implements OnChanges {
 
   openIssue(issue: Issue): void {
     this.openIssueEmitter.emit(issue);
+  }
+
+  planSprint() {
+    const planSprintDialogRef = this.dialog.open(PlanSprintComponent, {
+      width: '90vh',
+      height: '65vh',
+      panelClass: 'planSprintDialogRef',
+      data: this.projectId,
+    });
   }
 }

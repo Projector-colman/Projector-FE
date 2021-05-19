@@ -1,0 +1,68 @@
+.sprintPlanning {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.header {
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.users {
+  display: flex;
+  flex-direction: column;
+  font-size: 24px;
+  padding-top: 10px;
+}
+
+.user {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-top: 30px;
+  font-family: Bradley Hand, cursive;
+}
+
+.user-name {
+  padding-right: 30px;
+  color: #f26674;
+  text-shadow: 1px 1px 2px gray, 0 0 0.2em white;
+}
+
+.story-points-input {
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  width: 120px;
+}
+
+input:focus {
+  outline: none;
+}
+
+.spinner {
+  display: flex;
+  justify-content: center;
+  padding-top: 120px;
+}
+
+.submit {
+  width: 100px;
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  background-color: #f26674;
+  cursor: pointer;
+  color: white;
+  font-size: 19px;
+}
+
+.button {
+  padding-top: 20px;
+}
+
+::ng-deep .mat-progress-spinner circle,
+.mat-spinner circle {
+  stroke: #f26674;
+}

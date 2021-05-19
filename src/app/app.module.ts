@@ -53,6 +53,7 @@ import { MatTableModule } from '@angular/material/table';
 import { SprintGraphContainerComponent } from './components/charts/sprint-graphs/sprint-graph-container/sprint-graph-container.component';
 import { ProjectSettingsComponent } from './views/project-settings/project-settings.component';
 import { AddUserComponent } from './components/modals/add-user/add-user.component';
+import { PlanSprintComponent } from './components/plan-sprint/plan-sprint.component';
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import { AddUserComponent } from './components/modals/add-user/add-user.componen
     SprintGraphContainerComponent,
     ProjectSettingsComponent,
     AddUserComponent,
+    PlanSprintComponent,
   ],
   imports: [
     MatCardModule,

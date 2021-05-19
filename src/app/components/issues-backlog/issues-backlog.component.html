@@ -1,6 +1,6 @@
 <div class="issues-board">
   <div class="header">{{header}}
-    <app-button *ngIf="showPlanSprintBtn" [header]="'Plan Sprint'"></app-button>
+    <app-button *ngIf="showPlanSprintBtn" (buttonClickedEmitter)="planSprint()" [header]="'Plan Sprint'"></app-button>
   </div>
   <div *ngFor="let issue of issues" cdkDrag>
     <app-issue-preview [issue]="issue" (click)="openIssue(issue)">

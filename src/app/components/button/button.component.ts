@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-button',
@@ -7,7 +7,14 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ButtonComponent implements OnInit {
   @Input() header?: string;
-  constructor() {}
+  @Output() buttonClickedEmitter: EventEmitter<void>;
+  constructor() {
+    this.buttonClickedEmitter = new EventEmitter<void>();
+  }
 
   ngOnInit(): void {}
+
+  buttonClicked() {
+    this.buttonClickedEmitter.emit();
+  }
 }

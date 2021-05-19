@@ -1,0 +1,20 @@
+<form [formGroup]="sprintPlanningForm" (ngSubmit)="onSubmit()" class="sprintPlanning"
+  *ngIf="users && usersInfo.controls; else loading">
+  <div class="header">Before we'll plan your sprint...</div>
+  <div formArrayName="usersInfo" class="users">
+    <div *ngFor="let userInfo of usersInfo.controls; let i=index">
+      <div [formGroupName]="i" class="user">
+        <div class="user-name">{{userInfo['controls'].user.value.name}}</div>
+        <input class="story-points-input" placeholder="story points..." formControlName="storyPoints">
+      </div>
+    </div>
+  </div>
+  <div class="button"><button type="submit" class="submit"
+      [disabled]="sprintPlanningForm.invalid || submitting">next</button></div>
+</form>
+
+<ng-template #loading>
+  <div class="spinner">
+    <mat-progress-spinner diameter="40" mode="determinate" value="100"></mat-progress-spinner>
+  </div>
+</ng-template>
