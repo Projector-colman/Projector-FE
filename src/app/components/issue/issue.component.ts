@@ -37,7 +37,6 @@ export class IssueComponent implements OnInit {
   }
 
   public get issuesStatus(): string {
-    let status: string = 'To wDo';
     switch (this.issue.status) {
       case IssueStatus.ToDo: {
         return 'To Do';

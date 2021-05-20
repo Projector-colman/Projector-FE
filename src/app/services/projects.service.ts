@@ -48,8 +48,14 @@ export class ProjectsService {
     return this.httpClient.get(beAddress + `api/projects/${id}/users`);
   }
 
-  getProjectIssues(id: number) {
-    return this.httpClient.get(beAddress + `api/projects/${id}/issues`);
+  getProjectIssues(id: number, sprintStatus?) {
+    let params = new HttpParams();
+
+    if(sprintStatus) {
+      params = params.append('status', sprintStatus);
+    }
+
+    return this.httpClient.get(beAddress + `api/projects/${id}/issues`, { params: params });
   }
 
   addUserToProject(projID, userID) {

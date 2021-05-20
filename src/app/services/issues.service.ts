@@ -11,7 +11,11 @@ export class IssuesService {
   constructor(private httpClient: HttpClient) {}
 
   updateIssue(issue: Issue) {
-     return this.httpClient.put(beAddress + `api/issues/${issue.id}`,issue);
+    return this.httpClient.put(beAddress + `api/issues/${issue.id}`,issue);
+  }
+
+  updateIssueSprint(id, status) {
+    return this.httpClient.put(beAddress + `api/issues/${id}/sprint`,{sprintStatus : status});
   }
 
   getIssues(filters): Observable<any> {

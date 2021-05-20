@@ -18,10 +18,11 @@ import { ProjectsService } from 'src/app/services/projects.service';
 })
 export class IssuesBacklogComponent implements OnChanges {
   @Input() header: string;
-  @Input() issues: Issue[];
+  @Input() issues;
   @Input() showPlanSprintBtn: boolean;
   @Input() projectId: string;
   @Output() openIssueEmitter: EventEmitter<Issue>;
+  
   constructor(private dialog: MatDialog) {
     this.showPlanSprintBtn = false;
     this.openIssueEmitter = new EventEmitter<Issue>();
