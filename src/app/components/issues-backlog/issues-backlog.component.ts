@@ -20,6 +20,7 @@ export class IssuesBacklogComponent implements OnChanges {
   @Input() header: string;
   @Input() issues;
   @Input() showPlanSprintBtn: boolean;
+  @Input() showStartSprintBtn: boolean;
   @Input() projectId: string;
   @Output() openIssueEmitter: EventEmitter<Issue>;
   
@@ -41,5 +42,8 @@ export class IssuesBacklogComponent implements OnChanges {
       panelClass: 'planSprintDialogRef',
       data: this.projectId,
     });
+  }
+  startSprint() {
+    
   }
 }

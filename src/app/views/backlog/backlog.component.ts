@@ -90,13 +90,18 @@ export class BacklogComponent implements OnInit {
     }
 
     this.issuesService.updateIssueSprint(updatedIssue.id, newStatus).subscribe(res => {
-      console.log('moved')
     }, err => {
       console.error(err)
+      transferArrayItem(
+        event.container.data,
+        event.previousContainer.data,
+        event.currentIndex,
+        event.previousIndex
+      );
+      
     })
   }
   
-
   openIssue(issue: Issue): void {
     this.issueToOpen = issue;
   }

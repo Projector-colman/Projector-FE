@@ -76,11 +76,11 @@ export class ProjectsService {
 
   planSprintByProject(
     projID,
-    usersStoryPoints: { user: User; storyPoints: number }[]
+    usersStoryPoints: { id: number; time: number }[]
   ) {
     return this.httpClient.post(beAddress + 'api/sprints/plan', {
-      projectId: projID,
-      usersStoryPoints: usersStoryPoints,
+      projectID: projID,
+      workTime: usersStoryPoints,
     });
   }
 }
