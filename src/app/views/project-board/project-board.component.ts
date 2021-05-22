@@ -62,7 +62,7 @@ export class ProjectBoardComponent implements OnInit {
   }
 
   updateIssues() {
-    this.tasksHolder = {Todo: [], inProgress: [], Verify: [] ,Done: []};
+    this.tasksHolder = {Todo: [], "In Progress": [], Verify: [] ,Done: []};
     this.taskTitles = Object.keys(this.tasksHolder);
     
     this.issuesService.getProjectIssues(this.project.id).subscribe((issues: Issue[]) => {
@@ -74,7 +74,7 @@ export class ProjectBoardComponent implements OnInit {
             break;
           }
           case "in-progress" : {
-            this.tasksHolder.inProgress.push(issue);
+            this.tasksHolder["In Progress"].push(issue);
             break;
           }
           case "verify" : {
@@ -123,7 +123,7 @@ export class ProjectBoardComponent implements OnInit {
           this.issuesService.updateIssue
           break;
         }
-        case "inProgress" : {
+        case "In Progress" : {
           updatedIssue.status = "in-progress";
           break;
         }

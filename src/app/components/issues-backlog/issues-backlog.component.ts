@@ -8,7 +8,8 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Issue } from 'src/app/interfaces/issue';
-import { PlanSprintComponent } from '../plan-sprint/plan-sprint.component';
+import { PlanSprintComponent } from '../modals/plan-sprint/plan-sprint.component';
+import { StartSprintComponent } from '../modals/start-sprint/start-sprint.component';
 import { ProjectsService } from 'src/app/services/projects.service';
 
 @Component({
@@ -44,6 +45,11 @@ export class IssuesBacklogComponent implements OnChanges {
     });
   }
   startSprint() {
-    
+    const startSprintDialog = this.dialog.open(StartSprintComponent, {
+      width: '30vh',
+      height: '20vh',
+      panelClass: 'startSprintDialog',
+      data: this.projectId,
+    });
   }
 }

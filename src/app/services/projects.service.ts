@@ -83,4 +83,7 @@ export class ProjectsService {
       workTime: usersStoryPoints,
     });
   }
+  startSprint(projID: number) {
+    return this.httpClient.post(beAddress + 'api/sprints/start', {project : projID});
+  }
 }
