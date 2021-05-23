@@ -2,7 +2,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Comment } from 'src/app/interfaces/comment';
 import { User } from 'src/app/interfaces/user';
 import { CommentsService } from 'src/app/services/comments.service';
+import { IssuesService } from 'src/app/services/issues.service';
 import { UsersService } from 'src/app/services/users.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-comment',
@@ -16,7 +18,8 @@ export class CommentComponent implements OnInit {
   description: string;
   constructor(
     private commentsService: CommentsService,
-    private usersService: UsersService
+    private usersService: UsersService,
+    private issuesService: IssuesService
   ) {
     this.newComment = false;
     this.closeNewCommentEmitter = new EventEmitter<boolean>();
@@ -44,14 +47,29 @@ export class CommentComponent implements OnInit {
   saveComment(): void {
     if (this.description) {
       this.comment.description = this.description;
-      this.commentsService.saveComment(this.comment);
+      console.log(this.comment);
+      this.commentsService.saveComment(this.comment).subscribe(
+        (res) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'The comment has been saved',
+          });
+        },
+        (err) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Failed to save comment!',
+          });
+        }
+      );
       this.closeNewComment();
     }
   }
 
   getWriterImg() {
     this.usersService.getCurrConnectedUser().subscribe((user: User) => {
-      return user.image
-    })
+      return user.image;
+    });
   }
 }
