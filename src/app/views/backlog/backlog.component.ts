@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem,
+} from '@angular/cdk/drag-drop';
 import { Router } from '@angular/router';
-import { IssueLocation } from 'src/app/enum/issueLocation.enum';
 import { IssuesService } from 'src/app/services/issues.service';
-import { IssueStatus } from 'src/app/enum/issueStatus.enum';
 import { Issue } from 'src/app/interfaces/issue';
-import { Project } from 'src/app/interfaces/project';
 import { ProjectsService } from 'src/app/services/projects.service';
 import { SidenavUpdateService } from 'src/app/services/sidenav-update.service';
-import { Epic } from 'src/app/interfaces/epic';
 
 @Component({
   selector: 'app-backlog',
@@ -17,9 +17,12 @@ import { Epic } from 'src/app/interfaces/epic';
 })
 export class BacklogComponent implements OnInit {
   projectId: string;
-  currProject: Project;
   issueToOpen: Issue;
-  issues: Issue[];
+  tasksHolder = {CurrSprint: [], PlannedSprint: [], Backlog: []};
+
+  activeIssues;
+  plannedIssues;
+  backlogIssues;
 
   constructor(
     public router: Router,
@@ -33,111 +36,73 @@ export class BacklogComponent implements OnInit {
     this.projectId = this.router.url.split('/')[2];
     this.sidenavUpdateService.changeMessage('backlog');
     this.sidenavUpdateService.changeProject(this.projectId);
-    this.projectsService
-      .getProject({ id: this.projectId })
-      .subscribe((projects: Project[]) => {
-        this.currProject = projects[0];
-      });
-    this.getIssues();
-  }
 
-  async getIssues(): Promise<void> {
-    let filteredIssues: Issue[] = [];
-    await this.issuesService.getIssues({}).subscribe((issues: Issue[]) => {
-      this.issuesService.getEpics({}).subscribe((epics: Epic[]) => {
-        issues.forEach((issue: Issue) => {
-          if (
-            epics.find((epic: Epic) => epic.id === issue.epic)?.project ===
-            +this.projectId
-          ) {
-            filteredIssues.push(issue);
-          }
-        });
-        this.issues = filteredIssues;
-      });
+    this.projectsService.getProjectIssues(+this.projectId, 'active').subscribe((data: Issue[]) => {
+      this.tasksHolder['CurrSprint'].push(...data);
     });
+
+    this.projectsService.getProjectIssues(+this.projectId, 'planned').subscribe((data: Issue[]) => {
+      this.tasksHolder['PlannedSprint'].push(...data);
+    });
+
+    this.projectsService.getProjectIssues(+this.projectId, 'backlog').subscribe((data: Issue[]) => {
+      this.tasksHolder['Backlog'].push(...data);
+    });
+
   }
 
-  public get issuesLocation(): typeof IssueLocation {
-    return IssueLocation;
-  }
+  drop(event: CdkDragDrop<Issue[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    }
+    let newStatus;
+    const containerID = event.container.id;
+    let updatedIssue: any = Object.assign({}, event.container.data[event.currentIndex]);
 
-  async drop(event: CdkDragDrop<Issue[]>) {
-    if (event.container.id !== event.previousContainer.id) {
-      let list: Issue[];
-      switch (event.previousContainer.id) {
-        case 'CurrSprint': {
-          list = await this.getStatusIssues(this.issuesLocation.CurrentSprint);
-          break;
-        }
-        case 'PlannedStrint': {
-          list = await this.getStatusIssues(this.issuesLocation.PlannedSprint);
-          break;
-        }
-        case 'Backlog': {
-          list = await this.getStatusIssues(this.issuesLocation.Backlog);
-          break;
-        }
-        default: {
-          break;
-        }
+    switch (containerID) {
+      case "CurrSprint" : {
+        newStatus = 'active';
+        break;
       }
-
-      switch (event.container.id) {
-        case 'CurrSprint': {
-          list[event.previousIndex].sprintStatus = this.issuesLocation.CurrentSprint;
-          list[event.previousIndex].status = IssueStatus.ToDo;
-          this.issuesService
-            .updateIssue(list[event.previousIndex])
-            .toPromise()
-            .then((data) => {
-              console.log(data);
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-          break;
-        }
-        case 'PlannedStrint': {
-          list[event.previousIndex].sprintStatus = this.issuesLocation.PlannedSprint;
-          list[event.previousIndex].status = IssueStatus.None;
-          this.issuesService
-            .updateIssue(list[event.previousIndex])
-            .toPromise()
-            .then((data) => {
-              console.log(data);
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-          break;
-        }
-        case 'Backlog': {
-          list[event.previousIndex].sprintStatus = this.issuesLocation.Backlog;
-          list[event.previousIndex].status = IssueStatus.None;
-          this.issuesService
-            .updateIssue(list[event.previousIndex])
-            .toPromise()
-            .then((data) => {
-              console.log(data);
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-          break;
-        }
-        default: {
-          break;
-        }
+      case "PlannedSprint" : {
+        newStatus = 'planned';
+        break;
+      }
+      case "Backlog" : {
+        newStatus = 'backlog';
+        break;
+      }
+      default: {
+        console.error('Unfamiliar sprint');
+        break;
       }
     }
-  }
 
+    this.issuesService.updateIssueSprint(updatedIssue.id, newStatus).subscribe(res => {
+    }, err => {
+      console.error(err)
+      transferArrayItem(
+        event.container.data,
+        event.previousContainer.data,
+        event.currentIndex,
+        event.previousIndex
+      );
+      
+    })
+  }
+  
   openIssue(issue: Issue): void {
     this.issueToOpen = issue;
-  }
-
-  getStatusIssues(status: IssueLocation): Issue[] {
-    return this.issues?.filter((issue: Issue) => issue.sprintStatus === status);
   }
 }

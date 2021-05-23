@@ -10,6 +10,8 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { map } from 'rxjs/operators'
+import { pipe, from } from 'rxjs'
 
 @Component({
   selector: 'app-plan-sprint',
@@ -34,7 +36,7 @@ export class PlanSprintComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let numberRegEx = /^[1-9]$|^10$/;
+    let numberRegEx = /^[0-9]*$/;
     this.projectService.getProjectUsers(this.data).subscribe((data: User[]) => {
       this.users = data;
       this.users.forEach((user: User) =>
@@ -43,7 +45,7 @@ export class PlanSprintComponent implements OnInit {
             user: user,
             storyPoints: this.fb.control(null, [
               Validators.required,
-              Validators.pattern(numberRegEx),
+              Validators.pattern(numberRegEx)
             ]),
           })
         )
@@ -60,15 +62,20 @@ export class PlanSprintComponent implements OnInit {
 
   onSubmit(): void {
     this.submitting = true;
+    const source = this.usersStoryPoints;
+    const userData = source.map(row => {
+      return {id : row.user.id, time : row.storyPoints}
+    });
+
     this.projectService
-      .planSprintByProject(this.data, this.usersStoryPoints)
+      .planSprintByProject(this.data, userData)
       .subscribe(
         (res) => {
           console.log(res);
           this.dialogRef.close();
         },
         (err) => {
-          console.log(err);
+          console.error(err);
           this.submitting = false;
         }
       );

@@ -48,8 +48,14 @@ export class ProjectsService {
     return this.httpClient.get(beAddress + `api/projects/${id}/users`);
   }
 
-  getProjectIssues(id: number) {
-    return this.httpClient.get(beAddress + `api/projects/${id}/issues`);
+  getProjectIssues(id: number, sprintStatus?) {
+    let params = new HttpParams();
+
+    if(sprintStatus) {
+      params = params.append('status', sprintStatus);
+    }
+
+    return this.httpClient.get(beAddress + `api/projects/${id}/issues`, { params: params });
   }
 
   addUserToProject(projID, userID) {
@@ -70,11 +76,14 @@ export class ProjectsService {
 
   planSprintByProject(
     projID,
-    usersStoryPoints: { user: User; storyPoints: number }[]
+    usersStoryPoints: { id: number; time: number }[]
   ) {
     return this.httpClient.post(beAddress + 'api/sprints/plan', {
-      projectId: projID,
-      usersStoryPoints: usersStoryPoints,
+      projectID: projID,
+      workTime: usersStoryPoints,
     });
+  }
+  startSprint(projID: number) {
+    return this.httpClient.post(beAddress + 'api/sprints/start', {project : projID});
   }
 }

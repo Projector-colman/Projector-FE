@@ -11,11 +11,11 @@
     <form class="edit-form" [formGroup]="userEditForm" (ngSubmit)="submitForm()">
       <div class="username">
         <div>Username</div>
-        <input id="name" formControlName="name" class="field" required />
+        <input id="name" formControlName="name" class="field" required disabled/>
       </div>
       <div class="email">
         <div>Email</div>
-        <input id="email" formControlName="email" class="field" required />
+        <input id="email" formControlName="email" class="field" required disabled/>
       </div>
       <div class="password">
         <div>Password</div>

@@ -15,6 +15,6 @@ export class IssuePreviewComponent implements OnInit {
   ngOnInit(): void {}
 
   getUserImage(): string {
-    return 'asd'; //TODO Shiraz
+    return 'TODO'; //TODO Shiraz
   }
 }
