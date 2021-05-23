@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Epic } from 'src/app/interfaces/epic';
+import { IssuesService } from 'src/app/services/issues.service';
 
 @Component({
   selector: 'app-button',

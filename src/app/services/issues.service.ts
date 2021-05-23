@@ -11,22 +11,24 @@ export class IssuesService {
   constructor(private httpClient: HttpClient) {}
 
   updateIssue(issue: Issue) {
-    return this.httpClient.put(beAddress + `api/issues/${issue.id}`,issue);
+    return this.httpClient.put(beAddress + `api/issues/${issue.id}`, issue);
   }
 
   updateIssueSprint(id, status) {
-    return this.httpClient.put(beAddress + `api/issues/${id}/sprint`,{sprintStatus : status});
+    return this.httpClient.put(beAddress + `api/issues/${id}/sprint`, {
+      sprintStatus: status,
+    });
   }
 
   getIssues(filters): Observable<any> {
     let params = new HttpParams();
     const keys = Object.keys(filters);
-    
-    keys.forEach(key => {
-      params.set(key, filters[key]);  
+
+    keys.forEach((key) => {
+      params.set(key, filters[key]);
     });
 
-    return this.httpClient.get(beAddress + 'api/issues', {params: params});
+    return this.httpClient.get(beAddress + 'api/issues', { params: params });
   }
 
   getProjectIssues(id: number): Observable<any> {
@@ -36,12 +38,12 @@ export class IssuesService {
   getEpics(filters) {
     let params = new HttpParams();
     const keys = Object.keys(filters);
-    
-    keys.forEach(key => {
-      params = params.append(key, filters[key]);  
+
+    keys.forEach((key) => {
+      params = params.append(key, filters[key]);
     });
 
-    return this.httpClient.get(beAddress + 'api/epics', {params: params});
+    return this.httpClient.get(beAddress + 'api/epics', { params: params });
   }
 
   createStory(issueData) {
