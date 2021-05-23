@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Project } from 'src/app/interfaces/project';
 import { ProjectsService } from 'src/app/services/projects.service';
 import { AuthService } from '../../services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-user-settings',
@@ -31,8 +32,8 @@ export class UserSettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.usersService.userSubject.subscribe(user => {
-      if(!user) {
+    this.usersService.userSubject.subscribe((user) => {
+      if (!user) {
         this.router.navigate(['/']);
       }
       this.user = user;
@@ -80,7 +81,21 @@ export class UserSettingsComponent implements OnInit {
       email: this.userEditForm.controls['email'].value,
       password: this.userEditForm.controls['password'].value,
     };
-    this.usersService.updateUser(userToUpdate);
+    this.usersService.updateUser(userToUpdate).subscribe(
+      (res) => {
+        Swal.fire({
+          icon: 'success',
+          title: 'The user has been updated',
+        });
+      },
+      (err) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong!',
+        });
+      }
+    );
   }
 
   logout() {

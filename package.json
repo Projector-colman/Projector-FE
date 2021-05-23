@@ -26,9 +26,11 @@
     "angular-material": "^1.2.2",
     "apexcharts": "^3.25.0",
     "lodash": "^4.17.21",
+    "material": "^0.4.3",
     "ng-apexcharts": "^1.5.8",
     "roboto-fontface": "^0.10.0",
     "rxjs": "^6.6.7",
+    "sweetalert2": "^11.0.11",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
   },
