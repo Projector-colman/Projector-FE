@@ -26,7 +26,7 @@ export class UsersService {
   }
 
   updateUser(user: User) {
-    return this.httpClient.put(beAddress + `api/user/${user.id}`, user);
+    return this.httpClient.put(beAddress + `api/users/${user.id}`, user);
   }
 
   getCurrConnectedUser() {
