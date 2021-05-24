@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { Comment } from 'src/app/interfaces/comment';
 import { User } from 'src/app/interfaces/user';
 import { CommentsService } from 'src/app/services/comments.service';
@@ -19,28 +20,13 @@ export class CommentComponent implements OnInit {
   constructor(
     private commentsService: CommentsService,
     private usersService: UsersService,
-    private issuesService: IssuesService
+    private router: Router
   ) {
     this.newComment = false;
     this.closeNewCommentEmitter = new EventEmitter<boolean>();
   }
 
   ngOnInit(): void {}
-
-  getTime(): string {
-    const time: string = this.comment.createdAt;
-    // if (time)
-    //   let dd = String(this.comment.createdAt.getDate()).padStart(2, '0');
-    // let mm = String(this.comment.createdAt.getMonth() + 1).padStart(2, '0'); //January is 0!
-    // let yyyy = this.comment.createdAt.getFullYear();
-    // let HH = this.comment.createdAt.getHours();
-    // let MM =
-    //   this.comment.createdAt.getMinutes() < 10
-    //     ? '0' + this.comment.createdAt.getMinutes()
-    //     : this.comment.createdAt.getMinutes();
-    // let time: string = mm + '/' + dd + '/' + yyyy + ' ' + HH + ':' + MM;
-    return time;
-  }
 
   closeNewComment(): void {
     this.closeNewCommentEmitter.emit();
@@ -49,7 +35,6 @@ export class CommentComponent implements OnInit {
   saveComment(): void {
     if (this.description) {
       this.comment.description = this.description;
-      console.log(this.comment);
       this.commentsService.saveComment(this.comment).subscribe(
         (res) => {
           Swal.fire({

@@ -17,10 +17,6 @@ export class CommentsService {
 
   saveComment(comment: Comment): Observable<any> {
     // this.comments.push(comment);
-    console.log('commentttttttttttt');
-    console.log(comment);
-    return this.http.post(beAddress + 'api/comments', {
-      comment: comment,
-    });
+    return this.http.post(beAddress + 'api/comments', comment);
   }
 }
