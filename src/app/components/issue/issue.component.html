@@ -22,7 +22,7 @@
   </div>
   <app-comment class="comment" *ngIf="addNewComment" [newComment]="true" [comment]="addComment()"
     (closeNewCommentEmitter)="cancleNewComment()"></app-comment>
-  <app-comment class="comment" *ngFor="let comment of comments.reverse() | filterByIssueId: issue.id"
+  <app-comment class="comment" *ngFor="let comment of comments?.reverse() | filterByIssueId: issue.id"
     [comment]="comment">
   </app-comment>
 </div>

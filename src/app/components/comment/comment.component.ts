@@ -28,15 +28,17 @@ export class CommentComponent implements OnInit {
   ngOnInit(): void {}
 
   getTime(): string {
-    let dd = String(this.comment.time.getDate()).padStart(2, '0');
-    let mm = String(this.comment.time.getMonth() + 1).padStart(2, '0'); //January is 0!
-    let yyyy = this.comment.time.getFullYear();
-    let HH = this.comment.time.getHours();
-    let MM =
-      this.comment.time.getMinutes() < 10
-        ? '0' + this.comment.time.getMinutes()
-        : this.comment.time.getMinutes();
-    let time: string = mm + '/' + dd + '/' + yyyy + ' ' + HH + ':' + MM;
+    const time: string = this.comment.createdAt;
+    // if (time)
+    //   let dd = String(this.comment.createdAt.getDate()).padStart(2, '0');
+    // let mm = String(this.comment.createdAt.getMonth() + 1).padStart(2, '0'); //January is 0!
+    // let yyyy = this.comment.createdAt.getFullYear();
+    // let HH = this.comment.createdAt.getHours();
+    // let MM =
+    //   this.comment.createdAt.getMinutes() < 10
+    //     ? '0' + this.comment.createdAt.getMinutes()
+    //     : this.comment.createdAt.getMinutes();
+    // let time: string = mm + '/' + dd + '/' + yyyy + ' ' + HH + ':' + MM;
     return time;
   }
 
@@ -69,7 +71,7 @@ export class CommentComponent implements OnInit {
 
   getWriterImg() {
     this.usersService.getCurrConnectedUser().subscribe((user: User) => {
-      return user.image;
+      return user?.image;
     });
   }
 }

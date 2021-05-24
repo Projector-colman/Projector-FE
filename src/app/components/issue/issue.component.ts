@@ -42,7 +42,9 @@ export class IssueComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.comments = this.commentsService.comments;
+    this.commentsService.getComments().subscribe((comments) => {
+      this.comments = comments;
+    });
 
     this.epic = Observable.create((observer) => {
       this.issuesService
@@ -94,8 +96,6 @@ export class IssueComponent implements OnInit, OnChanges {
 
   addComment(): Comment {
     let newComment: Comment = {
-      writer: +this.authService.getUserID(),
-      time: new Date(),
       description: '',
       issue: this.issue.id,
     };

@@ -11,9 +11,15 @@ export class CommentsService {
   comments: Comment[] = [];
   constructor(private http: HttpClient) {}
 
+  getComments(): Observable<any> {
+    return this.http.get(beAddress + `api/comments`);
+  }
+
   saveComment(comment: Comment): Observable<any> {
     // this.comments.push(comment);
-    return this.http.post(beAddress + 'api/comment', {
+    console.log('commentttttttttttt');
+    console.log(comment);
+    return this.http.post(beAddress + 'api/comments', {
       comment: comment,
     });
   }

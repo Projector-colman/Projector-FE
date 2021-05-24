@@ -1,7 +1,7 @@
 <div class="comment">
   <div class="header">
     <i *ngIf="newComment" class="fas fa-times fa-xs cancle" (click)="closeNewComment()"></i>
-    <span class="time">{{getTime()}}</span>
+    <span class="time">{{comment.createdAt}}</span>
     <img class="img" [src]="getWriterImg()">
   </div>
   <div *ngIf="!newComment" class="content">{{comment.description}}</div>
