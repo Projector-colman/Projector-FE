@@ -101,8 +101,11 @@ export class IssueComponent implements OnInit, OnChanges {
     return newComment;
   }
 
-  cancleNewComment() {
+  cancleNewComment(isRefresh: boolean): void {
     this.addNewComment = false;
+    if (isRefresh) {
+      this.refreshComments();
+    }
   }
 
   closeIssue(): void {
@@ -112,7 +115,6 @@ export class IssueComponent implements OnInit, OnChanges {
   refreshComments(): void {
     this.commentsService.getComments().subscribe((comments) => {
       this.comments = comments;
-      console.log('refreshed!!!');
       console.log(this.comments);
     });
   }

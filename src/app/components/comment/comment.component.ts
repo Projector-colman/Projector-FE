@@ -6,7 +6,6 @@ import { CommentsService } from 'src/app/services/comments.service';
 import { IssuesService } from 'src/app/services/issues.service';
 import { UsersService } from 'src/app/services/users.service';
 import Swal from 'sweetalert2';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-comment',
@@ -17,7 +16,6 @@ export class CommentComponent implements OnInit {
   @Input() comment: Comment;
   @Input() newComment: boolean;
   @Output() closeNewCommentEmitter: EventEmitter<boolean>;
-  @Output() refreshCommentsEmitter: EventEmitter<void>;
   description: string;
   constructor(
     private commentsService: CommentsService,
@@ -26,13 +24,12 @@ export class CommentComponent implements OnInit {
   ) {
     this.newComment = false;
     this.closeNewCommentEmitter = new EventEmitter<boolean>();
-    this.refreshCommentsEmitter = new EventEmitter<void>();
   }
 
   ngOnInit(): void {}
 
-  closeNewComment(): void {
-    this.closeNewCommentEmitter.emit();
+  closeNewComment(isSaved: boolean): void {
+    this.closeNewCommentEmitter.emit(isSaved);
   }
 
   saveComment(): void {
@@ -44,8 +41,6 @@ export class CommentComponent implements OnInit {
             icon: 'success',
             title: 'The comment has been saved',
           });
-          console.log('should refreshhhhhhhhh');
-          this.refreshCommentsEmitter.emit();
         },
         (err) => {
           Swal.fire({
@@ -55,7 +50,7 @@ export class CommentComponent implements OnInit {
           });
         }
       );
-      this.closeNewComment();
+      this.closeNewComment(true);
     }
   }
 

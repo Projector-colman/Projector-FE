@@ -7,15 +7,15 @@
   </span>
   <span class="name">{{issue.name}}</span>
   <div class="pt">
-    <span>Epic:</span>
+    <span class="field">Epic:</span>
     <app-button class="epikLink" [header]="(epic | async)?.name"></app-button>
   </div>
   <div class="pt">
-    <span>Description:</span>
+    <span class="field">Description:</span>
     <span class="pl bold">{{issue.description}}</span>
   </div>
   <div class="pt">
-    <span>Priority:</span>
+    <span class="field">Priority:</span>
     <span class="pl bold">{{issue.priority}}</span>
   </div>
   <span class="block">Blocked by:</span>
@@ -26,9 +26,9 @@
   </div>
   <div class="scroll">
     <app-comment class="comment" *ngIf="addNewComment" [newComment]="true" [comment]="addComment()"
-      (closeNewCommentEmitter)="cancleNewComment()" (refreshCommentsEmitter)="refreshComments()"></app-comment>
+      (closeNewCommentEmitter)="cancleNewComment($event)"></app-comment>
     <app-comment class="comment" *ngFor="let comment of comments?.reverse() | filterByIssueId: issue.id"
-      [comment]="comment" (refreshCommentsEmitter)="refreshComments()">
+      [comment]="comment">
     </app-comment>
   </div>
 </div>
