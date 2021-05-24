@@ -19,4 +19,6 @@ export class CommentsService {
     // this.comments.push(comment);
     return this.http.post(beAddress + 'api/comments', comment);
   }
+
+  deleteComment(comment: Comment): Observable<any> {}
 }

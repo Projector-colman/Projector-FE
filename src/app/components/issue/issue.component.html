@@ -14,15 +14,21 @@
     <span>Description:</span>
     <span class="pl bold">{{issue.description}}</span>
   </div>
+  <div class="pt">
+    <span>Priority:</span>
+    <span class="pl bold">{{issue.priority}}</span>
+  </div>
   <span class="block">Blocked by:</span>
   <span class="block">Blocking:</span>
   <div class="comment-header">
     <i class="fas fa-plus comment-icon add-comment" (click)="addComment()"></i>
     <i class="fas fa-comment-alt comment-icon"></i>
   </div>
-  <app-comment class="comment" *ngIf="addNewComment" [newComment]="true" [comment]="addComment()"
-    (closeNewCommentEmitter)="cancleNewComment()"></app-comment>
-  <app-comment class="comment" *ngFor="let comment of comments?.reverse() | filterByIssueId: issue.id"
-    [comment]="comment">
-  </app-comment>
+  <div class="scroll">
+    <app-comment class="comment" *ngIf="addNewComment" [newComment]="true" [comment]="addComment()"
+      (closeNewCommentEmitter)="cancleNewComment()" (refreshCommentsEmitter)="refreshComments()"></app-comment>
+    <app-comment class="comment" *ngFor="let comment of comments?.reverse() | filterByIssueId: issue.id"
+      [comment]="comment" (refreshCommentsEmitter)="refreshComments()">
+    </app-comment>
+  </div>
 </div>

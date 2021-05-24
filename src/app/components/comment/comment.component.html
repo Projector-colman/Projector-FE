@@ -1,6 +1,7 @@
 <div class="comment">
   <div class="header">
     <i *ngIf="newComment" class="fas fa-times fa-xs cancle" (click)="closeNewComment()"></i>
+    <!-- <i class="fas fa-times icon" (click)="deleteComment()"></i> -->
     <span class="time">{{comment.createdAt}}</span>
     <img class="img" [src]="getWriterImg()">
   </div>

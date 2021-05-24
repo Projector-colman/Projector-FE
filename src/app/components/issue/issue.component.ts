@@ -42,9 +42,7 @@ export class IssueComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.commentsService.getComments().subscribe((comments) => {
-      this.comments = comments;
-    });
+    this.refreshComments();
 
     this.epic = Observable.create((observer) => {
       this.issuesService
@@ -109,5 +107,13 @@ export class IssueComponent implements OnInit, OnChanges {
 
   closeIssue(): void {
     this.closeIssueEmitter.emit();
+  }
+
+  refreshComments(): void {
+    this.commentsService.getComments().subscribe((comments) => {
+      this.comments = comments;
+      console.log('refreshed!!!');
+      console.log(this.comments);
+    });
   }
 }
