@@ -5,7 +5,7 @@ import { Base } from 'src/app/interfaces/base';
 import { Sprint } from 'src/app/interfaces/sprint';
 import { ReportsService } from 'src/app/services/reports.service';
 import { MatSelectChange } from '@angular/material/select';
-import { IssueStatus } from 'src/app/enum/issueStatus.enum';
+import { IssueStatus, IssueStatusLabel } from 'src/app/enum/issueStatus.enum';
 import _ from 'lodash';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -162,11 +162,10 @@ export class ReportsComponent implements OnInit {
   }
 
   getSelectedSprintIssuesGroupedByStatus() {
-    this.reportsService.getProjectIssues(this.currProjectId).subscribe(data => {
-        const sprintIssues = data.filter(x => x.sprint === this.selectedSprint);
-        this.issuesGroupedByStatus = _(sprintIssues).groupBy('status')
+    this.reportsService.getSprintIssues(this.selectedSprint).subscribe(data => {
+        this.issuesGroupedByStatus = _(data).groupBy('status')
         .map((issue, status) => ({
-          status: Object.keys(IssueStatus).find(key => IssueStatus[key] === status),
+          status: Object.keys(IssueStatusLabel).filter(key => key === status).map(key => IssueStatusLabel[key]),
           count: _.sumBy(issue, issue => 1),
         }))
         .value()
