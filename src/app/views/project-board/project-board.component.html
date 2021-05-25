@@ -1,6 +1,9 @@
 <h1 class="title">Active Sprint</h1>
 
-<b>Quick Filters :</b> <button mat-button style="display:inline-block;" *ngFor="let filter of filters" (click)="handleFilterClick(filter)">{{ filter }}</button>
+<b class='filters-title'>Quick Filters:</b> 
+<mat-button-toggle-group [(value)] = "selectedFilter">
+  <mat-button-toggle [value]='filter' mat-button style="display:inline-block;" *ngFor="let filter of filters" (change)="handleFilterChange(filter)">{{ filter }}</mat-button-toggle>
+</mat-button-toggle-group>
 
 <div cdkDropListGroup class="board" [ngClass]="{space : issueToOpen != undefined}">
     <div class="tasks-container" *ngFor="let title of taskTitles">

@@ -27,6 +27,7 @@ export class ProjectBoardComponent implements OnInit {
   originIssues: Issue[];
   taskTitles;
   tasksHolder;
+  selectedFilter: BoardFilter = this.filters[0];
 
   issueToOpen: Issue;
   isSubscribedToIssueUpdate = false;
@@ -66,7 +67,7 @@ export class ProjectBoardComponent implements OnInit {
     });
   }
 
-  handleFilterClick(filter) {
+  handleFilterChange(filter) {
     switch(filter) {
       case BoardFilter.All : {
         this.taskTitles.forEach(status => {
