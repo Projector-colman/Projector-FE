@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { beAddress } from '../environment';
 import { Base } from 'src/app/interfaces/Base';
 import { Sprint } from 'src/app/interfaces/sprint';

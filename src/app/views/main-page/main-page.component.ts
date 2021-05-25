@@ -47,26 +47,17 @@ export class MainPageComponent implements OnInit {
   }
 
   getCurrentUserSprintChart(projectId) {
-    this.reportsService.getProjectSptrints(projectId).subscribe(data => {
-      // get the project active sprint
-      const currSprint = data.filter(sprint => sprint.status === IssueLocation.CurrentSprint)[0];
+    
+    this.homepageService.getActiveSprintChart(projectId, this.authService.getUserID()).subscribe(data => {
+       
       // get the sprint dates
-      var getDaysArray = function(s,e) {for(var a=[],d=new Date(s);d<=e;d.setDate(d.getDate()+1)){ a.push(new Date(d).toISOString().substring(0, 10));}return a;};
-      var days = getDaysArray(new Date(currSprint.startTime),new Date(currSprint.endTime));
+       var getDaysArray = function(s,e) {for(var a=[],d=new Date(s);d<=e;d.setDate(d.getDate()+1)){ a.push(new Date(d).toISOString().substring(0, 10));}return a;};
+       var days = getDaysArray(new Date(data.startTime),new Date(data.endTime));
 
-      // get the active sprint issues
-    this.reportsService.getSprintIssues(currSprint.id).subscribe(data => {
-
-      const issues = data
-      // get the current user issues
-      .filter(i => i.asignee.toString() === this.authService.getUserID());
-
-      const totalStoryPoints = _.sumBy(issues, 'storyPoints');
-
+       // sum all issues story points
+      const totalStoryPoints = _.sumBy(data.issues, 'storyPoints');
       // group issues by update date and sum the story points of each day 
-      const groupedBy = _(issues)
-      .filter(i => i.status === IssueStatus.Done)
-      .filter(i => i.updatedAt !== null)
+      const groupedBy = _(data.issues)
       .groupBy('updatedAt')
       .map((issue, date) => ({
         date: date,
@@ -84,16 +75,17 @@ export class MainPageComponent implements OnInit {
         } else {
           realStoryPoints = i !== 0 ? list[i - 1].real : totalStoryPoints;
         }
+        let planned = totalStoryPoints - Math.floor((data.storyPoints[0]['story_points'] / days.length) * i);
+        planned = planned < 0 ? 0 : planned;
+
         list.push({
           date: day,
-          planned: totalStoryPoints - (currSprint.storyPoints * i),
+          planned: planned,
           real: realStoryPoints
         }); 
       });
 
       this.closedIssuesPointsByDate = list;
     });
-    })
-  
   }
 }
