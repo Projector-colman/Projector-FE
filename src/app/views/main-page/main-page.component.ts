@@ -56,8 +56,11 @@ export class MainPageComponent implements OnInit {
 
        // sum all issues story points
       const totalStoryPoints = _.sumBy(data.issues, 'storyPoints');
+     
       // group issues by update date and sum the story points of each day 
       const groupedBy = _(data.issues)
+      .filter(i => i.status === IssueStatus.Done)
+      .filter(i => i.updatedAt !== null)
       .groupBy('updatedAt')
       .map((issue, date) => ({
         date: date,
