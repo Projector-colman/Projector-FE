@@ -1,6 +1,12 @@
 <div class="issue">
   <i class="fas fa-times exit-icon" (click)="closeIssue()"></i>
-  <div class="header">PRJ-{{issue.id}}<i class="far fa-bookmark prj-icon"></i></div>
+  <div class="header">PRJ-{{issue.id}}<span class="pl bold"> 
+    <mat-icon *ngIf="issue.priority == 1" class="lowest">arrow_downward</mat-icon>
+    <mat-icon *ngIf="issue.priority == 2" class="low">keyboard_arrow_down</mat-icon>
+    <mat-icon *ngIf="issue.priority == 3" class="medium">minimize</mat-icon>
+    <mat-icon *ngIf="issue.priority == 4" class="high">keyboard_arrow_up</mat-icon>
+    <mat-icon *ngIf="issue.priority == 5" class="highest">arrow_upward</mat-icon>
+  </span></div>
   <span class="time-info">
     <span class="status">{{issuesStatus}}</span>
     <span class="time">{{issue.storyPoints}}</span>
@@ -14,10 +20,7 @@
     <span class="field">Description:</span>
     <span class="pl bold">{{issue.description}}</span>
   </div>
-  <div class="pt">
-    <span class="field">Priority:</span>
-    <span class="pl bold">{{issue.priority}}</span>
-  </div>
+
   <span class="block">Blocked by:</span>
   <span class="block">Blocking:</span>
   <div class="comment-header">
