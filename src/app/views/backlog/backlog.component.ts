@@ -9,6 +9,7 @@ import { IssuesService } from 'src/app/services/issues.service';
 import { Issue } from 'src/app/interfaces/issue';
 import { ProjectsService } from 'src/app/services/projects.service';
 import { SidenavUpdateService } from 'src/app/services/sidenav-update.service';
+import { IssueCreationStateService } from '../../services/issue-creation-state.service';
 
 @Component({
   selector: 'app-backlog',
@@ -18,17 +19,20 @@ import { SidenavUpdateService } from 'src/app/services/sidenav-update.service';
 export class BacklogComponent implements OnInit {
   projectId: string;
   issueToOpen: Issue;
-  tasksHolder = {CurrSprint: [], PlannedSprint: [], Backlog: []};
+  tasksHolder;
 
   activeIssues;
   plannedIssues;
   backlogIssues;
 
+  isSubscribedToSprintUpdate = false;;
+
   constructor(
     public router: Router,
     private sidenavUpdateService: SidenavUpdateService,
     private projectsService: ProjectsService,
-    private issuesService: IssuesService
+    private issuesService: IssuesService,
+    private sprintCreation: IssueCreationStateService
   ) {}
 
   ngOnInit(): void {
@@ -37,6 +41,22 @@ export class BacklogComponent implements OnInit {
     this.sidenavUpdateService.changeMessage('backlog');
     this.sidenavUpdateService.changeProject(this.projectId);
 
+    this.updateSprint();
+
+    // Every time a new sprint is Created, refresh issues
+    // dont do it on subscription, only on .next()
+    this.sprintCreation.sprintSubject.subscribe(() => {
+      if(!this.isSubscribedToSprintUpdate) {
+        console.log('subscribed');
+        this.isSubscribedToSprintUpdate = true;
+      } else {
+        this.updateSprint();
+      }
+    });
+  }
+
+  updateSprint() {
+    this.tasksHolder = {CurrSprint: [], PlannedSprint: [], Backlog: []};
     this.projectsService.getProjectIssues(+this.projectId, 'active').subscribe((data: Issue[]) => {
       this.tasksHolder['CurrSprint'].push(...data);
     });
@@ -48,7 +68,6 @@ export class BacklogComponent implements OnInit {
     this.projectsService.getProjectIssues(+this.projectId, 'backlog').subscribe((data: Issue[]) => {
       this.tasksHolder['Backlog'].push(...data);
     });
-
   }
 
   drop(event: CdkDragDrop<Issue[]>) {

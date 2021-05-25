@@ -5,10 +5,15 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class IssueCreationStateService {
-  issueSubject = new BehaviorSubject(""); 
+  issueSubject = new BehaviorSubject("");
+  sprintSubject = new BehaviorSubject(""); 
   constructor() {}
 
   newIssue() {
     this.issueSubject.next("");
+  }
+
+  newSprint() {
+    this.sprintSubject.next("")
   }
 }
