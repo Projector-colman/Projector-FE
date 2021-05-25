@@ -8,6 +8,7 @@ import { MatSelectChange } from '@angular/material/select';
 import { IssueStatus, IssueStatusLabel } from 'src/app/enum/issueStatus.enum';
 import _ from 'lodash';
 import { AuthService } from 'src/app/services/auth.service';
+import { IssueLocation } from 'src/app/enum/issueLocation.enum';
 
 @Component({
   selector: 'app-reports',
@@ -40,7 +41,7 @@ export class ReportsComponent implements OnInit {
     getCurrProjectSprints() {
       this.reportsService.getProjectSptrints(this.currProjectId).subscribe(data => {
           this.sprints = data;
-          this.selectedSprint = this.sprints[0].id;
+          this.selectedSprint = this.sprints.filter(sprint => sprint.status === IssueLocation.CurrentSprint)[0].id;
           // data for pie chart - issues by status
           this.getSelectedSprintIssuesGroupedByStatus();
           // data for current user sprint chart
