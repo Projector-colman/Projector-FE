@@ -11,6 +11,8 @@ import { IssuesService } from '../../services/issues.service';
 import { ProjectsService } from '../../services/projects.service';
 import { IssueCreationStateService } from '../../services/issue-creation-state.service';
 import { Issue } from 'src/app/interfaces/issue';
+import { BoardFilter } from 'src/app/enum/boardFilter.enum';
+import { IssueStatusLabel } from 'src/app/enum/issueStatus.enum';
 
 @Component({
   selector: 'app-project-board',
@@ -19,7 +21,7 @@ import { Issue } from 'src/app/interfaces/issue';
 })
 export class ProjectBoardComponent implements OnInit {
   project: Project = {};
-  filters = ['My Issues', 'In Progress'];
+  filters = [BoardFilter.All, BoardFilter.MyIssues, BoardFilter.InProgress];
 
   taskTitles;
   tasksHolder;
@@ -61,35 +63,35 @@ export class ProjectBoardComponent implements OnInit {
     });
   }
 
+  handleFilterClick(filter) {
+    switch(filter) {
+      case BoardFilter.All : {
+        break;
+      }
+      case BoardFilter.InProgress : {
+        break;
+      }
+      case BoardFilter.MyIssues : {
+        break;
+      }
+    }
+  }
+
   updateIssues() {
-    this.tasksHolder = {Todo: [], "In Progress": [], Verify: [] ,Done: []};
-    this.taskTitles = Object.keys(this.tasksHolder);
+    const statuses = Object.keys(IssueStatusLabel).map(key => IssueStatusLabel[key])
+    .filter(value => value !== IssueStatusLabel.none);
+
+    this.tasksHolder = {};
+    statuses.forEach(status => {
+      Object.assign(this.tasksHolder, {[status]: []});
+    });
+
+    this.taskTitles = statuses;
     
     this.issuesService.getProjectIssues(this.project.id).subscribe((issues: Issue[]) => {
       issues = issues.filter(issue => issue.sprintStatus == 'active');
       issues.forEach(issue => {
-        switch (issue.status) {
-          case "to-do" : {
-            this.tasksHolder.Todo.push(issue);
-            break;
-          }
-          case "in-progress" : {
-            this.tasksHolder["In Progress"].push(issue);
-            break;
-          }
-          case "verify" : {
-            this.tasksHolder.Verify.push(issue);
-            break;
-          }
-          case "done" : {
-            this.tasksHolder.Done.push(issue);
-            break;
-          }
-          default: {
-            console.error('Unfamiliar issue status');
-            break;
-          }
-        }
+        this.tasksHolder[IssueStatusLabel[issue.status]].push(issue);
       });
     });
   }
@@ -116,30 +118,7 @@ export class ProjectBoardComponent implements OnInit {
       const containerID = event.container.id;
       
       let updatedIssue: any = Object.assign({}, event.container.data[event.currentIndex]);
-
-      switch (containerID) {
-        case "Todo" : {
-          updatedIssue.status = "to-do"
-          this.issuesService.updateIssue
-          break;
-        }
-        case "In Progress" : {
-          updatedIssue.status = "in-progress";
-          break;
-        }
-        case "Verify" : {
-          updatedIssue.status = "verify";
-          break;
-        }
-        case "Done" : {
-          updatedIssue.status = "done";
-          break;
-        }
-        default: {
-          console.error('Unfamiliar issue status');
-          break;
-        }
-      }
+      updatedIssue.status = Object.keys(IssueStatusLabel)[Object.values(IssueStatusLabel).indexOf(containerID)];
 
       this.issuesService.updateIssue(updatedIssue).subscribe(res => {
         this.isLoading = false;
