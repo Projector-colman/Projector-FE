@@ -12,7 +12,8 @@ import { ProjectsService } from '../../services/projects.service';
 import { IssueCreationStateService } from '../../services/issue-creation-state.service';
 import { Issue } from 'src/app/interfaces/issue';
 import { BoardFilter } from 'src/app/enum/boardFilter.enum';
-import { IssueStatusLabel } from 'src/app/enum/issueStatus.enum';
+import { IssueStatus, IssueStatusLabel } from 'src/app/enum/issueStatus.enum';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-project-board',
@@ -23,6 +24,7 @@ export class ProjectBoardComponent implements OnInit {
   project: Project = {};
   filters = [BoardFilter.All, BoardFilter.MyIssues, BoardFilter.InProgress];
 
+  originIssues: Issue[];
   taskTitles;
   tasksHolder;
 
@@ -37,6 +39,7 @@ export class ProjectBoardComponent implements OnInit {
     private issuesService: IssuesService,
     public projectsService: ProjectsService,
     private issueStatusService: IssueCreationStateService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -66,30 +69,48 @@ export class ProjectBoardComponent implements OnInit {
   handleFilterClick(filter) {
     switch(filter) {
       case BoardFilter.All : {
+        this.taskTitles.forEach(status => {
+          const currStatus = Object.keys(IssueStatusLabel)[Object.values(IssueStatusLabel).indexOf(status)];
+          Object.assign(this.tasksHolder, {[status]: this.originIssues
+            .filter(issue => issue.status === currStatus )});
+        });
         break;
       }
       case BoardFilter.InProgress : {
+        this.taskTitles.forEach(status => {
+          const currStatus = Object.keys(IssueStatusLabel)[Object.values(IssueStatusLabel).indexOf(status)];
+          Object.assign(this.tasksHolder, {[status]: this.originIssues
+            .filter(issue => issue.status === currStatus )});
+          if(status !== IssueStatusLabel[IssueStatus.InProgress]) {
+            Object.assign(this.tasksHolder, {[status]: []});
+          }
+        });
         break;
       }
       case BoardFilter.MyIssues : {
-        break;
+        const currUser = this.authService.getUserID(); 
+        this.taskTitles.forEach(title => {
+          const currStatus = Object.keys(IssueStatusLabel)[Object.values(IssueStatusLabel).indexOf(title)];
+          Object.assign(this.tasksHolder, {[title]: this.originIssues
+            .filter(issue => issue.status === currStatus)
+            .filter(issue => issue.asignee.toString() === currUser)});
+        });
       }
     }
   }
 
   updateIssues() {
-    const statuses = Object.keys(IssueStatusLabel).map(key => IssueStatusLabel[key])
+    this.taskTitles = Object.keys(IssueStatusLabel).map(key => IssueStatusLabel[key])
     .filter(value => value !== IssueStatusLabel.none);
 
     this.tasksHolder = {};
-    statuses.forEach(status => {
+    this.taskTitles.forEach(status => {
       Object.assign(this.tasksHolder, {[status]: []});
     });
 
-    this.taskTitles = statuses;
-    
     this.issuesService.getProjectIssues(this.project.id).subscribe((issues: Issue[]) => {
       issues = issues.filter(issue => issue.sprintStatus == 'active');
+      this.originIssues = issues;
       issues.forEach(issue => {
         this.tasksHolder[IssueStatusLabel[issue.status]].push(issue);
       });
@@ -118,7 +139,9 @@ export class ProjectBoardComponent implements OnInit {
       const containerID = event.container.id;
       
       let updatedIssue: any = Object.assign({}, event.container.data[event.currentIndex]);
-      updatedIssue.status = Object.keys(IssueStatusLabel)[Object.values(IssueStatusLabel).indexOf(containerID)];
+      const status = Object.keys(IssueStatusLabel)[Object.values(IssueStatusLabel).indexOf(containerID)];
+      updatedIssue.status = status;
+      this.originIssues.find(issue => issue.id === updatedIssue.id).status = status;
 
       this.issuesService.updateIssue(updatedIssue).subscribe(res => {
         this.isLoading = false;
