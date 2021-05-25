@@ -8,7 +8,7 @@
     </label>
   </div>
   <div class="bottom-settings">
-    <form class="edit-form" [formGroup]="userEditForm">
+    <form class="edit-form" [formGroup]="userEditForm" (ngSubmit)="submitForm()">
       <div class="username">
         <div>Username</div>
         <input id="name" formControlName="name" class="field" required disabled/>

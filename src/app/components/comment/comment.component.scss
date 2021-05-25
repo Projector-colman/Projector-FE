@@ -23,14 +23,14 @@
 
 .time {
   color: #466e96;
-  font-size: 10px;
+  font-size: 17px;
   font-weight: 500;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .content {
   margin-top: 3px;
-  font-size: 11px;
+  font-size: 18px;
   font-weight: 500;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   padding: 5px 5px 0 5px;
@@ -58,4 +58,17 @@
 
 .cancle:hover {
   cursor: pointer;
+}
+
+.icon {
+  color: rgb(242, 102, 116);
+  text-shadow: 2px 2px 3px rgb(124, 108, 108);
+}
+
+.icon:hover {
+  cursor: pointer;
+}
+
+textarea {
+  resize: none;
 }

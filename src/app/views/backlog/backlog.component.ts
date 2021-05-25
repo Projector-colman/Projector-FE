@@ -10,6 +10,8 @@ import { Issue } from 'src/app/interfaces/issue';
 import { ProjectsService } from 'src/app/services/projects.service';
 import { SidenavUpdateService } from 'src/app/services/sidenav-update.service';
 import { IssueCreationStateService } from '../../services/issue-creation-state.service';
+import { Epic } from 'src/app/interfaces/epic';
+import { Observable, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-backlog',
@@ -19,7 +21,9 @@ import { IssueCreationStateService } from '../../services/issue-creation-state.s
 export class BacklogComponent implements OnInit {
   projectId: string;
   issueToOpen: Issue;
+
   tasksHolder;
+  epicIssueToOpen: Subject<Epic>;
 
   activeIssues;
   plannedIssues;
@@ -33,7 +37,10 @@ export class BacklogComponent implements OnInit {
     private projectsService: ProjectsService,
     private issuesService: IssuesService,
     private sprintCreation: IssueCreationStateService
-  ) {}
+  ) {
+    this.epicIssueToOpen = new Subject<Epic>();
+  }
+
 
   ngOnInit(): void {
     // Sidenav stuff
@@ -87,18 +94,21 @@ export class BacklogComponent implements OnInit {
     }
     let newStatus;
     const containerID = event.container.id;
-    let updatedIssue: any = Object.assign({}, event.container.data[event.currentIndex]);
+    let updatedIssue: any = Object.assign(
+      {},
+      event.container.data[event.currentIndex]
+    );
 
     switch (containerID) {
-      case "CurrSprint" : {
+      case 'CurrSprint': {
         newStatus = 'active';
         break;
       }
-      case "PlannedSprint" : {
+      case 'PlannedSprint': {
         newStatus = 'planned';
         break;
       }
-      case "Backlog" : {
+      case 'Backlog': {
         newStatus = 'backlog';
         break;
       }
@@ -108,20 +118,26 @@ export class BacklogComponent implements OnInit {
       }
     }
 
-    this.issuesService.updateIssueSprint(updatedIssue.id, newStatus).subscribe(res => {
-    }, err => {
-      console.error(err)
-      transferArrayItem(
-        event.container.data,
-        event.previousContainer.data,
-        event.currentIndex,
-        event.previousIndex
-      );
-      
-    })
+    this.issuesService.updateIssueSprint(updatedIssue.id, newStatus).subscribe(
+      (res) => {},
+      (err) => {
+        console.error(err);
+        transferArrayItem(
+          event.container.data,
+          event.previousContainer.data,
+          event.currentIndex,
+          event.previousIndex
+        );
+      }
+    );
   }
-  
+
   openIssue(issue: Issue): void {
     this.issueToOpen = issue;
+    this.issuesService
+      .getEpics({ id: this.issueToOpen.epic })
+      .subscribe((epic: Epic) => {
+        this.epicIssueToOpen.next(epic);
+      });
   }
 }

@@ -7,6 +7,6 @@ import { Comment } from '../interfaces/comment';
 })
 export class filterByIssueId implements PipeTransform {
   transform(comments: Comment[], issueId: number): Comment[] {
-    return comments.filter((comment: Comment) => comment.issue === issueId);
+    return comments?.filter((comment: Comment) => comment.issue === issueId);
   }
 }
