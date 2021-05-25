@@ -48,7 +48,6 @@ export class MainPageComponent implements OnInit {
   }
 
   getCurrentUserSprintChart(projectId) {
-    
     this.homepageService.getActiveSprintChart(projectId, this.authService.getUserID()).subscribe(data => {
       this.closedIssuesPointsByDate = this.getChartData(data);
     });
