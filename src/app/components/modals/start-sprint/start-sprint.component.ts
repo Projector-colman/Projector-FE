@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ProjectsService } from 'src/app/services/projects.service';
+import { IssueCreationStateService } from '../../../services/issue-creation-state.service';
 
 @Component({
   selector: 'app-start-sprint',
@@ -12,6 +13,7 @@ export class StartSprintComponent implements OnInit {
 
   constructor(    
     private projectService: ProjectsService,
+    private sprintCreationService: IssueCreationStateService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<StartSprintComponent>) { }
 
@@ -21,6 +23,7 @@ export class StartSprintComponent implements OnInit {
 
   start() {
     this.projectService.startSprint(this.projectID).subscribe(res => {
+      this.sprintCreationService.newSprint();
       this.dialogRef.close();
     }, err => {
       console.error(err);

@@ -6,12 +6,10 @@ import { User } from 'src/app/interfaces/user';
 import {
   FormArray,
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { map } from 'rxjs/operators'
-import { pipe, from } from 'rxjs'
+import { IssueCreationStateService } from '../../../services/issue-creation-state.service';
 
 @Component({
   selector: 'app-plan-sprint',
@@ -25,6 +23,7 @@ export class PlanSprintComponent implements OnInit {
   submitting: boolean;
   constructor(
     private projectService: ProjectsService,
+    private sprintCreationService: IssueCreationStateService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<PlanSprintComponent>
@@ -71,11 +70,12 @@ export class PlanSprintComponent implements OnInit {
       .planSprintByProject(this.data, userData)
       .subscribe(
         (res) => {
-          console.log(res);
+          this.sprintCreationService.newSprint();
           this.dialogRef.close();
         },
         (err) => {
           console.error(err);
+          this.dialogRef.close();
           this.submitting = false;
         }
       );
