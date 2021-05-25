@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { beAddress } from '../environment';
 import { Base } from 'src/app/interfaces/Base';
 import { Sprint } from 'src/app/interfaces/sprint';
 import { Issue } from 'src/app/interfaces/issue';
+import { GraphResult } from '../interfaces/graphResult';
 
 @Injectable({
   providedIn: 'root'
@@ -31,5 +32,12 @@ export class ReportsService {
 
   getSprintIssues(sprintId) : Observable<Issue[]> {
     return this.httpClient.get<Issue[]>(`${beAddress}api/sprints/${sprintId}/issues`);
+  }
+
+  getSprintChart(sprintId, userId) : Observable<GraphResult> {
+    const params = new HttpParams()
+      .set('sprint', sprintId)
+      .set('user', userId);
+    return this.httpClient.get<GraphResult>(`${beAddress}api/sprints/graph2`, {params});
   }
 }
