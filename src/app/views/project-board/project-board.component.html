@@ -25,5 +25,5 @@
     </div>
   </div>
   <app-issue *ngIf="issueToOpen" class="issue-detail" [issue]="issueToOpen"
-  (closeIssueEmitter)="issueToOpen = undefined"></app-issue>
+  (closeIssueEmitter)="issueToOpen = undefined" [projectKey]="project.key"></app-issue>
 </div>

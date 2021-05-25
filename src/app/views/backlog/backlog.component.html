@@ -3,24 +3,24 @@
     <div>Backlog</div>
     <div class="missions">
       <app-issues-backlog cdkDropList id="CurrSprint" [cdkDropListConnectedTo]="['PlannedSprint', 'Backlog']"
-        [header]="'Current sprint'" (cdkDropListDropped)="drop($event)" [projectId]="projectId"
+        [header]="'Current sprint'" (cdkDropListDropped)="drop($event)" [projectId]="project.id"
         [issues]="this.tasksHolder['CurrSprint']" [cdkDropListData]="this.tasksHolder['CurrSprint']"
         (openIssueEmitter)="openIssue($event)">
       </app-issues-backlog>
 
       <app-issues-backlog cdkDropList id="PlannedSprint" [cdkDropListConnectedTo]="['CurrSprint', 'Backlog']"
-        [header]="'Planned sprint'" (cdkDropListDropped)="drop($event)" [projectId]="projectId"
+        [header]="'Planned sprint'" (cdkDropListDropped)="drop($event)" [projectId]="project.id"
         [showStartSprintBtn]="true" [issues]="this.tasksHolder['PlannedSprint']"
         [cdkDropListData]="this.tasksHolder['PlannedSprint']" (openIssueEmitter)="openIssue($event)">
       </app-issues-backlog>
 
       <app-issues-backlog cdkDropList id="Backlog" [cdkDropListConnectedTo]="['CurrSprint', 'PlannedSprint']"
-        [projectId]="projectId" [header]="'Backlog'" (cdkDropListDropped)="drop($event)" [showPlanSprintBtn]="true"
+        [projectId]="project.id" [header]="'Backlog'" (cdkDropListDropped)="drop($event)" [showPlanSprintBtn]="true"
         [issues]="this.tasksHolder['Backlog']" [cdkDropListData]="this.tasksHolder['Backlog']"
         (openIssueEmitter)="openIssue($event)">
       </app-issues-backlog>
     </div>
   </div>
-  <app-issue *ngIf="issueToOpen" class="issue-detail" [issue]="issueToOpen" [epic]="epicIssueToOpen"
+  <app-issue *ngIf="issueToOpen" class="issue-detail" [issue]="issueToOpen" [projectKey]="project.key" [epic]="epicIssueToOpen"
     (closeIssueEmitter)="issueToOpen = undefined"></app-issue>
 </div>

@@ -1,6 +1,6 @@
 <div class="issue">
   <i class="fas fa-times exit-icon" (click)="closeIssue()"></i>
-  <div class="header">PRJ-{{issue.id}}<span class="pl bold"> 
+  <div class="header">{{projectKey}}-{{issue.id}}<span class="pl bold"> 
     <mat-icon *ngIf="issue.priority == 1" class="lowest">arrow_downward</mat-icon>
     <mat-icon *ngIf="issue.priority == 2" class="low">keyboard_arrow_down</mat-icon>
     <mat-icon *ngIf="issue.priority == 3" class="medium">minimize</mat-icon>
@@ -13,12 +13,12 @@
   </span>
   <span class="name">{{issue.name}}</span>
   <div class="pt">
-    <span class="field">Epic:</span>
+
     <app-button class="epikLink" [header]="(epic | async)?.name"></app-button>
   </div>
+
   <div class="pt">
-    <span class="field">Description:</span>
-    <span class="pl bold">{{issue.description}}</span>
+    <textarea class="textarea-field"  disabled>{{issue.description}}</textarea>
   </div>
 
   <span class="block">Blocked by:</span>

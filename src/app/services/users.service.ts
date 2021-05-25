@@ -39,4 +39,8 @@ export class UsersService {
     }
     return this.userSubject;
   }
+
+  getUserPicture(id) {
+    return this.httpClient.get(beAddress + `api/users/${id}/image`);
+  }
 }

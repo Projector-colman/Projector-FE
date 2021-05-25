@@ -12,7 +12,6 @@ import { IssueLocation } from 'src/app/enum/issueLocation.enum';
 import { IssueStatus } from 'src/app/enum/issueStatus.enum';
 import { Issue } from 'src/app/interfaces/issue';
 import { CommentsService } from 'src/app/services/comments.service';
-import { UsersService } from 'src/app/services/users.service';
 import { AuthService } from '../../services/auth.service';
 import { IssuesService } from 'src/app/services/issues.service';
 import { Epic } from 'src/app/interfaces/epic';
@@ -25,6 +24,7 @@ import { Observable, Subject } from 'rxjs';
 })
 export class IssueComponent implements OnInit, OnChanges {
   @Input() issue: Issue;
+  @Input() projectKey: string;
   epic: Observable<Epic>;
   @Output() closeIssueEmitter: EventEmitter<void>;
 

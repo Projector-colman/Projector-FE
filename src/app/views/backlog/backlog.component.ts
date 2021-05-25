@@ -12,6 +12,7 @@ import { SidenavUpdateService } from 'src/app/services/sidenav-update.service';
 import { IssueCreationStateService } from '../../services/issue-creation-state.service';
 import { Epic } from 'src/app/interfaces/epic';
 import { Observable, Subject } from 'rxjs';
+import { Project } from 'src/app/interfaces/project';
 
 @Component({
   selector: 'app-backlog',
@@ -19,8 +20,8 @@ import { Observable, Subject } from 'rxjs';
   styleUrls: ['./backlog.component.scss'],
 })
 export class BacklogComponent implements OnInit {
-  projectId: string;
   issueToOpen: Issue;
+  project: Project = {};
 
   tasksHolder;
   epicIssueToOpen: Subject<Epic>;
@@ -44,11 +45,15 @@ export class BacklogComponent implements OnInit {
 
   ngOnInit(): void {
     // Sidenav stuff
-    this.projectId = this.router.url.split('/')[2];
+    this.project.id = +this.router.url.split('/')[2];
     this.sidenavUpdateService.changeMessage('backlog');
-    this.sidenavUpdateService.changeProject(this.projectId);
-
+    this.sidenavUpdateService.changeProject(this.project.id.toString());
+    
     this.updateSprint();
+
+    this.projectsService.getProject({id: this.project.id}).subscribe(proj => {
+      this.project.key = proj[0].key;
+    })
 
     // Every time a new sprint is Created, refresh issues
     // dont do it on subscription, only on .next()
@@ -64,15 +69,15 @@ export class BacklogComponent implements OnInit {
 
   updateSprint() {
     this.tasksHolder = {CurrSprint: [], PlannedSprint: [], Backlog: []};
-    this.projectsService.getProjectIssues(+this.projectId, 'active').subscribe((data: Issue[]) => {
+    this.projectsService.getProjectIssues(this.project.id, 'active').subscribe((data: Issue[]) => {
       this.tasksHolder['CurrSprint'].push(...data);
     });
 
-    this.projectsService.getProjectIssues(+this.projectId, 'planned').subscribe((data: Issue[]) => {
+    this.projectsService.getProjectIssues(this.project.id, 'planned').subscribe((data: Issue[]) => {
       this.tasksHolder['PlannedSprint'].push(...data);
     });
 
-    this.projectsService.getProjectIssues(+this.projectId, 'backlog').subscribe((data: Issue[]) => {
+    this.projectsService.getProjectIssues(this.project.id, 'backlog').subscribe((data: Issue[]) => {
       this.tasksHolder['Backlog'].push(...data);
     });
   }
