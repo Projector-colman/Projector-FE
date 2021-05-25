@@ -55,6 +55,7 @@ import { ProjectSettingsComponent } from './views/project-settings/project-setti
 import { AddUserComponent } from './components/modals/add-user/add-user.component';
 import { PlanSprintComponent } from './components/modals/plan-sprint/plan-sprint.component';
 import { StartSprintComponent } from './components/modals/start-sprint/start-sprint.component';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @NgModule({
   declarations: [
@@ -115,6 +116,7 @@ import { StartSprintComponent } from './components/modals/start-sprint/start-spr
     HttpClientModule,
     MatProgressSpinnerModule,
     MatTableModule,
+    MatButtonToggleModule,
     RouterModule.forRoot(routes, {
       enableTracing: true, // for debugging
       onSameUrlNavigation: 'reload',
