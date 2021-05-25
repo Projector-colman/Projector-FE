@@ -71,6 +71,7 @@ export class ProjectBoardComponent implements OnInit {
     switch(filter) {
       case BoardFilter.All : {
         this.taskTitles.forEach(status => {
+          // set tasksHolder lists 
           const currStatus = Object.keys(IssueStatusLabel)[Object.values(IssueStatusLabel).indexOf(status)];
           Object.assign(this.tasksHolder, {[status]: this.originIssues
             .filter(issue => issue.status === currStatus )});
@@ -81,7 +82,9 @@ export class ProjectBoardComponent implements OnInit {
         this.taskTitles.forEach(status => {
           const currStatus = Object.keys(IssueStatusLabel)[Object.values(IssueStatusLabel).indexOf(status)];
           Object.assign(this.tasksHolder, {[status]: this.originIssues
+          // set taskHolder lists
             .filter(issue => issue.status === currStatus )});
+          // clear the in-progress list
           if(status !== IssueStatusLabel[IssueStatus.InProgress]) {
             Object.assign(this.tasksHolder, {[status]: []});
           }
@@ -93,7 +96,9 @@ export class ProjectBoardComponent implements OnInit {
         this.taskTitles.forEach(title => {
           const currStatus = Object.keys(IssueStatusLabel)[Object.values(IssueStatusLabel).indexOf(title)];
           Object.assign(this.tasksHolder, {[title]: this.originIssues
+            // set taskHolder lists
             .filter(issue => issue.status === currStatus)
+            // filter by current user
             .filter(issue => issue.asignee.toString() === currUser)});
         });
       }
@@ -142,6 +147,7 @@ export class ProjectBoardComponent implements OnInit {
       let updatedIssue: any = Object.assign({}, event.container.data[event.currentIndex]);
       const status = Object.keys(IssueStatusLabel)[Object.values(IssueStatusLabel).indexOf(containerID)];
       updatedIssue.status = status;
+      // needed for filters
       this.originIssues.find(issue => issue.id === updatedIssue.id).status = status;
 
       this.issuesService.updateIssue(updatedIssue).subscribe(res => {
