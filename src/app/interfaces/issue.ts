@@ -15,4 +15,6 @@ export interface Issue {
   status?: any;
   createdAt?: any;
   updatedAt?: any;
+  blocker? : any[];
+  blocking? : any[];
 }

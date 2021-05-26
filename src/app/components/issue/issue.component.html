@@ -12,19 +12,20 @@
     <span class="time">{{issue.storyPoints}}</span>
   </span>
   <span class="name">{{issue.name}}</span>
+  <span class="assignee">{{issue.User.name}}</span>
   <div class="pt">
-
     <app-button class="epikLink" [header]="(epic | async)?.name"></app-button>
   </div>
 
-  <div class="pt">
+  <div class="description pt">
     <textarea class="textarea-field" [disabled]="!editDesc" #descTA>{{issue.description}}</textarea> 
     <mat-icon *ngIf="!editDesc" (click)="editDesc = !editDesc">edit</mat-icon> 
     <mat-icon  *ngIf="editDesc" (click)="editDescription(descTA.value)">check</mat-icon>
+    <mat-icon  *ngIf="editDesc" class="cancel" (click)="editDesc = !editDesc">clear</mat-icon>
   </div>
 
-  <span class="block">Blocked by:</span>
-  <span class="block">Blocking:</span>
+  <span class="block">Blocked by: <div *ngFor="blocker in issue.blocker">{{blocker}} a</div></span>
+  <span class="block">Blocking: <div *ngFor="blocked in issue.blocked">{{blocked}} a</div></span>
   <div class="comment-header">
     <i class="fas fa-plus comment-icon add-comment" (click)="addComment()"></i>
     <i class="fas fa-comment-alt comment-icon"></i>

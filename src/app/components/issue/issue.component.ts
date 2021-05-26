@@ -127,7 +127,6 @@ export class IssueComponent implements OnInit, OnChanges {
   refreshComments(): void {
     this.commentsService.getComments().subscribe((comments) => {
       this.comments = comments;
-      console.log(this.comments);
     });
   }
 }
