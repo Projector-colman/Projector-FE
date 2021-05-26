@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
 import { IssueStatus } from 'src/app/enum/issueStatus.enum';
 import { Base } from 'src/app/interfaces/base';
@@ -26,14 +26,14 @@ export class SprintGraphContainerComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  ngOnChanges() {
-    if(this.selectItems) {
+  ngOnChanges(changes: SimpleChanges) {
+    if(changes.selectItems && changes.selectItems.currentValue !== changes.selectItems.previousValue) {
       this.showSelect = true;
       if(this.selectedItem === undefined) {
         this.selectedItem = this.selectItems[0].id;
       }
     }
-    if(this.data) {
+    if(changes.data && changes.data.currentValue !== changes.data.previousValue) {
       this.buildChart();
     }
   }

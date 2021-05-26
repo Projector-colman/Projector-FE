@@ -10,6 +10,7 @@ import _ from 'lodash';
 import { AuthService } from 'src/app/services/auth.service';
 import { IssueLocation } from 'src/app/enum/issueLocation.enum';
 import { GraphResult } from 'src/app/interfaces/graphResult';
+import { forkJoin, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-reports',
@@ -33,23 +34,32 @@ export class ReportsComponent implements OnInit {
     this.currProjectId = this.router.url.split('/')[2];
     this.sidenavUpdateService.changeMessage('reports');
     this.sidenavUpdateService.changeProject(this.currProjectId);
-    this.getCurrProjectSprints();
-    this.getCurrProjectUsers();
     this.issuesByUserTitle = 'Team Sprint Worksheet';
+    this.getInitData();
   }
 
-    // get sprints
-    getCurrProjectSprints() {
-      this.reportsService.getProjectSptrints(this.currProjectId).subscribe(data => {
-          this.sprints = data;
-          this.selectedSprint = this.sprints[0].id;
-          //this.selectedSprint = this.sprints.filter(sprint => sprint.status === IssueLocation.CurrentSprint)[0].id;
-          // data for pie chart - issues by status
-          this.getSelectedSprintIssuesGroupedByStatus();
-          // data for current user sprint chart
-          this.getCurrUserCurrSprintChart();
-      });
-    }
+  // get current project's sprints and users
+  getInitData() {
+    var observableSprints: Observable<Sprint[]> =  this.reportsService.getProjectSptrints(this.currProjectId);
+    var observableUsers: Observable<Base[]> = this.reportsService.getProjectUsers(this.currProjectId);
+    forkJoin([ observableSprints, observableUsers])
+    .subscribe(([sprints, users]: [Sprint[], Base[]]) => {
+        this.sprints = sprints;
+        var team = [{id: -1, name: "Team"}];
+        this.users = team.concat(users);
+    },
+    error => {
+        //error here
+    }, () => {
+      this.selectedSprint = this.sprints.filter(sprint => sprint.status === IssueLocation.CurrentSprint)[0].id; 
+      // data for pie chart - issues by status
+      this.getSelectedSprintIssuesGroupedByStatus();
+      // data for current user sprint chart
+      this.getCurrUserCurrSprintChart();
+      // data for team sprint chart
+      this.getCurrSprintChart(this.users[0].id);
+    });
+  }
 
     // handle sprints
     onSprintChange(event: MatSelectChange) {
@@ -57,16 +67,6 @@ export class ReportsComponent implements OnInit {
       this.getCurrSprintChart(this.users[0].id);
       this.getCurrUserCurrSprintChart();
     }
-
-  // get users
-  getCurrProjectUsers() {
-    this.reportsService.getProjectUsers(this.currProjectId).subscribe(data => {
-        var team = [{id: -1, name: "Team"}];
-        this.users = team.concat(data);
-        // data for team sprint chart
-        this.getCurrSprintChart(this.users[0].id);
-    });
-  }
 
   // handle users
   handleUserChange(userId) {
