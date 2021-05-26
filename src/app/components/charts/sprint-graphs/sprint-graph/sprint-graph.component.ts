@@ -30,14 +30,14 @@ export type ChartOptions = {
 export class SprintGraphComponent {
   @ViewChild("chart") chart: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
-  @Input() planned: number[];
-  @Input() real: number[];
-  @Input() categories: string[];
+  @Input() chartData: any[];
+  @Input() chartId: string;
 
   constructor() {
     this.chartOptions = {
       series: [],
       chart: {
+        id: this.chartId,
         height: 350,
         type: "line",
         zoom: {
@@ -75,25 +75,29 @@ export class SprintGraphComponent {
     };
   }
 
+  ngOnInit() {
+  }
+
   ngOnChanges() {
-    if(this.planned && this.real && this.categories) {
-      const today = new Date().toISOString().substring(0, 10);
-      debugger;
+    if(this.chartData) {
       this.chartOptions = {...this.chartOptions, ...{
         series: [
           {
             name: "Real",
-            data: this.real
+            data: this.chartData.length !== 0 ? this.chartData.map(x => x.real) : []
           }, 
           {
             name: "Planned",
-            data: this.planned
+            data: this.chartData.length !== 0 ? this.chartData.map(x => x.planned) : []
           }
         ],
         xaxis: {
-          categories: this.categories
+          categories: this.chartData.length !== 0 ? this.chartData.map(x => x.date) : []
         },
       }}
+    }
+    if(this.chartId) {
+      this.chartOptions.chart.id = this.chartId;
     }
   }
 }
