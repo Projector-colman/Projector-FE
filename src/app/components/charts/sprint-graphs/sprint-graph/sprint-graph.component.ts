@@ -73,21 +73,24 @@ export class SprintGraphComponent {
     };
   }
 
+  ngOnInit() {
+  }
+
   ngOnChanges() {
     if(this.chartData) {
       this.chartOptions = {...this.chartOptions, ...{
         series: [
           {
             name: "Real",
-            data: this.chartData.map(x => x.real)
+            data: this.chartData.length !== 0 ? this.chartData.map(x => x.real) : []
           }, 
           {
             name: "Planned",
-            data: this.chartData.map(x => x.planned)
+            data: this.chartData.length !== 0 ? this.chartData.map(x => x.planned) : []
           }
         ],
         xaxis: {
-          categories: this.chartData.map(x => x.date)
+          categories: this.chartData.length !== 0 ? this.chartData.map(x => x.date) : []
         },
       }}
     }
