@@ -14,7 +14,8 @@ export class LeadViewComponent implements OnInit {
   projectUsers;
   projectIssues;
   tableData: TableRow[];
-  displayedColumns: string[] = ['name', 'todo', 'inprogress', 'verify', 'done', 'percent'];
+  displayedColumnsSprint: string[] = ['name', 'todo', 'inprogress', 'verify', 'done', 'percent'];
+  displayedColumnsTotal: string[] = ['name', 'storypoints', 'issues'];
   
   constructor(private sidenavUpdateService: SidenavUpdateService,
               private router: Router,

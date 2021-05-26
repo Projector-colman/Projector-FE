@@ -27,6 +27,8 @@ export class IssueComponent implements OnInit, OnChanges {
   @Input() projectKey: string;
   epic: Observable<Epic>;
   @Output() closeIssueEmitter: EventEmitter<void>;
+  
+  editDesc = false;
 
   addNewComment: boolean;
   comments: Comment[];
@@ -90,6 +92,16 @@ export class IssueComponent implements OnInit, OnChanges {
         }
       }
     }
+  }
+
+  editDescription(newDescription) {
+    this.editDesc = !this.editDesc;
+    this.issue.description = newDescription
+    this.issuesService.updateIssue(this.issue).subscribe(res => {
+      console.log('updated');
+    }, err => {
+      console.error(err)
+    })
   }
 
   addComment(): Comment {

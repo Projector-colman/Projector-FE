@@ -18,7 +18,9 @@
   </div>
 
   <div class="pt">
-    <textarea class="textarea-field"  disabled>{{issue.description}}</textarea>
+    <textarea class="textarea-field" [disabled]="!editDesc" #descTA>{{issue.description}}</textarea> 
+    <mat-icon *ngIf="!editDesc" (click)="editDesc = !editDesc">edit</mat-icon> 
+    <mat-icon  *ngIf="editDesc" (click)="editDescription(descTA.value)">check</mat-icon>
   </div>
 
   <span class="block">Blocked by:</span>
