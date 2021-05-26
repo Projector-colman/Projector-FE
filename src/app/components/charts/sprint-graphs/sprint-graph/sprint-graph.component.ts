@@ -87,7 +87,7 @@ export class SprintGraphComponent {
           }
         ],
         xaxis: {
-          categories: this.chartData.map(x => x.categories)
+          categories: this.chartData.map(x => x.date)
         },
       }}
     }

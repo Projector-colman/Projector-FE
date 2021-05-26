@@ -9,6 +9,7 @@ import { IssueStatus, IssueStatusLabel } from 'src/app/enum/issueStatus.enum';
 import _ from 'lodash';
 import { AuthService } from 'src/app/services/auth.service';
 import { IssueLocation } from 'src/app/enum/issueLocation.enum';
+import { GraphResult } from 'src/app/interfaces/graphResult';
 
 @Component({
   selector: 'app-reports',
@@ -22,8 +23,8 @@ export class ReportsComponent implements OnInit {
     public currProjectId: string;
     public sprints: Sprint[];
     public selectedSprint: number;
-    public teamClosedIssuesPointsByDate: any[];
-    public currUserClosedIssuesPointsByData: any[];
+    public teamChartData: GraphResult;
+    public currUserChartData: GraphResult;
 
   constructor(private authService: AuthService, private reportsService: ReportsService, private sidenavUpdateService: SidenavUpdateService,
     private router: Router) { }
@@ -41,7 +42,8 @@ export class ReportsComponent implements OnInit {
     getCurrProjectSprints() {
       this.reportsService.getProjectSptrints(this.currProjectId).subscribe(data => {
           this.sprints = data;
-          this.selectedSprint = this.sprints.filter(sprint => sprint.status === IssueLocation.CurrentSprint)[0].id;
+          this.selectedSprint = this.sprints[0].id;
+          //this.selectedSprint = this.sprints.filter(sprint => sprint.status === IssueLocation.CurrentSprint)[0].id;
           // data for pie chart - issues by status
           this.getSelectedSprintIssuesGroupedByStatus();
           // data for current user sprint chart
@@ -76,62 +78,14 @@ export class ReportsComponent implements OnInit {
 
   getCurrSprintChart(userId) {
     this.reportsService.getSprintChart(this.selectedSprint, userId).subscribe(data => {
-      this.teamClosedIssuesPointsByDate = this.getChartData(data);
+      this.teamChartData = data;
     });
   }
 
   getCurrUserCurrSprintChart() {
     this.reportsService.getSprintChart(this.selectedSprint, this.authService.getUserID()).subscribe(data => {
-      this.currUserClosedIssuesPointsByData = this.getChartData(data);
+      this.currUserChartData = data;
     });
-  }
-
-  getChartData(data) {
-    // if data is missing - dont try to build the chart
-    if(data.startTime === null || data.endTime === null || 
-      data.issues.length === 0 || data.storyPoints.length === 0) {
-        return [];
-      }
-
-     // get the sprint dates
-     var getDaysArray = function(s,e) {for(var a=[],d=new Date(s);d<=e;d.setDate(d.getDate()+1)){ a.push(new Date(d).toISOString().substring(0, 10));}return a;};
-     var days = getDaysArray(new Date(data.startTime),new Date(data.endTime));
-
-     // sum all issues story points
-    const totalStoryPoints = _.sumBy(data.issues, 'storyPoints');
-   
-    // group issues by update date and sum the story points of each day 
-    const groupedBy = _(data.issues)
-    .filter(i => i.status === IssueStatus.Done)
-    .filter(i => i.updatedAt !== null)
-    .groupBy('updatedAt')
-    .map((issue, date) => ({
-      date: date,
-      storyPoints: _.sumBy(issue, 'storyPoints'),
-    }))
-    .value();
-
-    // build the chart
-    const list = [];
-    let realStoryPoints = totalStoryPoints;
-    days.forEach((day, i) => {
-      const currDayGroup = groupedBy.filter(x => x.date === day);
-      if(currDayGroup.length) {
-        realStoryPoints -= currDayGroup[0].storyPoints;
-      } else {
-        realStoryPoints = i !== 0 ? list[i - 1].real : totalStoryPoints;
-      }
-      let planned = totalStoryPoints - Math.floor((data.storyPoints[0]['story_points'] / days.length) * i);
-      planned = planned < 0 ? 0 : planned;
-
-      list.push({
-        date: day,
-        planned: planned,
-        real: realStoryPoints
-      }); 
-    });
-
-    return list;
   }
 
   getSelectedSprintIssuesGroupedByStatus() {
