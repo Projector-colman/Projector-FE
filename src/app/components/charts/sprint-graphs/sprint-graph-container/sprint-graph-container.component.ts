@@ -18,6 +18,7 @@ export class SprintGraphContainerComponent implements OnInit {
   @Output() onChange = new EventEmitter<string>();
   @Input() data: GraphResult;
   public chartData: any[];
+  @Input() chartId: string;
 
   constructor() { 
     this.showSelect = false;

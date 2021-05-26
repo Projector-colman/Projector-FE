@@ -31,11 +31,13 @@ export class SprintGraphComponent {
   @ViewChild("chart") chart: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
   @Input() chartData: any[];
+  @Input() chartId: string;
 
   constructor() {
     this.chartOptions = {
       series: [],
       chart: {
+        id: this.chartId,
         height: 350,
         type: "line",
         zoom: {
@@ -93,6 +95,9 @@ export class SprintGraphComponent {
           categories: this.chartData.length !== 0 ? this.chartData.map(x => x.date) : []
         },
       }}
+    }
+    if(this.chartId) {
+      this.chartOptions.chart.id = this.chartId;
     }
   }
 }

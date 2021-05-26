@@ -57,14 +57,14 @@ export class ReportsComponent implements OnInit {
       // data for current user sprint chart
       this.getCurrUserCurrSprintChart();
       // data for team sprint chart
-      this.getCurrSprintChart(this.users[0].id);
+      //this.getCurrSprintChart(this.users[0].id);
     });
   }
 
     // handle sprints
     onSprintChange(event: MatSelectChange) {
       this.getSelectedSprintIssuesGroupedByStatus();
-      this.getCurrSprintChart(this.users[0].id);
+      //this.getCurrSprintChart(this.users[0].id);
       this.getCurrUserCurrSprintChart();
     }
 
@@ -85,6 +85,9 @@ export class ReportsComponent implements OnInit {
   getCurrUserCurrSprintChart() {
     this.reportsService.getSprintChart(this.selectedSprint, this.authService.getUserID()).subscribe(data => {
       this.currUserChartData = data;
+    }, (error) => {
+    }, () => {
+      this.getCurrSprintChart(this.users[0].id);
     });
   }
 

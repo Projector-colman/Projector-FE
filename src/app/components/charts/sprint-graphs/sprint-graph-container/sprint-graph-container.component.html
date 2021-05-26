@@ -6,5 +6,5 @@
         <mat-option *ngFor="let item of selectItems" [value]="item.id">{{ item.name }}</mat-option>
     </mat-select>
     </div>
-    <app-sprint-graph [chartData]='chartData' class='chart'></app-sprint-graph>
+    <app-sprint-graph [chartId]='chartId' [chartData]='chartData' class='chart'></app-sprint-graph>
 </div>
