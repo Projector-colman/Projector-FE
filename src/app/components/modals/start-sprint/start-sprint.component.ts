@@ -10,7 +10,7 @@ import { IssueCreationStateService } from '../../../services/issue-creation-stat
 })
 export class StartSprintComponent implements OnInit {
   projectID;
-
+  error = false;
   constructor(    
     private projectService: ProjectsService,
     private sprintCreationService: IssueCreationStateService,
@@ -23,12 +23,13 @@ export class StartSprintComponent implements OnInit {
 
   start() {
     this.projectService.startSprint(this.projectID).subscribe(res => {
+      // event emitter that causes page to refresh
       this.sprintCreationService.newSprint();
       this.dialogRef.close();
     }, err => {
       console.error(err);
-      this.dialogRef.close()
-    })
+      this.error = true;
+    });
   }
 
   close() {
