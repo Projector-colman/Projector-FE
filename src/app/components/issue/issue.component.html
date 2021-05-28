@@ -12,7 +12,7 @@
     <span class="time">{{issue.storyPoints}}</span>
   </span>
   <span class="name">{{issue.name}}</span>
-  <span class="assignee">{{issue.User.name}}</span>
+  <span class="assignee">{{issue.assignee.name}}</span>
   <div class="pt">
     <app-button class="epikLink" [header]="(epic | async)?.name"></app-button>
   </div>

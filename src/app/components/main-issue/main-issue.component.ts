@@ -16,8 +16,8 @@ export class MainIssueComponent implements OnInit {
   constructor(private domSanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
-    if(this.issue.User.image) {
-      let TYPED_ARRAY = new Uint8Array(this.issue.User.image.data);
+    if(this.issue.assignee.image) {
+      let TYPED_ARRAY = new Uint8Array(this.issue.assignee.image.data);
       const STRING_CHAR = String.fromCharCode.apply(null, TYPED_ARRAY);
       this.imageurl = this.domSanitizer.bypassSecurityTrustResourceUrl(STRING_CHAR);
     } else {

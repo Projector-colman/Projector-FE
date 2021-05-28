@@ -53,4 +53,8 @@ export class IssuesService {
   createEpic(issueData) {
     return this.httpClient.post(beAddress + 'api/epics', issueData);
   }
+
+  getProjectDoneIssues(id) {
+    return this.httpClient.get(beAddress + `api/projects/${id}/done`)
+  }
 }

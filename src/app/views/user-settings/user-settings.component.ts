@@ -38,12 +38,13 @@ export class UserSettingsComponent implements OnInit {
         this.router.navigate(['/']);
       }
       this.user = user;
-
-      // image stuff
-      let TYPED_ARRAY = new Uint8Array(this.user.image.data);
-      const STRING_CHAR = String.fromCharCode.apply(null, TYPED_ARRAY);
-      this.imageurl = this.domSanitizer.bypassSecurityTrustResourceUrl(STRING_CHAR);
-
+      if(this.user.image) {
+        // image stuff
+        let TYPED_ARRAY = new Uint8Array(this.user.image.data);
+        const STRING_CHAR = String.fromCharCode.apply(null, TYPED_ARRAY);
+        this.imageurl = this.domSanitizer.bypassSecurityTrustResourceUrl(STRING_CHAR);
+      }
+      
       this.userEditForm = new FormGroup({
         name: new FormControl(this.user.name, Validators.required),
         email: new FormControl(this.user.email, Validators.required),

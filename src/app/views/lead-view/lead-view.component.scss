@@ -29,3 +29,24 @@
 th {
     color: rgb(242, 102, 116);
 }
+
+.bottom {
+    display: flex;
+    flex-direction: row;
+}
+
+.list {
+    display: flex;
+    padding: 10px;
+    font-size: 22px;
+    flex-direction: column;
+    margin-top: 20px;
+    width: 90%;
+}
+
+.issue-detail {
+    background-color: #e6e1e6;
+    padding: 10px;
+    width: 250px;
+    height: 100%;
+}

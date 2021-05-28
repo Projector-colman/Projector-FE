@@ -25,9 +25,11 @@ export class NavigationComponent implements OnInit {
     this.userService.getCurrConnectedUser().subscribe(user => {
       if(user) {
         this.myUser = user;
-        let TYPED_ARRAY = new Uint8Array(this.myUser.image.data);
-        const STRING_CHAR = String.fromCharCode.apply(null, TYPED_ARRAY);
-        this.imageurl = this.domSanitizer.bypassSecurityTrustResourceUrl(STRING_CHAR);
+        if(this.myUser.image) {
+          let TYPED_ARRAY = new Uint8Array(this.myUser.image.data);
+          const STRING_CHAR = String.fromCharCode.apply(null, TYPED_ARRAY);
+          this.imageurl = this.domSanitizer.bypassSecurityTrustResourceUrl(STRING_CHAR);
+        }
       }
     });
   }

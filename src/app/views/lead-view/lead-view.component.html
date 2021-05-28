@@ -76,4 +76,18 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumnsTotal;"></tr>
         </table>
     </div>
+
 </div>
+
+<div class="bottom">
+    <div class="list">
+        <app-issues-backlog cdkDropList id="CurrSprint" [cdkDropListConnectedTo]="['PlannedSprint', 'Backlog']"
+        [header]="'All Done Issues'" [projectId]="currProject.id"
+        [issues]="this.doneIssues" [cdkDropListData]="this.doneIssues"
+        (openIssueEmitter)="openIssue($event)">
+        </app-issues-backlog>
+    </div>
+    <app-issue *ngIf="issueToOpen" class="issue-detail" [issue]="issueToOpen" [projectKey]="currProject.id" [epic]="epicIssueToOpen"
+    (closeIssueEmitter)="issueToOpen = undefined"></app-issue>
+</div>
+
