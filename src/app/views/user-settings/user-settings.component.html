@@ -1,7 +1,7 @@
 <div class="settings-page" *ngIf="user.name">
   <div class="top-settings">
     <div>{{user.name}}</div>
-    <img class="user-image" src='{{newImage ? newImage : user.image}}'>
+    <img class="user-image" [src]='newImage ? newImage: imageurl'>
     <label class="imageUploader">
       <i class="fas fa-pencil-alt edit-icon"></i>
       <input type="file" accept="image/*" (change)="loadFile($event)">

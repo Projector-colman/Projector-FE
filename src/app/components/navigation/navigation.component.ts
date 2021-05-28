@@ -5,6 +5,8 @@ import { UsersService } from 'src/app/services/users.service';
 import { CreateProjectComponent } from '../modals/create-project/create-project.component';
 import { CreateIssueComponent } from '../modals/create-issue/create-issue.component';
 import { AuthService } from '../../services/auth.service';
+import { DomSanitizer } from '@angular/platform-browser';
+
 @Component({
   selector: 'projector-navigation',
   templateUrl: './navigation.component.html',
@@ -12,14 +14,21 @@ import { AuthService } from '../../services/auth.service';
 })
 export class NavigationComponent implements OnInit {
   myUser: User;
+  imageurl;
 
   constructor(private dialog: MatDialog, 
               private userService: UsersService,
-              public authService: AuthService,) {}
+              public authService: AuthService,
+              private domSanitizer: DomSanitizer,) {}
 
   ngOnInit(): void {
     this.userService.getCurrConnectedUser().subscribe(user => {
-      this.myUser = user;
+      if(user) {
+        this.myUser = user;
+        let TYPED_ARRAY = new Uint8Array(this.myUser.image.data);
+        const STRING_CHAR = String.fromCharCode.apply(null, TYPED_ARRAY);
+        this.imageurl = this.domSanitizer.bypassSecurityTrustResourceUrl(STRING_CHAR);
+      }
     });
   }
 

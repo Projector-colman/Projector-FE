@@ -3,10 +3,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UsersService } from 'src/app/services/users.service';
 import { User } from '../../interfaces/user';
 import { Router } from '@angular/router';
-import { Project } from 'src/app/interfaces/project';
 import { ProjectsService } from 'src/app/services/projects.service';
 import { AuthService } from '../../services/auth.service';
 import Swal from 'sweetalert2';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-user-settings',
@@ -20,12 +20,13 @@ export class UserSettingsComponent implements OnInit {
   imageChanged: boolean;
   newImage: string;
   projects;
+  imageurl;
 
   constructor(
     private usersService: UsersService,
-    private projectService: ProjectsService,
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private domSanitizer: DomSanitizer,
   ) {
     this.userChanged = false;
     this.imageChanged = false;
@@ -37,6 +38,12 @@ export class UserSettingsComponent implements OnInit {
         this.router.navigate(['/']);
       }
       this.user = user;
+
+      // image stuff
+      let TYPED_ARRAY = new Uint8Array(this.user.image.data);
+      const STRING_CHAR = String.fromCharCode.apply(null, TYPED_ARRAY);
+      this.imageurl = this.domSanitizer.bypassSecurityTrustResourceUrl(STRING_CHAR);
+
       this.userEditForm = new FormGroup({
         name: new FormControl(this.user.name, Validators.required),
         email: new FormControl(this.user.email, Validators.required),

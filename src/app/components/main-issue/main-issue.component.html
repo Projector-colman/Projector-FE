@@ -1,6 +1,7 @@
 <mat-card class="example-card" (click)="clicked()">
   <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
+    <img mat-card-avatar [src]="imageurl">
+
     <mat-card-title>{{projectKey}} - {{issue.name}}</mat-card-title>
     <mat-card-subtitle>{{issue.User.name}}</mat-card-subtitle>
   </mat-card-header>
@@ -12,7 +13,7 @@
     <span>
       <mat-icon *ngIf="issue.priority == 1" class="lowest">arrow_downward</mat-icon>
       <mat-icon *ngIf="issue.priority == 2" class="low">keyboard_arrow_down</mat-icon>
-      <mat-icon *ngIf="issue.priority == 3" class="medium">minimize</mat-icon>
+      <mat-icon *ngIf="issue.priority == 3" class="medium">remove</mat-icon>
       <mat-icon *ngIf="issue.priority == 4" class="high">keyboard_arrow_up</mat-icon>
       <mat-icon *ngIf="issue.priority == 5" class="highest">arrow_upward</mat-icon>
     </span>
