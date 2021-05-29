@@ -29,6 +29,8 @@ export class IssueComponent implements OnInit, OnChanges {
   @Output() closeIssueEmitter: EventEmitter<void>;
   
   editDesc = false;
+  editStat = false;
+  newStatus;
 
   addNewComment: boolean;
   comments: Comment[];
@@ -104,6 +106,22 @@ export class IssueComponent implements OnInit, OnChanges {
     })
   }
 
+  editStatus() {
+    this.editStat = !this.editStat;
+    this.issue.status = this.newStatus;
+    this.issuesService.updateIssue(this.issue).subscribe(res => {
+      console.log('updated');
+    }, err => {
+      console.error(err)
+    })
+  }
+
+  changeNewStatus(e) {
+    this.newStatus = e.target.value.substring(
+      e.target.value.indexOf(' ') + 1
+    );
+  }
+
   addComment(): Comment {
     let newComment: Comment = {
       description: '',
@@ -125,7 +143,7 @@ export class IssueComponent implements OnInit, OnChanges {
   }
 
   refreshComments(): void {
-    this.commentsService.getComments().subscribe((comments) => {
+    this.commentsService.getComments({issue: this.issue.id}).subscribe((comments) => {
       this.comments = comments;
     });
   }

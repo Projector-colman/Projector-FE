@@ -8,7 +8,17 @@
     <mat-icon *ngIf="issue.priority == 5" class="highest">arrow_upward</mat-icon>
   </span></div>
   <span class="time-info">
-    <span class="status">{{issuesStatus}}</span>
+    <span class="status" *ngIf="!editStat">{{issuesStatus}}</span>
+    <mat-icon *ngIf="!editStat" (click)="editStat = !editStat">edit</mat-icon>
+
+    <select class="select-field" *ngIf="editStat" (change)="changeNewStatus($event)" formControlName="priority">
+      <option>to-do</option>
+      <option>in-progress</option>
+      <option>verify</option>
+      <option>done</option>
+    </select>
+    <mat-icon *ngIf="editStat" (click)="editStatus(descTA.value)">check</mat-icon>
+
     <span class="time">{{issue.storyPoints}}</span>
   </span>
   <span class="name">{{issue.name}}</span>
@@ -24,8 +34,8 @@
     <mat-icon  *ngIf="editDesc" class="cancel" (click)="editDesc = !editDesc">clear</mat-icon>
   </div>
 
-  <span class="block">Blocked by: <div *ngFor="blocker in issue.blocker">{{blocker}} a</div></span>
-  <span class="block">Blocking: <div *ngFor="blocked in issue.blocked">{{blocked}} a</div></span>
+  <span class="block">Blocked by: <div class="block-name" *ngFor="let blocker of issue.blockers">{{blocker.name}}</div></span>
+  <span class="block">Blocking: <div class="block-name" *ngFor="let blocked of issue.blocked">{{blocked.name}}</div></span>
   <div class="comment-header">
     <i class="fas fa-plus comment-icon add-comment" (click)="addComment()"></i>
     <i class="fas fa-comment-alt comment-icon"></i>

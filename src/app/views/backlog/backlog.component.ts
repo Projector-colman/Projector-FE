@@ -31,7 +31,7 @@ export class BacklogComponent implements OnInit {
   backlogIssues;
 
   isSubscribedToSprintUpdate = false;;
-
+  isSubscribedToIssueUpdate = false;
   constructor(
     public router: Router,
     private sidenavUpdateService: SidenavUpdateService,
@@ -61,6 +61,17 @@ export class BacklogComponent implements OnInit {
       if(!this.isSubscribedToSprintUpdate) {
         console.log('subscribed');
         this.isSubscribedToSprintUpdate = true;
+      } else {
+        this.updateSprint();
+      }
+    });
+
+    // Every time a new issue is added, refresh issues
+    // dont do it on subscription, only on .next()
+    this.sprintCreation.issueSubject.subscribe(() => {
+      if(!this.isSubscribedToIssueUpdate) {
+        console.log('subscribed');
+        this.isSubscribedToIssueUpdate = true;
       } else {
         this.updateSprint();
       }

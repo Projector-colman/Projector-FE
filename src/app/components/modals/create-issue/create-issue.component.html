@@ -69,6 +69,7 @@
   <!-- Blocked By-->
   <label *ngIf='this.selectedIssueType === "Story"'><span>Blocked By: </span>
     <select class="select-field" (change)="changeBlocker($event)" formControlName="blocker">
+      <option [ngValue]="null"></option>
       <option *ngFor="let issue of projectIssues | async" [ngValue]="issue.id">{{ issue.name }}</option>
    </select>
   </label>

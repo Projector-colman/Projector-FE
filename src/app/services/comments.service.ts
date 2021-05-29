@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { beAddress } from '../environment';
 import { Injectable } from '@angular/core';
 import { Comment } from '../interfaces/comment';
@@ -11,8 +11,15 @@ export class CommentsService {
   comments: Comment[] = [];
   constructor(private http: HttpClient) {}
 
-  getComments(): Observable<any> {
-    return this.http.get(beAddress + `api/comments`);
+  getComments(filters): Observable<any> {
+    let params = new HttpParams();
+    const keys = Object.keys(filters);
+
+    keys.forEach((key) => {
+      params = params.append(key, filters[key]);
+    });
+
+    return this.http.get(beAddress + `api/comments`, { params: params });
   }
 
   saveComment(comment: Comment): Observable<any> {

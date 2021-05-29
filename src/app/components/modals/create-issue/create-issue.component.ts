@@ -42,7 +42,7 @@ export class CreateIssueComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.allProjects = this.projectService.getOwnerProjects();
+    this.allProjects = this.projectService.getAllProjects();
     this.issueForm = this.formBuilder.group({
       project: [this.selectedProject, Validators.required],
       issueType: [this.selectedIssueType, Validators.required],
