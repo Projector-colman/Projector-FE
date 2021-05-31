@@ -1,6 +1,7 @@
 <div class='container'>
     <div class='header'>Current Sprint Issues</div>
-    <div id="chart">
+    <div class='chart'>
+      <div id="chart">
         <apx-chart *ngIf="showChart; else elseBlock"
           [series]="chartOptions.series"
           [chart]="chartOptions.chart"
@@ -11,4 +12,5 @@
         ></apx-chart>
         <ng-template #elseBlock>There are no issues in the active sprint</ng-template>
       </div>
+    </div>
 </div>

@@ -38,25 +38,13 @@ export class SprintGraphComponent {
       series: [],
       chart: {
         id: this.chartId,
-        height: 350,
         type: "line",
+        width: '100%',
+        height: '480px',
         zoom: {
           enabled: false
         }
       },
-      responsive: [
-        {
-          breakpoint: 1300,
-          options: {
-            chart: {
-              height: 300
-            },
-            legend: {
-              position: "bottom"
-            }
-          }
-        }
-      ],
       dataLabels: {
         enabled: false
       },

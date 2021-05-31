@@ -36,7 +36,7 @@ export class IssuesByStatusChartComponent {
     this.chartOptions = {
       series: [],
       chart: {
-        width: 446,
+        width: '540px',
         type: "pie"
       },
       labels: [],
@@ -44,19 +44,6 @@ export class IssuesByStatusChartComponent {
       fill: {
         colors: colors
       },
-      responsive: [
-        {
-          breakpoint: 1300,
-          options: {
-            chart: {
-              width: 333
-            },
-            legend: {
-              position: "bottom"
-            }
-          }
-        }
-      ]
     };
   }
 
