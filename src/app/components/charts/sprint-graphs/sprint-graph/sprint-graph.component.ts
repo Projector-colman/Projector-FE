@@ -40,7 +40,7 @@ export class SprintGraphComponent {
         id: this.chartId,
         type: "line",
         width: '100%',
-        height: '400px',
+        height: '480px',
         zoom: {
           enabled: false
         }

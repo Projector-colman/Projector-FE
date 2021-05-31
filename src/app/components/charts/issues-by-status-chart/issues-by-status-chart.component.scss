@@ -18,8 +18,12 @@
 
 .chart {
   height: 90%;
-    align-self: center;
-    margin: 35px auto;
     padding: 0;
+    width: 100%;
+    display: flex;
   }
+
+#chart {
+  margin: auto;
+}
   

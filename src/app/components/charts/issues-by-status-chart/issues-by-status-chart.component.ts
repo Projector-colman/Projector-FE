@@ -36,7 +36,7 @@ export class IssuesByStatusChartComponent {
     this.chartOptions = {
       series: [],
       chart: {
-        width: '495px',
+        width: '540px',
         type: "pie"
       },
       labels: [],
