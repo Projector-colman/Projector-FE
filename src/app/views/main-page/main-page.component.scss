@@ -1,9 +1,15 @@
+.home-container {
+    width: 100%;
+    height: 93%;
+}
+
 .title-container {
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 24px;
-    color: darkslategray
+    color: darkslategray;
+    height: 10%;
 }
 
 .title {
@@ -12,14 +18,18 @@
 
 .content-container {
     display: flex;
-    margin: 12px 80px;
+    padding: 0px 12px 24px;
+    width: 100%;
+    height: 90%;
 }
 
 .graph {
     width: 100%;
-    margin-right: 32px;
+    height: 100%;
+    margin-right: 24px;
 }
 
 .issues {
     width: fit-content;
+    height: 100%;
 }
