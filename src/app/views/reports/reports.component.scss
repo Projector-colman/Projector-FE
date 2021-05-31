@@ -28,14 +28,26 @@
     text-align: center;
 }
 
-.secondRow {
+.row {
     width: 100%;
+    height: 100%;
     margin-top: 24px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.fill {
+.team-chart {
+    height: -webkit-fill-abailable;
+    width: -webkit-fill-available;
+}
+
+.curruser-chart {
+    height: 467px;
+    width: -webkit-fill-available;
+}
+
+.statuses-chart {
+    height: 467px;
     width: -webkit-fill-available;
 }

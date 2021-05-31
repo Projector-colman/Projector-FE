@@ -7,6 +7,7 @@
 
 .header {
     height: 10%;
+    min-height: 52px;
     background-color: #f26674;
     color: white;
     text-align: center;
@@ -17,7 +18,7 @@
 }
 
 .issues {
-    padding: 8px;
+    padding: 12px;
     overflow:scroll;
     overflow-y: auto;
     overflow-x: hidden;
@@ -26,7 +27,7 @@
 }
 
 .issues > * {
-  margin: 8px 0 0 0;
+  margin: 12px 0 0 0;
 }
 
 /* width */
