@@ -29,8 +29,7 @@ export class IssueComponent implements OnInit, OnChanges {
   @Output() closeIssueEmitter: EventEmitter<void>;
   
   editDesc = false;
-  editStat = false;
-  newStatus;
+  editSP = false;
 
   addNewComment: boolean;
   comments: Comment[];
@@ -46,8 +45,6 @@ export class IssueComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.refreshComments();
-
     this.epic = Observable.create((observer) => {
       this.issuesService
         .getEpics({ id: this.issue.epic })
@@ -57,7 +54,9 @@ export class IssueComponent implements OnInit, OnChanges {
     });
   }
 
-  ngOnChanges(changes: SimpleChanges): void {}
+  ngOnChanges(changes: SimpleChanges): void {
+    this.refreshComments();
+  }
 
   public get issuesLocation(): typeof IssueLocation {
     return IssueLocation;
@@ -106,9 +105,9 @@ export class IssueComponent implements OnInit, OnChanges {
     })
   }
 
-  editStatus() {
-    this.editStat = !this.editStat;
-    this.issue.status = this.newStatus;
+  editStoryPoints(newSP) {
+    this.editSP = !this.editSP;
+    this.issue.storyPoints = +newSP
     this.issuesService.updateIssue(this.issue).subscribe(res => {
       console.log('updated');
     }, err => {
@@ -116,11 +115,6 @@ export class IssueComponent implements OnInit, OnChanges {
     })
   }
 
-  changeNewStatus(e) {
-    this.newStatus = e.target.value.substring(
-      e.target.value.indexOf(' ') + 1
-    );
-  }
 
   addComment(): Comment {
     let newComment: Comment = {
