@@ -14,7 +14,12 @@
     <input *ngIf="editSP" class="time-edit" (keyup.enter)="editStoryPoints(spEdit.value)" #spEdit>
   </span>
   <span class="name">{{issue.name}}</span>
-  <span class="assignee">{{issue.assignee.name}}</span>
+  <span class="assignee" *ngIf="!editAssignee" (click)="editAssignee = !editAssignee">{{issue.assignee.name}}</span>
+  <select class="assignee" *ngIf="editAssignee" (change)="changeUser($event)">
+    <option></option>
+    <option *ngFor="let user of projectUsers">{{user.name}}</option>
+  </select>
+  <mat-icon  *ngIf="editAssignee" (click)="editUser()">check</mat-icon>
   <div class="pt">
     <app-button class="epikLink" [header]="(epic | async)?.name"></app-button>
   </div>

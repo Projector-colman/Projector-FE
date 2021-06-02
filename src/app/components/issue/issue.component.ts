@@ -14,6 +14,8 @@ import { Issue } from 'src/app/interfaces/issue';
 import { CommentsService } from 'src/app/services/comments.service';
 import { AuthService } from '../../services/auth.service';
 import { IssuesService } from 'src/app/services/issues.service';
+import { ProjectsService } from 'src/app/services/projects.service';
+import { IssueCreationStateService } from 'src/app/services/issue-creation-state.service';
 import { Epic } from 'src/app/interfaces/epic';
 import { Observable, Subject } from 'rxjs';
 
@@ -30,14 +32,19 @@ export class IssueComponent implements OnInit, OnChanges {
   
   editDesc = false;
   editSP = false;
+  editAssignee = false;
 
+  selectedAssignee;
+
+  projectUsers;
   addNewComment: boolean;
   comments: Comment[];
 
   constructor(
     public commentsService: CommentsService,
-    private authService: AuthService,
-    private issuesService: IssuesService
+    private refreshService: IssueCreationStateService,
+    private issuesService: IssuesService,
+    private projectService: ProjectsService
   ) {
     this.addNewComment = false;
     this.closeIssueEmitter = new EventEmitter<void>();
@@ -56,6 +63,9 @@ export class IssueComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.refreshComments();
+    this.projectService.getProjectUsers(this.issue.project).subscribe(users => {
+      this.projectUsers = users;
+    });
   }
 
   public get issuesLocation(): typeof IssueLocation {
@@ -115,7 +125,25 @@ export class IssueComponent implements OnInit, OnChanges {
     })
   }
 
+  editUser() {
+    this.editAssignee = !this.editAssignee;
+    const newUser = this.projectUsers.filter(user => user.name === this.selectedAssignee)[0];
+    if(this.issue.asignee != newUser.id) {
+      this.issue.asignee = newUser.id;
+      this.issue.assignee.name = newUser.name;
+      this.issuesService.updateIssue(this.issue).subscribe(res => {
+        console.log('updated');
+        this.refreshService.newIssue();
+      }, err => {
+        console.error(err)
+      })
+    }
+  }
 
+  changeUser(e) {
+    this.selectedAssignee = e.target.value;
+  }
+  
   addComment(): Comment {
     let newComment: Comment = {
       description: '',

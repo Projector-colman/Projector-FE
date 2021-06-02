@@ -18,4 +18,5 @@ export interface Issue {
   blockers? : any[];
   blocked? : any[];
   Epic? : any;
+  project: number;
 }
