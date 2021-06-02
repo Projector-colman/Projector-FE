@@ -17,4 +17,5 @@ export interface Issue {
   updatedAt?: any;
   blockers? : any[];
   blocked? : any[];
+  Epic? : any;
 }
