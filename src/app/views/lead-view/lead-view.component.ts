@@ -22,9 +22,11 @@ export class LeadViewComponent implements OnInit {
   projectUsers;
   projectIssues;
 
-  tableData: TableRow[];
+  statTableData: statisticTableRow[];
+  totalTableData: totalTableRow[] = [];
+
   displayedColumnsSprint: string[] = ['name', 'todo', 'inprogress', 'verify', 'done', 'percent'];
-  displayedColumnsTotal: string[] = ['name', 'storypoints', 'issues'];
+  displayedColumnsTotal: string[] = ['name', 'issues', 'storypoints'];
 
   doneIssues: Issue[] = [];
   
@@ -45,15 +47,15 @@ export class LeadViewComponent implements OnInit {
     // Data Promises
     this.projectUsers = this.projectsService.getProjectUsers(this.currProject.id).toPromise();
     this.projectIssues = this.projectsService.getProjectIssues(this.currProject.id).toPromise();
-
+  
     // Parse data to match table
     Promise.all([this.projectUsers, this.projectIssues]).then(values => {
-      this.tableData = [];
+      this.statTableData = [];
       const users  = values[0];
       const issues = values[1].filter(issue => issue.sprintStatus == 'active');
       
       users.forEach(user => {
-        this.tableData.push({ id: user.id, 
+        this.statTableData.push({ id: user.id, 
                               name: user.name, 
                               "to-do": 0, 
                               "in-progress": 0, 
@@ -63,14 +65,14 @@ export class LeadViewComponent implements OnInit {
       });
 
       issues.forEach(issue => {
-        let asigneeTableData = this.tableData.filter(row => row.id === issue.asignee)[0];
+        let asigneeTableData = this.statTableData.filter(row => row.id === issue.asignee)[0];
         if(asigneeTableData) {
           asigneeTableData[issue.status]++;
         }
         
       });
 
-      this.tableData.forEach(row => {
+      this.statTableData.forEach(row => {
         if(row['to-do'] + row['in-progress'] + row.verify + row.done == 0) {
           row.donePercentage = 0;
         } else {
@@ -78,6 +80,11 @@ export class LeadViewComponent implements OnInit {
         }
       })
     });
+
+    this.projectsService.totalProjectStats(this.currProject.id).subscribe(data => {
+      this.totalTableData = [];
+      this.totalTableData.push(...data[0]);
+    })
 
     this.issuesService.getProjectDoneIssues(this.currProject.id).subscribe((data: any) => {
       data.forEach((epic: any) => {
@@ -96,7 +103,7 @@ export class LeadViewComponent implements OnInit {
   }
 }
 
-interface TableRow {
+interface statisticTableRow {
   id:              number;
   name?:           string;
   'to-do'?:        number;
@@ -104,4 +111,10 @@ interface TableRow {
   verify?:         number;
   done?:           number;
   donePercentage?: number;
+}
+
+interface totalTableRow {
+  name?:           string;
+  issueCount?:     number;
+  totalSP?:        number;
 }

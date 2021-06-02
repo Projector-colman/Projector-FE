@@ -2,7 +2,7 @@
 <div class="leadview">
     <div class="container">
         <div class="header">Sprint Members Statistics</div>
-        <table mat-table [dataSource]="tableData" class="mat-elevation-z8">
+        <table mat-table [dataSource]="statTableData" class="mat-elevation-z8">
 
             <!--- Note that these columns can be defined in any order.
                 The actual rendered columns are set as a property on the row definition" -->
@@ -49,7 +49,7 @@
     </div>
     <div class="container">
         <div class="header">Total Members Statistics</div>
-        <table mat-table [dataSource]="tableData" class="mat-elevation-z8">
+        <table mat-table [dataSource]="totalTableData" class="mat-elevation-z8">
 
             <!--- Note that these columns can be defined in any order.
                 The actual rendered columns are set as a property on the row definition" -->
@@ -60,16 +60,16 @@
             <td mat-cell *matCellDef="let element"> {{element.name}} </td>
             </ng-container>
         
-            <!-- Storypoints Column -->
-            <ng-container matColumnDef="storypoints">
-            <th mat-header-cell *matHeaderCellDef> Story Points </th>
-            <td mat-cell *matCellDef="let element"> {{element["to-do"]}} </td>
-            </ng-container>
-        
             <!-- Issues Column -->
             <ng-container matColumnDef="issues">
             <th mat-header-cell *matHeaderCellDef> Issues </th>
-            <td mat-cell *matCellDef="let element"> {{element["in-progress"]}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.issueCount}} </td>
+            </ng-container>
+
+            <!-- Storypoints Column -->
+            <ng-container matColumnDef="storypoints">
+            <th mat-header-cell *matHeaderCellDef> Story Points </th>
+            <td mat-cell *matCellDef="let element"> {{element.totalSP}} </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumnsTotal"></tr>

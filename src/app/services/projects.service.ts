@@ -74,6 +74,10 @@ export class ProjectsService {
     return this.httpClient.delete(beAddress + `api/projects/${projID}`);
   }
 
+  totalProjectStats(projID) {
+    return this.httpClient.get(beAddress + `api/projects/${projID}/total`);
+  }
+
   planSprintByProject(
     projID,
     usersStoryPoints: { id: number; time: number }[]
